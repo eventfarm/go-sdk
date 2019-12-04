@@ -53,6 +53,7 @@ type EmailMessageType struct {
 	IsInvitation       bool
 	IsSendAMessage     bool
 	IsSendGroupMessage bool
+	IsDeclination      bool
 }
 
 func (f *EmailMessage) ListEmailArchiveCategoryTypes() []EmailArchiveCategoryType {
@@ -414,6 +415,7 @@ func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 			IsInvitation:       false,
 			IsSendAMessage:     false,
 			IsSendGroupMessage: false,
+			IsDeclination:      false,
 		},
 		{
 			Slug:               `donation`,
@@ -424,6 +426,7 @@ func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 			IsInvitation:       false,
 			IsSendAMessage:     false,
 			IsSendGroupMessage: false,
+			IsDeclination:      false,
 		},
 		{
 			Slug:               `invitation`,
@@ -434,6 +437,7 @@ func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 			IsInvitation:       true,
 			IsSendAMessage:     false,
 			IsSendGroupMessage: false,
+			IsDeclination:      false,
 		},
 		{
 			Slug:               `sendamessage`,
@@ -444,6 +448,7 @@ func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 			IsInvitation:       false,
 			IsSendAMessage:     true,
 			IsSendGroupMessage: false,
+			IsDeclination:      false,
 		},
 		{
 			Slug:               `sendgroupmessage`,
@@ -454,6 +459,7 @@ func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 			IsInvitation:       false,
 			IsSendAMessage:     false,
 			IsSendGroupMessage: true,
+			IsDeclination:      false,
 		},
 	}
 }

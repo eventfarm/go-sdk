@@ -1348,7 +1348,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			Value:                 ``,
 		},
 		{
-			Slug:                  `before-opening`,
+			Slug:                  `opening`,
 			Name:                  `Prior To Opening`,
 			Description:           `Displayed as a placeholder for the registration or purchase form before the event goes live and tickets become available.`,
 			IsIntroduction:        false,
@@ -1364,7 +1364,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			Value:                 ``,
 		},
 		{
-			Slug:                  `after-closing`,
+			Slug:                  `closing`,
 			Name:                  `After Closing`,
 			Description:           `Displayed as a placeholder for the registration or purchase form once registration has closed for an event.`,
 			IsIntroduction:        false,
@@ -1412,7 +1412,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			Value:                 ``,
 		},
 		{
-			Slug:                  `sold-out`,
+			Slug:                  `soldout`,
 			Name:                  `Sold-Out`,
 			Description:           `Displayed for any event access type (General Admission, VIP, etc.) that is either sold out or at capacity.`,
 			IsIntroduction:        false,
@@ -1460,7 +1460,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			Value:                 ``,
 		},
 		{
-			Slug:                  `response-restriction`,
+			Slug:                  `response_restriction`,
 			Name:                  `Response Restriction`,
 			Description:           `If the Event Setting “Guest can change response” is “NO”, this message will display for any registered guest who clicks the invitation link again.`,
 			IsIntroduction:        false,

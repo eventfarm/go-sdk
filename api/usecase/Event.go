@@ -566,6 +566,60 @@ func (t *Event) ClearDefaultSitePageForEvent(p *ClearDefaultSitePageForEventPara
 	)
 }
 
+type CopyEventConfigurationToPoolParameters struct {
+	EventId                       string
+	PoolId                        string
+	ShouldCopyUsers               *bool
+	ShouldCopyEmailDesigns        *bool
+	ShouldCopySettings            *bool
+	ShouldCopyRegQuestions        *bool
+	ShouldCopySitePages           *bool
+	ShouldCopyTicketTypes         *bool
+	ShouldCopyTicketBlocks        *bool
+	ShouldCopyStacks              *bool
+	ShouldCopyIntegrationSettings *bool
+}
+
+func (t *Event) CopyEventConfigurationToPool(p *CopyEventConfigurationToPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.ShouldCopyUsers != nil {
+		queryParameters.Add(`shouldCopyUsers`, strconv.FormatBool(*p.ShouldCopyUsers))
+	}
+	if p.ShouldCopyEmailDesigns != nil {
+		queryParameters.Add(`shouldCopyEmailDesigns`, strconv.FormatBool(*p.ShouldCopyEmailDesigns))
+	}
+	if p.ShouldCopySettings != nil {
+		queryParameters.Add(`shouldCopySettings`, strconv.FormatBool(*p.ShouldCopySettings))
+	}
+	if p.ShouldCopyRegQuestions != nil {
+		queryParameters.Add(`shouldCopyRegQuestions`, strconv.FormatBool(*p.ShouldCopyRegQuestions))
+	}
+	if p.ShouldCopySitePages != nil {
+		queryParameters.Add(`shouldCopySitePages`, strconv.FormatBool(*p.ShouldCopySitePages))
+	}
+	if p.ShouldCopyTicketTypes != nil {
+		queryParameters.Add(`shouldCopyTicketTypes`, strconv.FormatBool(*p.ShouldCopyTicketTypes))
+	}
+	if p.ShouldCopyTicketBlocks != nil {
+		queryParameters.Add(`shouldCopyTicketBlocks`, strconv.FormatBool(*p.ShouldCopyTicketBlocks))
+	}
+	if p.ShouldCopyStacks != nil {
+		queryParameters.Add(`shouldCopyStacks`, strconv.FormatBool(*p.ShouldCopyStacks))
+	}
+	if p.ShouldCopyIntegrationSettings != nil {
+		queryParameters.Add(`shouldCopyIntegrationSettings`, strconv.FormatBool(*p.ShouldCopyIntegrationSettings))
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/CopyEventConfigurationToPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type CopyExistingEventConfigurationParameters struct {
 	FromEventId                   string
 	ToEventId                     string

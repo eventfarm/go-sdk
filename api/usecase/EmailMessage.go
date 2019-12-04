@@ -54,6 +54,22 @@ func (t *EmailMessage) GetEmailMessageStatsForEvent(p *GetEmailMessageStatsForEv
 	)
 }
 
+type GetScheduledBatchEmailMessageParameters struct {
+	ScheduledBatchEmailMessageId string
+}
+
+func (t *EmailMessage) GetScheduledBatchEmailMessage(p *GetScheduledBatchEmailMessageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`scheduledBatchEmailMessageId`, p.ScheduledBatchEmailMessageId)
+
+	return t.restClient.Get(
+		`/v2/EmailMessage/UseCase/GetScheduledBatchEmailMessage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type GetScheduledEmailMessageParameters struct {
 	MongoQueueId string
 }
@@ -168,6 +184,34 @@ func (t *EmailMessage) ListSentEmailMessagesByEvent(p *ListSentEmailMessagesByEv
 
 // POST: Commands
 
+type CreateEmailMessageParameters struct {
+	EmailMessageType string
+	EventId          string
+	OwnerUserId      string
+	EmailDesignId    string
+	InvitationId     string
+	Category         string
+	SubCategory      string
+}
+
+func (t *EmailMessage) CreateEmailMessage(p *CreateEmailMessageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`emailMessageType`, p.EmailMessageType)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	queryParameters.Add(`category`, p.Category)
+	queryParameters.Add(`subCategory`, p.SubCategory)
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/CreateEmailMessage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type CreatePreviewEmailMessageParameters struct {
 	EventId         string
 	OwnerUserId     string
@@ -215,13 +259,14 @@ func (t *EmailMessage) CreatePreviewEmailMessage(p *CreatePreviewEmailMessagePar
 }
 
 type CreateScheduledBatchEmailMessageParameters struct {
-	EventId         string
-	OwnerUserId     string
-	EmailDesignId   string
-	Type            string
-	Targets         []string // confirmed | purchased | assigned | unconfirmed | attended
-	MessageSendTime string
-	Timezone        string
+	EventId                      string
+	OwnerUserId                  string
+	EmailDesignId                string
+	Type                         string
+	Targets                      []string // confirmed | purchased | assigned | unconfirmed | attended
+	MessageSendTime              string
+	Timezone                     string
+	ScheduledBatchEmailMessageId *string
 }
 
 func (t *EmailMessage) CreateScheduledBatchEmailMessage(p *CreateScheduledBatchEmailMessageParameters) (r *http.Response, err error) {
@@ -235,6 +280,9 @@ func (t *EmailMessage) CreateScheduledBatchEmailMessage(p *CreateScheduledBatchE
 	}
 	queryParameters.Add(`messageSendTime`, p.MessageSendTime)
 	queryParameters.Add(`timezone`, p.Timezone)
+	if p.ScheduledBatchEmailMessageId != nil {
+		queryParameters.Add(`scheduledBatchEmailMessageId`, *p.ScheduledBatchEmailMessageId)
+	}
 
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/CreateScheduledBatchEmailMessage`,
@@ -245,12 +293,12 @@ func (t *EmailMessage) CreateScheduledBatchEmailMessage(p *CreateScheduledBatchE
 }
 
 type RemoveScheduledBatchEmailMessageParameters struct {
-	MongoQueueId string
+	ScheduledBatchEmailMessageId string
 }
 
 func (t *EmailMessage) RemoveScheduledBatchEmailMessage(p *RemoveScheduledBatchEmailMessageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`mongoQueueId`, p.MongoQueueId)
+	queryParameters.Add(`scheduledBatchEmailMessageId`, p.ScheduledBatchEmailMessageId)
 
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/RemoveScheduledBatchEmailMessage`,
@@ -564,6 +612,26 @@ func (t *EmailMessage) SendAMessageToTicketTypes(p *SendAMessageToTicketTypesPar
 
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/SendAMessageToTicketTypes`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SendScheduledBatchEmailMessageParameters struct {
+	ScheduledBatchEmailMessageId string
+	UserId                       *string
+}
+
+func (t *EmailMessage) SendScheduledBatchEmailMessage(p *SendScheduledBatchEmailMessageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`scheduledBatchEmailMessageId`, p.ScheduledBatchEmailMessageId)
+	if p.UserId != nil {
+		queryParameters.Add(`userId`, *p.UserId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendScheduledBatchEmailMessage`,
 		&queryParameters,
 		nil,
 		nil,

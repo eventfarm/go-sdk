@@ -45,8 +45,8 @@ func (t *Refund) GetRefund(p *GetRefundParameters) (r *http.Response, err error)
 	)
 }
 
-type ListRefundsForTransactionParameters struct {
-	TransactionId string
+type ListRefundsForPaymentParameters struct {
+	PaymentId     string
 	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
@@ -54,9 +54,9 @@ type ListRefundsForTransactionParameters struct {
 	SortDirection *string
 }
 
-func (t *Refund) ListRefundsForTransaction(p *ListRefundsForTransactionParameters) (r *http.Response, err error) {
+func (t *Refund) ListRefundsForPayment(p *ListRefundsForPaymentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`transactionId`, p.TransactionId)
+	queryParameters.Add(`paymentId`, p.PaymentId)
 	if p.WithData != nil {
 		for i := range *p.WithData {
 			queryParameters.Add(`withData[]`, (*p.WithData)[i])
@@ -76,7 +76,7 @@ func (t *Refund) ListRefundsForTransaction(p *ListRefundsForTransactionParameter
 	}
 
 	return t.restClient.Get(
-		`/v2/Refund/UseCase/ListRefundsForTransaction`,
+		`/v2/Refund/UseCase/ListRefundsForPayment`,
 		&queryParameters,
 		nil,
 		nil,
@@ -86,7 +86,7 @@ func (t *Refund) ListRefundsForTransaction(p *ListRefundsForTransactionParameter
 // POST: Commands
 
 type CreateRefundParameters struct {
-	TransactionId string
+	PaymentId     string
 	RefundTransId string
 	Amount        float64
 	RefundId      *string
@@ -94,7 +94,7 @@ type CreateRefundParameters struct {
 
 func (t *Refund) CreateRefund(p *CreateRefundParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`transactionId`, p.TransactionId)
+	queryParameters.Add(`paymentId`, p.PaymentId)
 	queryParameters.Add(`refundTransId`, p.RefundTransId)
 	queryParameters.Add(`amount`, fmt.Sprintf("%f", p.Amount))
 	if p.RefundId != nil {

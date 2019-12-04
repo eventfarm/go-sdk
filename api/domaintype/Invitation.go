@@ -62,6 +62,7 @@ type InvitationStatusType struct {
 	IsSendToPurchasedTypeIds             bool
 	IsSendToAssignedTypeIds              bool
 	IsSendToUnconfirmedTypeIds           bool
+	IsSendToDeclinedTypeIds              bool
 }
 
 type InviteSourceType struct {
@@ -430,6 +431,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              true,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `purchased`,
@@ -452,6 +454,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             true,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `confirmed-by-rsvp`,
@@ -474,6 +477,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `declined-by-rsvp`,
@@ -496,6 +500,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              true,
 		},
 		{
 			Slug:                                 `left-behind`,
@@ -518,6 +523,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `not-yet-purchased`,
@@ -540,6 +546,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           true,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `registered`,
@@ -562,6 +569,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `unconfirmed`,
@@ -584,6 +592,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           true,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `recycled`,
@@ -606,6 +615,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `not-yet-registered`,
@@ -628,6 +638,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           true,
+			IsSendToDeclinedTypeIds:              false,
 		},
 		{
 			Slug:                                 `waitlisted`,
@@ -650,6 +661,7 @@ func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 			IsSendToPurchasedTypeIds:             false,
 			IsSendToAssignedTypeIds:              false,
 			IsSendToUnconfirmedTypeIds:           false,
+			IsSendToDeclinedTypeIds:              false,
 		},
 	}
 }

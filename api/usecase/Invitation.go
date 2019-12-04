@@ -72,7 +72,7 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 
 type GetInvitationParameters struct {
 	InvitationId string
-	WithData     *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer
+	WithData     *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
 }
 
 func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response, err error) {
@@ -374,6 +374,68 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 
 	return t.restClient.Get(
 		`/v2/Invitation/UseCase/ListInvitationsForTicketBlock`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type ListInvitationsForTransactionParameters struct {
+	TransactionId         string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	Query                 *string
+	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	LastModifiedTimestamp *int64
+	IsCheckedIn           *bool
+	SortBy                *string
+	SortDirection         *string
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-250
+}
+
+func (t *Invitation) ListInvitationsForTransaction(p *ListInvitationsForTransactionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`transactionId`, p.TransactionId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
+		}
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.StatusFilter != nil {
+		for i := range *p.StatusFilter {
+			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
+		}
+	}
+	if p.LastModifiedTimestamp != nil {
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
+	}
+	if p.IsCheckedIn != nil {
+		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/ListInvitationsForTransaction`,
 		&queryParameters,
 		nil,
 		nil,
@@ -1213,6 +1275,7 @@ type UpdateInvitationParameters struct {
 	Telephone                 *string
 	UpdatedTime               *int64
 	ForceDuplicateInvitations *bool
+	InviteCount               *int64
 }
 
 func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Response, err error) {
@@ -1246,6 +1309,9 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	}
 	if p.ForceDuplicateInvitations != nil {
 		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))
+	}
+	if p.InviteCount != nil {
+		queryParameters.Add(`inviteCount`, strconv.FormatInt(*p.InviteCount, 10))
 	}
 
 	return t.restClient.Post(
