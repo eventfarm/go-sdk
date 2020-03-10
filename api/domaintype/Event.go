@@ -102,6 +102,7 @@ type EventMessageType struct {
 	IsReveal              bool
 	IsDisclaimer          bool
 	IsResponseRestriction bool
+	IsWaitListSMS         bool
 	DefaultValue          string
 	Value                 string
 }
@@ -1344,6 +1345,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          ``,
 			Value:                 ``,
 		},
@@ -1360,6 +1362,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          `Tickets for {{eventName}} are not yet available—please check back in the near future!`,
 			Value:                 ``,
 		},
@@ -1376,6 +1379,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          ``,
 			Value:                 ``,
 		},
@@ -1392,6 +1396,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          `You&#039;re all set. We look forward to seeing you soon!`,
 			Value:                 ``,
 		},
@@ -1408,6 +1413,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          `Thanks for your response. We&#039;re sorry we&#039;ll miss you!`,
 			Value:                 ``,
 		},
@@ -1424,6 +1430,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          `Tickets for {{eventName}} are no longer available through this website. Please check with the event organizers to find out if tickets are available elsewhere.`,
 			Value:                 ``,
 		},
@@ -1440,6 +1447,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              true,
 			IsDisclaimer:          false,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          ``,
 			Value:                 ``,
 		},
@@ -1456,6 +1464,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          true,
 			IsResponseRestriction: false,
+			IsWaitListSMS:         false,
 			DefaultValue:          ``,
 			Value:                 ``,
 		},
@@ -1472,7 +1481,25 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsReveal:              false,
 			IsDisclaimer:          false,
 			IsResponseRestriction: true,
+			IsWaitListSMS:         false,
 			DefaultValue:          ``,
+			Value:                 ``,
+		},
+		{
+			Slug:                  `wait_list_sms`,
+			Name:                  `Wait List SMS`,
+			Description:           `This sms will be sent to the attendee once they are promoted off the event waitlist.`,
+			IsIntroduction:        false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+			IsWaitListSMS:         true,
+			DefaultValue:          `You’re off the waitlist! Your are confirmed for [event_name]`,
 			Value:                 ``,
 		},
 	}

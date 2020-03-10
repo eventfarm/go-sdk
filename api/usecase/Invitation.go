@@ -546,6 +546,56 @@ func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEm
 	)
 }
 
+type ListInvitationsForUserByEmailForEventsParameters struct {
+	Email               string
+	EventIds            []string
+	PoolId              string
+	Page                *int64 // >= 1
+	ItemsPerPage        *int64 // 1-250
+	EventDateFilterType *string
+	SortDirection       *string
+	WithData            *[]string // Event | Stack | StackAndTicketType
+	StatusFilter        *[]string
+}
+
+func (t *Invitation) ListInvitationsForUserByEmailForEvents(p *ListInvitationsForUserByEmailForEventsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`email`, p.Email)
+	for i := range p.EventIds {
+		queryParameters.Add(`eventIds[]`, p.EventIds[i])
+	}
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.StatusFilter != nil {
+		for i := range *p.StatusFilter {
+			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/ListInvitationsForUserByEmailForEvents`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListInvitationsForUserForParentParameters struct {
 	UserId              string
 	ParentEventId       string
@@ -734,6 +784,15 @@ func (t *Invitation) AddInvitationToWaitlist(p *AddInvitationToWaitlistParameter
 	)
 }
 
+func (t *Invitation) AddInvitationToWaitlistWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/AddInvitationToWaitlist`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ChangeInvitationStatusParameters struct {
 	InvitationId     string
 	InvitationStatus string
@@ -747,6 +806,15 @@ func (t *Invitation) ChangeInvitationStatus(p *ChangeInvitationStatusParameters)
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/ChangeInvitationStatus`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) ChangeInvitationStatusWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ChangeInvitationStatus`,
+		data,
 		nil,
 		nil,
 	)
@@ -772,6 +840,15 @@ func (t *Invitation) ChangeInviteCount(p *ChangeInviteCountParameters) (r *http.
 	)
 }
 
+func (t *Invitation) ChangeInviteCountWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ChangeInviteCount`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CheckInParameters struct {
 	InvitationId string
 	CheckInAt    *int64
@@ -787,6 +864,15 @@ func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error)
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/CheckIn`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CheckInWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CheckIn`,
+		data,
 		nil,
 		nil,
 	)
@@ -874,6 +960,15 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	)
 }
 
+func (t *Invitation) CreateInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateInvitationForTicketBlockParameters struct {
 	EventId              string
 	StackId              string
@@ -950,6 +1045,15 @@ func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicket
 	)
 }
 
+func (t *Invitation) CreateInvitationForTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitationForTicketBlock`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateInvitationsFromGroupParameters struct {
 	GroupId                string
 	StackId                string
@@ -967,6 +1071,15 @@ func (t *Invitation) CreateInvitationsFromGroup(p *CreateInvitationsFromGroupPar
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/CreateInvitationsFromGroup`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CreateInvitationsFromGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitationsFromGroup`,
+		data,
 		nil,
 		nil,
 	)
@@ -996,6 +1109,15 @@ func (t *Invitation) CreateInvitationsFromGroupForCIOEvent(p *CreateInvitationsF
 	)
 }
 
+func (t *Invitation) CreateInvitationsFromGroupForCIOEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitationsFromGroupForCIOEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateInvitationsFromGroupForTicketBlockParameters struct {
 	GroupId                string
 	TicketBlockId          string
@@ -1015,6 +1137,15 @@ func (t *Invitation) CreateInvitationsFromGroupForTicketBlock(p *CreateInvitatio
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/CreateInvitationsFromGroupForTicketBlock`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CreateInvitationsFromGroupForTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitationsFromGroupForTicketBlock`,
+		data,
 		nil,
 		nil,
 	)
@@ -1042,6 +1173,15 @@ func (t *Invitation) CreateWebhook(p *CreateWebhookParameters) (r *http.Response
 	)
 }
 
+func (t *Invitation) CreateWebhookWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateWebhook`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteWebhookParameters struct {
 	WebhookId string
 }
@@ -1058,6 +1198,15 @@ func (t *Invitation) DeleteWebhook(p *DeleteWebhookParameters) (r *http.Response
 	)
 }
 
+func (t *Invitation) DeleteWebhookWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/DeleteWebhook`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableArrivalAlertParameters struct {
 	InvitationId string
 }
@@ -1069,6 +1218,15 @@ func (t *Invitation) DisableArrivalAlert(p *DisableArrivalAlertParameters) (r *h
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/DisableArrivalAlert`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) DisableArrivalAlertWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/DisableArrivalAlert`,
+		data,
 		nil,
 		nil,
 	)
@@ -1098,6 +1256,15 @@ func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWai
 	)
 }
 
+func (t *Invitation) PromoteInvitationsFromWaitlistWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/PromoteInvitationsFromWaitlist`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ResendConfirmationEmailParameters struct {
 	InvitationId string
 }
@@ -1109,6 +1276,15 @@ func (t *Invitation) ResendConfirmationEmail(p *ResendConfirmationEmailParameter
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/ResendConfirmationEmail`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) ResendConfirmationEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ResendConfirmationEmail`,
+		data,
 		nil,
 		nil,
 	)
@@ -1130,6 +1306,15 @@ func (t *Invitation) ResendInvitationEmail(p *ResendInvitationEmailParameters) (
 	)
 }
 
+func (t *Invitation) ResendInvitationEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ResendInvitationEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetAllQuestionResponsesParameters struct {
 	InvitationId                       string
 	QuestionId                         string
@@ -1145,6 +1330,15 @@ func (t *Invitation) SetAllQuestionResponses(p *SetAllQuestionResponsesParameter
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/SetAllQuestionResponses`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) SetAllQuestionResponsesWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetAllQuestionResponses`,
+		data,
 		nil,
 		nil,
 	)
@@ -1178,6 +1372,15 @@ func (t *Invitation) SetArrivalAlertEmail(p *SetArrivalAlertEmailParameters) (r 
 	)
 }
 
+func (t *Invitation) SetArrivalAlertEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetArrivalAlertEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetCheckInNotesParameters struct {
 	InvitationId string
 	CheckInNotes *string
@@ -1198,6 +1401,15 @@ func (t *Invitation) SetCheckInNotes(p *SetCheckInNotesParameters) (r *http.Resp
 	)
 }
 
+func (t *Invitation) SetCheckInNotesWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetCheckInNotes`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetInvitationNotesParameters struct {
 	InvitationId    string
 	InvitationNotes *string
@@ -1213,6 +1425,15 @@ func (t *Invitation) SetInvitationNotes(p *SetInvitationNotesParameters) (r *htt
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/SetInvitationNotes`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) SetInvitationNotesWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetInvitationNotes`,
+		data,
 		nil,
 		nil,
 	)
@@ -1246,6 +1467,15 @@ func (t *Invitation) SetQuestionResponse(p *SetQuestionResponseParameters) (r *h
 	)
 }
 
+func (t *Invitation) SetQuestionResponseWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetQuestionResponse`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type UndoCheckInParameters struct {
 	InvitationId string
 }
@@ -1257,6 +1487,15 @@ func (t *Invitation) UndoCheckIn(p *UndoCheckInParameters) (r *http.Response, er
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/UndoCheckIn`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) UndoCheckInWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/UndoCheckIn`,
+		data,
 		nil,
 		nil,
 	)
@@ -1317,6 +1556,15 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/UpdateInvitation`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) UpdateInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/UpdateInvitation`,
+		data,
 		nil,
 		nil,
 	)

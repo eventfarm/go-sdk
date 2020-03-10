@@ -96,3 +96,12 @@ func (t *AppVersion) SetAppVersionNumberByType(p *SetAppVersionNumberByTypeParam
 		nil,
 	)
 }
+
+func (t *AppVersion) SetAppVersionNumberByTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/AppVersion/UseCase/SetAppVersionNumberByType`,
+		data,
+		nil,
+		nil,
+	)
+}

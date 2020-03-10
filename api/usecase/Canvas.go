@@ -38,3 +38,12 @@ func (t *Canvas) EnableCanvasForEvent(p *EnableCanvasForEventParameters) (r *htt
 		nil,
 	)
 }
+
+func (t *Canvas) EnableCanvasForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Canvas/UseCase/EnableCanvasForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}

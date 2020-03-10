@@ -142,3 +142,12 @@ func (t *Queue) DeleteJob(p *DeleteJobParameters) (r *http.Response, err error) 
 		nil,
 	)
 }
+
+func (t *Queue) DeleteJobWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Queue/UseCase/DeleteJob`,
+		data,
+		nil,
+		nil,
+	)
+}

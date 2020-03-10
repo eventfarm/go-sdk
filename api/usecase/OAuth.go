@@ -54,3 +54,12 @@ func (t *OAuth) CreateGhostAccessToken(p *CreateGhostAccessTokenParameters) (r *
 		nil,
 	)
 }
+
+func (t *OAuth) CreateGhostAccessTokenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/OAuth/UseCase/CreateGhostAccessToken`,
+		data,
+		nil,
+		nil,
+	)
+}

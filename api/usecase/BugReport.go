@@ -95,3 +95,12 @@ func (t *BugReport) CreateBugReport(p *CreateBugReportParameters) (r *http.Respo
 		nil,
 	)
 }
+
+func (t *BugReport) CreateBugReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/BugReport/UseCase/CreateBugReport`,
+		data,
+		nil,
+		nil,
+	)
+}

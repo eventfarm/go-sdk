@@ -44,3 +44,12 @@ func (t *UserIdentifier) SetUserIdentifier(p *SetUserIdentifierParameters) (r *h
 		nil,
 	)
 }
+
+func (t *UserIdentifier) SetUserIdentifierWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserIdentifier/UseCase/SetUserIdentifier`,
+		data,
+		nil,
+		nil,
+	)
+}

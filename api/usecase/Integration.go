@@ -38,3 +38,12 @@ func (t *Integration) InitializeSalesforceIntegrationsForEvent(p *InitializeSale
 		nil,
 	)
 }
+
+func (t *Integration) InitializeSalesforceIntegrationsForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Integration/UseCase/InitializeSalesforceIntegrationsForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}

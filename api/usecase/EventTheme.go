@@ -68,3 +68,12 @@ func (t *EventTheme) SetEventTheme(p *SetEventThemeParameters) (r *http.Response
 		nil,
 	)
 }
+
+func (t *EventTheme) SetEventThemeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EventTheme/UseCase/SetEventTheme`,
+		data,
+		nil,
+		nil,
+	)
+}
