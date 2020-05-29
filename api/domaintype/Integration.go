@@ -93,5 +93,10 @@ func (f *Integration) ListUserAttributeInfoFieldTypes() []UserAttributeInfoField
 			Name:        `Telephone`,
 			Description: ``,
 		},
+		{
+			Slug:        `newCustomField`,
+			Name:        `New Custom Field`,
+			Description: ``,
+		},
 	}
 }

@@ -40,6 +40,7 @@ type FeatureType struct {
 	IsEventApp             bool
 	IsChildEvents          bool
 	IsWaitlist             bool
+	IsVirbela              bool
 }
 
 type PoolAllotmentType struct {
@@ -111,6 +112,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `apiaccess`,
@@ -141,6 +143,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `marketo`,
@@ -171,6 +174,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `emailmasking`,
@@ -201,6 +205,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `whitelabeling`,
@@ -231,6 +236,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `agents`,
@@ -261,6 +267,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `visacheckout`,
@@ -291,6 +298,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `canvas`,
@@ -321,6 +329,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `harvester`,
@@ -351,6 +360,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `accesscontrol-efx`,
@@ -381,6 +391,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `athletebag-efx`,
@@ -411,6 +422,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `concierge-efx`,
@@ -441,6 +453,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `digitalmemorybank-efx`,
@@ -471,6 +484,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `guestinfo-efx`,
@@ -501,6 +515,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `messaging-efx`,
@@ -531,6 +546,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `smsquiz-efx`,
@@ -561,6 +577,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `productpickup-efx`,
@@ -591,6 +608,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `raffle-efx`,
@@ -621,6 +639,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `reservation-efx`,
@@ -651,6 +670,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `roamingphotog-efx`,
@@ -681,6 +701,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `smartbar-efx`,
@@ -711,6 +732,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `teams-efx`,
@@ -741,6 +763,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `event-app`,
@@ -771,6 +794,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             true,
 			IsChildEvents:          false,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `child-events`,
@@ -801,6 +825,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          true,
 			IsWaitlist:             false,
+			IsVirbela:              false,
 		},
 		{
 			Slug:                   `waitlist`,
@@ -831,6 +856,38 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsEventApp:             false,
 			IsChildEvents:          false,
 			IsWaitlist:             true,
+			IsVirbela:              false,
+		},
+		{
+			Slug:                   `virbela`,
+			Name:                   `Virbela`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              true,
 		},
 	}
 }

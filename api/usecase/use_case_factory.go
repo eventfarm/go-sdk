@@ -218,6 +218,18 @@ func (f *Factory) UserName() *UserName {
 	return NewUserName(f.restClient)
 }
 
+func (f *Factory) UserUnsubscribe() *UserUnsubscribe {
+	return NewUserUnsubscribe(f.restClient)
+}
+
+func (f *Factory) Virbela() *Virbela {
+	return NewVirbela(f.restClient)
+}
+
+func (f *Factory) VirbelaPoolSetting() *VirbelaPoolSetting {
+	return NewVirbelaPoolSetting(f.restClient)
+}
+
 func (f *Factory) Withdrawal() *Withdrawal {
 	return NewWithdrawal(f.restClient)
 }

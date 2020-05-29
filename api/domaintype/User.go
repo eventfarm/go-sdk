@@ -85,6 +85,7 @@ type UserAttributeNamespaceType struct {
 	IsConvio     bool
 	IsGoogle     bool
 	IsCustom     bool
+	IsVirbela    bool
 }
 
 type UserIdentifierType struct {
@@ -112,6 +113,16 @@ type UserRoleType struct {
 	IsEvents       bool
 	IsTicketblocks bool
 	IsPools        bool
+}
+
+type UserUnsubscribePreferenceType struct {
+	Slug          string
+	Name          string
+	Description   string
+	IsGlobal      bool
+	IsPool        bool
+	IsEvent       bool
+	IsTicketblock bool
 }
 
 func (f *User) ListEventRoleTypes() []EventRoleType {
@@ -956,6 +967,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `info`,
@@ -971,6 +983,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `hover`,
@@ -986,6 +999,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `facebook`,
@@ -1001,6 +1015,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `linked-in`,
@@ -1016,6 +1031,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `salesforce`,
@@ -1031,6 +1047,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `twitter`,
@@ -1046,6 +1063,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `convio`,
@@ -1061,6 +1079,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     true,
 			IsGoogle:     false,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `google`,
@@ -1076,6 +1095,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     true,
 			IsCustom:     false,
+			IsVirbela:    false,
 		},
 		{
 			Slug:         `custom`,
@@ -1091,6 +1111,23 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsConvio:     false,
 			IsGoogle:     false,
 			IsCustom:     true,
+			IsVirbela:    false,
+		},
+		{
+			Slug:         `virbela`,
+			Name:         `Virbela`,
+			Description:  ``,
+			IsInternal:   false,
+			IsInfo:       false,
+			IsHover:      false,
+			IsSpamReport: false,
+			IsLinkedin:   false,
+			IsSalesforce: false,
+			IsTwitter:    false,
+			IsConvio:     false,
+			IsGoogle:     false,
+			IsCustom:     false,
+			IsVirbela:    true,
 		},
 	}
 }
@@ -1184,6 +1221,47 @@ func (f *User) ListUserRoleTypes() []UserRoleType {
 			IsEvents:       false,
 			IsTicketblocks: false,
 			IsPools:        true,
+		},
+	}
+}
+
+func (f *User) ListUserUnsubscribePreferenceTypes() []UserUnsubscribePreferenceType {
+	return []UserUnsubscribePreferenceType{
+		{
+			Slug:          `global`,
+			Name:          `Global`,
+			Description:   ``,
+			IsGlobal:      true,
+			IsPool:        false,
+			IsEvent:       false,
+			IsTicketblock: false,
+		},
+		{
+			Slug:          `pool`,
+			Name:          `Pool`,
+			Description:   ``,
+			IsGlobal:      false,
+			IsPool:        true,
+			IsEvent:       false,
+			IsTicketblock: false,
+		},
+		{
+			Slug:          `event`,
+			Name:          `Event`,
+			Description:   ``,
+			IsGlobal:      false,
+			IsPool:        false,
+			IsEvent:       true,
+			IsTicketblock: false,
+		},
+		{
+			Slug:          `ticketblock`,
+			Name:          `Ticketblock`,
+			Description:   ``,
+			IsGlobal:      false,
+			IsPool:        false,
+			IsEvent:       false,
+			IsTicketblock: true,
 		},
 	}
 }

@@ -45,15 +45,16 @@ type EmailArchiveSubCategoryType struct {
 }
 
 type EmailMessageType struct {
-	Slug               string
-	Name               string
-	Description        string
-	IsConfirmation     bool
-	IsDonation         bool
-	IsInvitation       bool
-	IsSendAMessage     bool
-	IsSendGroupMessage bool
-	IsDeclination      bool
+	Slug                 string
+	Name                 string
+	Description          string
+	IsConfirmation       bool
+	IsDonation           bool
+	IsInvitation         bool
+	IsSendAMessage       bool
+	IsSendGroupMessage   bool
+	IsDeclination        bool
+	IsSendPreviewMessage bool
 }
 
 func (f *EmailMessage) ListEmailArchiveCategoryTypes() []EmailArchiveCategoryType {
@@ -407,59 +408,64 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 	return []EmailMessageType{
 		{
-			Slug:               `confirmation`,
-			Name:               `Confirmation`,
-			Description:        `Confirmation Message Type`,
-			IsConfirmation:     true,
-			IsDonation:         false,
-			IsInvitation:       false,
-			IsSendAMessage:     false,
-			IsSendGroupMessage: false,
-			IsDeclination:      false,
+			Slug:                 `confirmation`,
+			Name:                 `Confirmation`,
+			Description:          `Confirmation Message Type`,
+			IsConfirmation:       true,
+			IsDonation:           false,
+			IsInvitation:         false,
+			IsSendAMessage:       false,
+			IsSendGroupMessage:   false,
+			IsDeclination:        false,
+			IsSendPreviewMessage: false,
 		},
 		{
-			Slug:               `donation`,
-			Name:               `Donation`,
-			Description:        `Donation Message Type`,
-			IsConfirmation:     false,
-			IsDonation:         true,
-			IsInvitation:       false,
-			IsSendAMessage:     false,
-			IsSendGroupMessage: false,
-			IsDeclination:      false,
+			Slug:                 `donation`,
+			Name:                 `Donation`,
+			Description:          `Donation Message Type`,
+			IsConfirmation:       false,
+			IsDonation:           true,
+			IsInvitation:         false,
+			IsSendAMessage:       false,
+			IsSendGroupMessage:   false,
+			IsDeclination:        false,
+			IsSendPreviewMessage: false,
 		},
 		{
-			Slug:               `invitation`,
-			Name:               `Invitation`,
-			Description:        `Invitation Message Type`,
-			IsConfirmation:     false,
-			IsDonation:         false,
-			IsInvitation:       true,
-			IsSendAMessage:     false,
-			IsSendGroupMessage: false,
-			IsDeclination:      false,
+			Slug:                 `invitation`,
+			Name:                 `Invitation`,
+			Description:          `Invitation Message Type`,
+			IsConfirmation:       false,
+			IsDonation:           false,
+			IsInvitation:         true,
+			IsSendAMessage:       false,
+			IsSendGroupMessage:   false,
+			IsDeclination:        false,
+			IsSendPreviewMessage: false,
 		},
 		{
-			Slug:               `sendamessage`,
-			Name:               `Send A Message`,
-			Description:        `Send A Message Type`,
-			IsConfirmation:     false,
-			IsDonation:         false,
-			IsInvitation:       false,
-			IsSendAMessage:     true,
-			IsSendGroupMessage: false,
-			IsDeclination:      false,
+			Slug:                 `sendamessage`,
+			Name:                 `Send A Message`,
+			Description:          `Send A Message Type`,
+			IsConfirmation:       false,
+			IsDonation:           false,
+			IsInvitation:         false,
+			IsSendAMessage:       true,
+			IsSendGroupMessage:   false,
+			IsDeclination:        false,
+			IsSendPreviewMessage: false,
 		},
 		{
-			Slug:               `sendgroupmessage`,
-			Name:               `Send Group Message`,
-			Description:        `Send Group Message Type`,
-			IsConfirmation:     false,
-			IsDonation:         false,
-			IsInvitation:       false,
-			IsSendAMessage:     false,
-			IsSendGroupMessage: true,
-			IsDeclination:      false,
+			Slug:                 `sendgroupmessage`,
+			Name:                 `Send Group Message`,
+			Description:          `Send Group Message Type`,
+			IsConfirmation:       false,
+			IsDonation:           false,
+			IsInvitation:         false,
+			IsSendAMessage:       false,
+			IsSendGroupMessage:   true,
+			IsDeclination:        false,
+			IsSendPreviewMessage: false,
 		},
 	}
 }

@@ -45,7 +45,7 @@ func (t *User) CheckIfUserCanBeRemovedFromPool(p *CheckIfUserCanBeRemovedFromPoo
 type GetUserParameters struct {
 	UserId             string
 	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	PoolId             *string
 }
 
@@ -77,7 +77,7 @@ func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 type GetUserByEmailParameters struct {
 	Email              string
 	WithData           *[]string // UserName | UserAddress | UserToken | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	PoolId             *string
 }
 
@@ -110,7 +110,7 @@ type GetUserInPoolParameters struct {
 	PoolId             string
 	UserId             string
 	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 }
 
 func (t *User) GetUserInPool(p *GetUserInPoolParameters) (r *http.Response, err error) {

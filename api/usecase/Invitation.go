@@ -195,7 +195,7 @@ func (t *Invitation) GetInvitationStatusTypeCountsForTicketBlock(p *GetInvitatio
 type ListInvitationsForEventParameters struct {
 	EventId               string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
@@ -258,7 +258,7 @@ type ListInvitationsForStackParameters struct {
 	EventId               string
 	StackId               string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
@@ -321,7 +321,7 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 type ListInvitationsForTicketBlockParameters struct {
 	TicketBlockId         string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
@@ -383,7 +383,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 type ListInvitationsForTransactionParameters struct {
 	TransactionId         string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
@@ -649,7 +649,7 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 type ListWaitlistForEventParameters struct {
 	EventId               string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
@@ -706,7 +706,7 @@ type ListWaitlistForStackParameters struct {
 	EventId               string
 	StackId               string
 	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
@@ -852,6 +852,7 @@ func (t *Invitation) ChangeInviteCountWithJSON(data *map[string]interface{}) (r 
 type CheckInParameters struct {
 	InvitationId string
 	CheckInAt    *int64
+	IsWebCheckIn *bool
 }
 
 func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error) {
@@ -859,6 +860,9 @@ func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error)
 	queryParameters.Add(`invitationId`, p.InvitationId)
 	if p.CheckInAt != nil {
 		queryParameters.Add(`checkInAt`, strconv.FormatInt(*p.CheckInAt, 10))
+	}
+	if p.IsWebCheckIn != nil {
+		queryParameters.Add(`isWebCheckIn`, strconv.FormatBool(*p.IsWebCheckIn))
 	}
 
 	return t.restClient.Post(
@@ -1259,6 +1263,58 @@ func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWai
 func (t *Invitation) PromoteInvitationsFromWaitlistWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Invitation/UseCase/PromoteInvitationsFromWaitlist`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type RescindAllInvitationsParameters struct {
+	EventId string
+}
+
+func (t *Invitation) RescindAllInvitations(p *RescindAllInvitationsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/RescindAllInvitations`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) RescindAllInvitationsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/RescindAllInvitations`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type ResendAllInvitationEmailsParameters struct {
+	EventId  string
+	DayCount int64 // 0-90
+}
+
+func (t *Invitation) ResendAllInvitationEmails(p *ResendAllInvitationEmailsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`dayCount`, strconv.FormatInt(p.DayCount, 10))
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/ResendAllInvitationEmails`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) ResendAllInvitationEmailsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ResendAllInvitationEmails`,
 		data,
 		nil,
 		nil,
