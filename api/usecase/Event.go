@@ -620,6 +620,31 @@ func (t *Event) ClearDefaultSitePageForEventWithJSON(data *map[string]interface{
 	)
 }
 
+type ClearVirbelaSitePageForEventParameters struct {
+	EventId string
+}
+
+func (t *Event) ClearVirbelaSitePageForEvent(p *ClearVirbelaSitePageForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/ClearVirbelaSitePageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) ClearVirbelaSitePageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/ClearVirbelaSitePageForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CopyEventConfigurationToPoolParameters struct {
 	EventId                       string
 	PoolId                        string
@@ -2663,6 +2688,33 @@ func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Respons
 func (t *Event) SetVenueForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetVenueForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetVirbelaSitePageForEventParameters struct {
+	EventId    string
+	SitePageId string
+}
+
+func (t *Event) SetVirbelaSitePageForEvent(p *SetVirbelaSitePageForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetVirbelaSitePageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetVirbelaSitePageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetVirbelaSitePageForEvent`,
 		data,
 		nil,
 		nil,
