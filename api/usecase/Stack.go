@@ -273,6 +273,8 @@ type CreateStackParameters struct {
 	ConfirmDesignId *string
 	DeclineDesignId *string
 	StackId         *string
+	VirbelaTeamId   *int64
+	VirbelaRole     *string
 }
 
 func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err error) {
@@ -309,6 +311,12 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 	if p.StackId != nil {
 		queryParameters.Add(`stackId`, *p.StackId)
 	}
+	if p.VirbelaTeamId != nil {
+		queryParameters.Add(`virbelaTeamId`, strconv.FormatInt(*p.VirbelaTeamId, 10))
+	}
+	if p.VirbelaRole != nil {
+		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
+	}
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/CreateStack`,
@@ -343,6 +351,8 @@ type CreateStackFromSettingsParameters struct {
 	ConfirmDesignId *string
 	DeclineDesignId *string
 	StackId         *string
+	VirbelaTeamId   *int64
+	VirbelaRole     *string
 }
 
 func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r *http.Response, err error) {
@@ -379,6 +389,12 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 	}
 	if p.StackId != nil {
 		queryParameters.Add(`stackId`, *p.StackId)
+	}
+	if p.VirbelaTeamId != nil {
+		queryParameters.Add(`virbelaTeamId`, strconv.FormatInt(*p.VirbelaTeamId, 10))
+	}
+	if p.VirbelaRole != nil {
+		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
 	}
 
 	return t.restClient.Post(
@@ -706,13 +722,15 @@ func (t *Stack) SetTransferableForStackWithJSON(data *map[string]interface{}) (r
 }
 
 type UpdateStackParameters struct {
-	StackId      string
-	MethodSlug   *string
-	Price        *float64
-	ServiceFee   *float64
-	Quantity     *int64
-	MaxQuantity  *int64
-	Transferable *bool
+	StackId       string
+	MethodSlug    *string
+	Price         *float64
+	ServiceFee    *float64
+	Quantity      *int64
+	MaxQuantity   *int64
+	Transferable  *bool
+	VirbelaTeamId *int64
+	VirbelaRole   *string
 }
 
 func (t *Stack) UpdateStack(p *UpdateStackParameters) (r *http.Response, err error) {
@@ -735,6 +753,12 @@ func (t *Stack) UpdateStack(p *UpdateStackParameters) (r *http.Response, err err
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+	if p.VirbelaTeamId != nil {
+		queryParameters.Add(`virbelaTeamId`, strconv.FormatInt(*p.VirbelaTeamId, 10))
+	}
+	if p.VirbelaRole != nil {
+		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
 	}
 
 	return t.restClient.Post(
@@ -770,6 +794,8 @@ type UpdateStackFromSettingsParameters struct {
 	InviteDesignId  *string
 	ConfirmDesignId *string
 	DeclineDesignId *string
+	VirbelaTeamId   *int64
+	VirbelaRole     *string
 }
 
 func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r *http.Response, err error) {
@@ -816,6 +842,12 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 	}
 	if p.DeclineDesignId != nil {
 		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
+	if p.VirbelaTeamId != nil {
+		queryParameters.Add(`virbelaTeamId`, strconv.FormatInt(*p.VirbelaTeamId, 10))
+	}
+	if p.VirbelaRole != nil {
+		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
 	}
 
 	return t.restClient.Post(

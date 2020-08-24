@@ -63,9 +63,9 @@ func (t *Payment) GetPaymentTotalsForEvent(p *GetPaymentTotalsForEventParameters
 
 type ListPaymentsForEventParameters struct {
 	EventId       string
-	WithData      *[]string
-	Page          *int64 // >= 1
-	ItemsPerPage  *int64 // 1-100
+	WithData      *[]string // Refund | Purchase
+	Page          *int64    // >= 1
+	ItemsPerPage  *int64    // 1-100
 	Query         *string
 	SortBy        *string
 	SortDirection *string

@@ -344,6 +344,31 @@ func (t *EmailMessage) RemoveScheduledBatchEmailMessageWithJSON(data *map[string
 	)
 }
 
+type ResendReceiptParameters struct {
+	PaymentId string
+}
+
+func (t *EmailMessage) ResendReceipt(p *ResendReceiptParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`paymentId`, p.PaymentId)
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/ResendReceipt`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) ResendReceiptWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/ResendReceipt`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendAMessagePreviewParameters struct {
 	EventId                string
 	OwnerUserId            string

@@ -41,22 +41,26 @@ func (t *VirbelaPoolSetting) GetVirbelaPoolSettingByPool(p *GetVirbelaPoolSettin
 // POST: Commands
 
 type CreateVirbelaPoolSettingParameters struct {
-	PoolId        string
-	WorldId       string
-	WorldStringId string
-	DisplayName   string
-	TitleMapping  string
-	TeamId        int64 // 1-51
+	PoolId             string
+	WorldId            string
+	WorldName          string
+	DisplayName        string
+	TitleMapping       string
+	TeamId             int64 // 0-51
+	MacDownloadURL     string
+	WindowsDownloadURL string
 }
 
 func (t *VirbelaPoolSetting) CreateVirbelaPoolSetting(p *CreateVirbelaPoolSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`poolId`, p.PoolId)
 	queryParameters.Add(`worldId`, p.WorldId)
-	queryParameters.Add(`worldStringId`, p.WorldStringId)
+	queryParameters.Add(`worldName`, p.WorldName)
 	queryParameters.Add(`displayName`, p.DisplayName)
 	queryParameters.Add(`titleMapping`, p.TitleMapping)
 	queryParameters.Add(`teamId`, strconv.FormatInt(p.TeamId, 10))
+	queryParameters.Add(`macDownloadURL`, p.MacDownloadURL)
+	queryParameters.Add(`windowsDownloadURL`, p.WindowsDownloadURL)
 
 	return t.restClient.Post(
 		`/v2/VirbelaPoolSetting/UseCase/CreateVirbelaPoolSetting`,
@@ -103,26 +107,24 @@ func (t *VirbelaPoolSetting) RemoveVirbelaPoolSettingWithJSON(data *map[string]i
 type UpdateVirbelaPoolSettingParameters struct {
 	VirbelaPoolSettingId string
 	WorldId              string
-	WorldStringId        string
-	DisplayName          *string
-	TitleMapping         *string
-	TeamId               *int64 // 1-51
+	WorldName            string
+	DisplayName          string
+	TitleMapping         string
+	TeamId               int64 // 0-51
+	MacDownloadURL       string
+	WindowsDownloadURL   string
 }
 
 func (t *VirbelaPoolSetting) UpdateVirbelaPoolSetting(p *UpdateVirbelaPoolSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`virbelaPoolSettingId`, p.VirbelaPoolSettingId)
 	queryParameters.Add(`worldId`, p.WorldId)
-	queryParameters.Add(`worldStringId`, p.WorldStringId)
-	if p.DisplayName != nil {
-		queryParameters.Add(`displayName`, *p.DisplayName)
-	}
-	if p.TitleMapping != nil {
-		queryParameters.Add(`titleMapping`, *p.TitleMapping)
-	}
-	if p.TeamId != nil {
-		queryParameters.Add(`teamId`, strconv.FormatInt(*p.TeamId, 10))
-	}
+	queryParameters.Add(`worldName`, p.WorldName)
+	queryParameters.Add(`displayName`, p.DisplayName)
+	queryParameters.Add(`titleMapping`, p.TitleMapping)
+	queryParameters.Add(`teamId`, strconv.FormatInt(p.TeamId, 10))
+	queryParameters.Add(`macDownloadURL`, p.MacDownloadURL)
+	queryParameters.Add(`windowsDownloadURL`, p.WindowsDownloadURL)
 
 	return t.restClient.Post(
 		`/v2/VirbelaPoolSetting/UseCase/UpdateVirbelaPoolSetting`,
