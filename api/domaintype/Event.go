@@ -1402,7 +1402,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsDisclaimer:           false,
 			IsResponseRestriction:  false,
 			IsWaitListSMS:          false,
-			DefaultValue:           `You&#039;re all set. We look forward to seeing you soon!`,
+			DefaultValue:           `&lt;h1&gt;See you there&lt;/h1&gt;&lt;p&gt;{{guestFirst}} {{guestLast}} you are on the list!&lt;/p&gt;&lt;p&gt;You&#039;re all set. We look forward to seeing you soon!&lt;/p&gt;`,
 			Value:                  ``,
 		},
 		{
@@ -1420,7 +1420,7 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 			IsDisclaimer:           false,
 			IsResponseRestriction:  false,
 			IsWaitListSMS:          false,
-			DefaultValue:           `You&#039;re all set. We look forward to seeing you soon!`,
+			DefaultValue:           `&lt;h1&gt;Waitlisted&lt;/h1&gt;&lt;p&gt;{{guestFirst}} {{guestLast}} you will be notified if space opens up!&lt;/p&gt;`,
 			Value:                  ``,
 		},
 		{
