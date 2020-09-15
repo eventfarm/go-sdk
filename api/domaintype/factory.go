@@ -94,3 +94,7 @@ func (f *Factory) Stack() *Stack {
 func (f *Factory) User() *User {
 	return NewUser()
 }
+
+func (f *Factory) Virbela() *Virbela {
+	return NewVirbela()
+}
