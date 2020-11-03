@@ -56,14 +56,12 @@ func (t *Virbela) GetUserStatusForVirbela(p *GetUserStatusForVirbelaParameters) 
 }
 
 type ListVirbelaWorldsForEventFarmParameters struct {
-	PoolId    string
 	WorldName *string
 	WorldId   *string
 }
 
 func (t *Virbela) ListVirbelaWorldsForEventFarm(p *ListVirbelaWorldsForEventFarmParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, p.PoolId)
 	if p.WorldName != nil {
 		queryParameters.Add(`worldName`, *p.WorldName)
 	}

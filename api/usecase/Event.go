@@ -62,7 +62,7 @@ func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r
 
 type GetEventParameters struct {
 	EventId  string
-	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
+	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld
 }
 
 func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
@@ -349,7 +349,7 @@ type ListEventsForUserParameters struct {
 	Query                   *string
 	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
 	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
-	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | VirbelaWorld
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
 	ItemsPerPage            *int64 // 1-500
@@ -2414,6 +2414,47 @@ func (t *Event) SetLanguageForEventWithJSON(data *map[string]interface{}) (r *ht
 	)
 }
 
+type SetLocationForEventParameters struct {
+	EventId         string
+	LocationName    *string
+	LocationAddress *string
+	LocationType    *string
+	LocationDetails *string
+}
+
+func (t *Event) SetLocationForEvent(p *SetLocationForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.LocationName != nil {
+		queryParameters.Add(`locationName`, *p.LocationName)
+	}
+	if p.LocationAddress != nil {
+		queryParameters.Add(`locationAddress`, *p.LocationAddress)
+	}
+	if p.LocationType != nil {
+		queryParameters.Add(`locationType`, *p.LocationType)
+	}
+	if p.LocationDetails != nil {
+		queryParameters.Add(`locationDetails`, *p.LocationDetails)
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetLocationForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetLocationForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetLocationForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetMapSourceForEventParameters struct {
 	EventId   string
 	MapSource string
@@ -2659,35 +2700,6 @@ func (t *Event) SetTwitterHandleForEvent(p *SetTwitterHandleForEventParameters) 
 func (t *Event) SetTwitterHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetTwitterHandleForEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type SetVenueForEventParameters struct {
-	EventId      string
-	VenueName    string
-	VenueAddress string
-}
-
-func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`venueName`, p.VenueName)
-	queryParameters.Add(`venueAddress`, p.VenueAddress)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetVenueForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetVenueForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetVenueForEvent`,
 		data,
 		nil,
 		nil,

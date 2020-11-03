@@ -65,6 +65,7 @@ type EventMessageSlugType struct {
 	IsEventEmail              bool
 	IsEventLocationName       bool
 	IsEventLocationAddress    bool
+	IsEventLocationDetails    bool
 	IsEventDescription        bool
 	IsEventFacebook           bool
 	IsEventTwitter            bool
@@ -119,6 +120,15 @@ type EventType struct {
 	IsRnc       bool
 	IsRslc      bool
 	IsSundance  bool
+}
+
+type LocationType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsLive      bool
+	IsVirbela   bool
+	IsVirtual   bool
 }
 
 type MapSourceType struct {
@@ -473,6 +483,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -505,6 +516,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -537,6 +549,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              true,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -569,6 +582,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       true,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -601,6 +615,40 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    true,
+			IsEventLocationDetails:    false,
+			IsEventDescription:        false,
+			IsEventFacebook:           false,
+			IsEventTwitter:            false,
+			IsEventInstagram:          false,
+			IsEventStartDateTime:      false,
+			IsEventStartDate:          false,
+			IsEventStartTime:          false,
+			IsEventStartDateTimeShort: false,
+			IsEventStartDateShort:     false,
+			IsEventStartTimeShort:     false,
+			IsEventStartDateTimeLong:  false,
+			IsEventStartDateLong:      false,
+			IsEventStartTimeLong:      false,
+			IsEventEndDateTime:        false,
+			IsEventEndDate:            false,
+			IsEventEndTime:            false,
+			IsEventEndDateTimeShort:   false,
+			IsEventEndDateShort:       false,
+			IsEventEndTimeShort:       false,
+			IsEventEndDateTimeLong:    false,
+			IsEventEndDateLong:        false,
+			IsEventEndTimeLong:        false,
+		},
+		{
+			Slug:                      `{{eventLocationDetails}}`,
+			Name:                      `Event Location Details`,
+			Description:               ``,
+			IsEventPublicURL:          false,
+			IsEventName:               false,
+			IsEventEmail:              false,
+			IsEventLocationName:       false,
+			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    true,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -633,6 +681,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        true,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -665,6 +714,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           true,
 			IsEventTwitter:            false,
@@ -697,6 +747,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            true,
@@ -729,6 +780,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -761,6 +813,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -793,6 +846,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -825,6 +879,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -857,6 +912,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -889,6 +945,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -921,6 +978,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -953,6 +1011,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -985,6 +1044,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1017,6 +1077,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1049,6 +1110,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1081,6 +1143,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1113,6 +1176,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1145,6 +1209,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1177,6 +1242,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1209,6 +1275,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1241,6 +1308,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1273,6 +1341,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1305,6 +1374,7 @@ func (f *Event) ListEventMessageSlugTypes() []EventMessageSlugType {
 			IsEventEmail:              false,
 			IsEventLocationName:       false,
 			IsEventLocationAddress:    false,
+			IsEventLocationDetails:    false,
 			IsEventDescription:        false,
 			IsEventFacebook:           false,
 			IsEventTwitter:            false,
@@ -1619,6 +1689,35 @@ func (f *Event) ListEventTypes() []EventType {
 			IsRnc:       false,
 			IsRslc:      false,
 			IsSundance:  true,
+		},
+	}
+}
+
+func (f *Event) ListLocationTypes() []LocationType {
+	return []LocationType{
+		{
+			Slug:        `live`,
+			Name:        `live`,
+			Description: ``,
+			IsLive:      true,
+			IsVirbela:   false,
+			IsVirtual:   false,
+		},
+		{
+			Slug:        `virbela`,
+			Name:        `virbela`,
+			Description: ``,
+			IsLive:      false,
+			IsVirbela:   true,
+			IsVirtual:   false,
+		},
+		{
+			Slug:        `virtual`,
+			Name:        `virtual`,
+			Description: ``,
+			IsLive:      false,
+			IsVirbela:   false,
+			IsVirtual:   true,
 		},
 	}
 }

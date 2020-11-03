@@ -134,6 +134,10 @@ func (f *Factory) PoolFeature() *PoolFeature {
 	return NewPoolFeature(f.restClient)
 }
 
+func (f *Factory) PoolWorld() *PoolWorld {
+	return NewPoolWorld(f.restClient)
+}
+
 func (f *Factory) Promotion() *Promotion {
 	return NewPromotion(f.restClient)
 }
@@ -226,8 +230,8 @@ func (f *Factory) Virbela() *Virbela {
 	return NewVirbela(f.restClient)
 }
 
-func (f *Factory) VirbelaPoolSetting() *VirbelaPoolSetting {
-	return NewVirbelaPoolSetting(f.restClient)
+func (f *Factory) VirbelaWorld() *VirbelaWorld {
+	return NewVirbelaWorld(f.restClient)
 }
 
 func (f *Factory) Withdrawal() *Withdrawal {
