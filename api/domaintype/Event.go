@@ -126,7 +126,7 @@ type LocationType struct {
 	Slug        string
 	Name        string
 	Description string
-	IsLive      bool
+	IsInPerson  bool
 	IsVirbela   bool
 	IsVirtual   bool
 }
@@ -1696,10 +1696,10 @@ func (f *Event) ListEventTypes() []EventType {
 func (f *Event) ListLocationTypes() []LocationType {
 	return []LocationType{
 		{
-			Slug:        `live`,
-			Name:        `live`,
+			Slug:        `in-person`,
+			Name:        `in-person`,
 			Description: ``,
-			IsLive:      true,
+			IsInPerson:  true,
 			IsVirbela:   false,
 			IsVirtual:   false,
 		},
@@ -1707,7 +1707,7 @@ func (f *Event) ListLocationTypes() []LocationType {
 			Slug:        `virbela`,
 			Name:        `virbela`,
 			Description: ``,
-			IsLive:      false,
+			IsInPerson:  false,
 			IsVirbela:   true,
 			IsVirtual:   false,
 		},
@@ -1715,7 +1715,7 @@ func (f *Event) ListLocationTypes() []LocationType {
 			Slug:        `virtual`,
 			Name:        `virtual`,
 			Description: ``,
-			IsLive:      false,
+			IsInPerson:  false,
 			IsVirbela:   false,
 			IsVirtual:   true,
 		},

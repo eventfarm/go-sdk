@@ -79,10 +79,12 @@ func (t *Transaction) AddInvitationToTransactionWithJSON(data *map[string]interf
 }
 
 type CreateTransactionParameters struct {
-	PoolId        string
-	TransactionId *string
-	Invitations   *[]string
-	Payment       *[]string
+	PoolId                string
+	TransactionId         *string
+	Invitations           *[]string
+	Payment               *[]string
+	RequestedPromotionIds *[]string
+	PrimaryInvitationId   *string
 }
 
 func (t *Transaction) CreateTransaction(p *CreateTransactionParameters) (r *http.Response, err error) {
@@ -100,6 +102,14 @@ func (t *Transaction) CreateTransaction(p *CreateTransactionParameters) (r *http
 		for i := range *p.Payment {
 			queryParameters.Add(`payment[]`, (*p.Payment)[i])
 		}
+	}
+	if p.RequestedPromotionIds != nil {
+		for i := range *p.RequestedPromotionIds {
+			queryParameters.Add(`requestedPromotionIds[]`, (*p.RequestedPromotionIds)[i])
+		}
+	}
+	if p.PrimaryInvitationId != nil {
+		queryParameters.Add(`primaryInvitationId`, *p.PrimaryInvitationId)
 	}
 
 	return t.restClient.Post(

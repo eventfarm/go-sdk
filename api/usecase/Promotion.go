@@ -61,6 +61,30 @@ func (t *Promotion) ListPromotionsForEvent(p *ListPromotionsForEventParameters) 
 	)
 }
 
+type ValidatePromotionParameters struct {
+	EventId   string
+	PromoCode string
+	WithData  *[]string // PromotionStack
+}
+
+func (t *Promotion) ValidatePromotion(p *ValidatePromotionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`promoCode`, p.PromoCode)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Promotion/UseCase/ValidatePromotion`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
 
 type CreatePromotionParameters struct {

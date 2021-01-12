@@ -2706,6 +2706,47 @@ func (t *Event) SetTwitterHandleForEventWithJSON(data *map[string]interface{}) (
 	)
 }
 
+type SetVenueForEventParameters struct {
+	EventId         string
+	LocationName    *string
+	LocationAddress *string
+	LocationType    *string
+	LocationDetails *string
+}
+
+func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.LocationName != nil {
+		queryParameters.Add(`locationName`, *p.LocationName)
+	}
+	if p.LocationAddress != nil {
+		queryParameters.Add(`locationAddress`, *p.LocationAddress)
+	}
+	if p.LocationType != nil {
+		queryParameters.Add(`locationType`, *p.LocationType)
+	}
+	if p.LocationDetails != nil {
+		queryParameters.Add(`locationDetails`, *p.LocationDetails)
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetVenueForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetVenueForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetVenueForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetVirbelaSitePageForEventParameters struct {
 	EventId    string
 	SitePageId string
