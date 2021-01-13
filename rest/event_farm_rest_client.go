@@ -1,18 +1,25 @@
-package gosdk
+package rest
 
 import (
-	"time"
 	"net/http"
 	"net/url"
+	"time"
 )
 
-const version = `6.4.x`
+const version = `7.2.4`
+
+type EventFarmRestConnection struct {
+	LoginUrl string
+	ApiUrl   string
+}
 
 type EventFarmRestClient struct {
 	restClient            RestClientInterface
 	accessTokenRestClient RestClientInterface
 	clientId              string
 	clientSecret          string
+	username              string
+	password              string
 	oAuthAccessToken      *OAuthAccessToken
 }
 
@@ -21,23 +28,28 @@ func NewEventFarmRestClient(
 	accessTokenRestClient RestClientInterface,
 	clientId string,
 	clientSecret string,
+	username string,
+	password string,
 	oAuthAccessToken *OAuthAccessToken,
 ) *EventFarmRestClient {
+
 	return &EventFarmRestClient{
 		restClient:            restClient,
 		accessTokenRestClient: accessTokenRestClient,
 		clientId:              clientId,
 		clientSecret:          clientSecret,
+		username:              username,
+		password:              password,
 		oAuthAccessToken:      oAuthAccessToken,
 	}
 }
 
 func (t *EventFarmRestClient) Get(
-		url string,
-		queryParameters *url.Values,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	queryParameters *url.Values,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
 	newHeaders, err := t.getAuthorizationHeader(headers)
 	if err != nil {
@@ -53,11 +65,11 @@ func (t *EventFarmRestClient) Get(
 }
 
 func (t *EventFarmRestClient) Post(
-		url string,
-		formParameters *url.Values,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	formParameters *url.Values,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
 	newHeaders, err := t.getAuthorizationHeader(headers)
 	if err != nil {
@@ -93,11 +105,11 @@ func (t *EventFarmRestClient) PostJSON(
 }
 
 func (t *EventFarmRestClient) PostMultipart(
-		url string,
-		multipart map[string]string,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	multipart map[string]string,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
 	newHeaders, err := t.getAuthorizationHeader(headers)
 	if err != nil {
@@ -131,7 +143,7 @@ func (t *EventFarmRestClient) getAuthorizationHeader(headers map[string]string) 
 
 func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
 	if t.oAuthAccessToken == nil {
-		t.oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 		if err != nil {
 			return
 		}
@@ -141,13 +153,13 @@ func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAcce
 		if t.oAuthAccessToken.refreshToken != `` {
 			t.oAuthAccessToken, err = t.getRefreshToken(t.oAuthAccessToken.refreshToken)
 			if err != nil {
-				oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+				oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 				if err != nil {
 					return
 				}
 			}
 		} else {
-			t.oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+			t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 			if err != nil {
 				return
 			}
@@ -166,7 +178,7 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 	values.Add(`client_secret`, t.clientSecret)
 
 	resp, err := t.accessTokenRestClient.Post(
-		`/oauth/token.json`,
+		`/oauth2/token`,
 		&values,
 		nil,
 		nil,
@@ -184,14 +196,16 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 	return
 }
 
-func (t *EventFarmRestClient) getClientCredentialsAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
+func (t *EventFarmRestClient) getPasswordGrantAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
 	values := url.Values{}
-	values.Add(`grant_type`, `client_credentials`)
+	values.Add(`grant_type`, `password`)
 	values.Add(`client_id`, t.clientId)
 	values.Add(`client_secret`, t.clientSecret)
+	values.Add(`username`, t.username)
+	values.Add(`password`, t.password)
 
 	resp, err := t.accessTokenRestClient.Post(
-		`/oauth/token.json`,
+		`/oauth2/token`,
 		&values,
 		nil,
 		nil,

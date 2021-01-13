@@ -1,37 +1,37 @@
-package gosdk
+package rest
 
 import (
-	"time"
-	"net/http"
-	"net/url"
 	"bytes"
+	"encoding/json"
 	"log"
+	"net/http"
 	"net/http/httputil"
+	"net/url"
+	"time"
 )
 
 type HttpRestClient struct {
-	timeout       time.Duration
-	baseUri       string
-	EnableLogging bool
+	DefaultTimeout time.Duration
+	BaseUri        string
+	EnableLogging  bool
 }
-
-const defaultTimeout = 20 * time.Second
 
 func NewHttpRestClient(baseUri string) *HttpRestClient {
 	return &HttpRestClient{
-		timeout: defaultTimeout,
-		baseUri: baseUri,
+		DefaultTimeout: 20 * time.Second,
+		BaseUri:        baseUri,
+		EnableLogging:  false,
 	}
 }
 
 func (restClient *HttpRestClient) Get(
-		url string,
-		queryParameters *url.Values,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	queryParameters *url.Values,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 
 	if queryParameters != nil && len(*queryParameters) > 0 {
 		url += `?` + queryParameters.Encode()
@@ -46,7 +46,7 @@ func (restClient *HttpRestClient) Get(
 		req.Header.Add(k, v)
 	}
 
-	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/` + version)
+	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
@@ -54,7 +54,10 @@ func (restClient *HttpRestClient) Get(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if timeout != nil {
+		client.Timeout = *timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
@@ -68,13 +71,13 @@ func (restClient *HttpRestClient) Get(
 }
 
 func (restClient *HttpRestClient) Post(
-		url string,
-		formParameters *url.Values,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	formParameters *url.Values,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 	body := bytes.NewBufferString(formParameters.Encode())
 
 	req, err := http.NewRequest(`POST`, url, body)
@@ -86,8 +89,8 @@ func (restClient *HttpRestClient) Post(
 		req.Header.Add(k, v)
 	}
 
-	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/` + version)
-	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded;charset=UTF-8)`)
+	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
+	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded; charset=UTF-8`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
@@ -95,7 +98,10 @@ func (restClient *HttpRestClient) Post(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if timeout != nil {
+		client.Timeout = *timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
@@ -138,7 +144,7 @@ func (restClient *HttpRestClient) PostJSON(
 
 	client := new(http.Client)
 	client.Timeout = restClient.DefaultTimeout
-	if (timeout != nil) {
+	if timeout != nil {
 		client.Timeout = *timeout
 	}
 	resp, err = client.Do(req)
@@ -154,13 +160,13 @@ func (restClient *HttpRestClient) PostJSON(
 }
 
 func (restClient *HttpRestClient) PostMultipart(
-		url string,
-		multipart map[string]string,
-		headers map[string]string,
-		timeout *time.Duration,
-	) (resp *http.Response, err error) {
+	url string,
+	multipart map[string]string,
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 
 	req, err := http.NewRequest(`POST`, url, nil)
 	if err != nil {
@@ -171,8 +177,8 @@ func (restClient *HttpRestClient) PostMultipart(
 		req.Header.Add(k, v)
 	}
 
-	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/` + version)
-	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded;charset=UTF-8)`)
+	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
+	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded; charset=UTF-8`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
@@ -180,7 +186,10 @@ func (restClient *HttpRestClient) PostMultipart(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if timeout != nil {
+		client.Timeout = *timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return

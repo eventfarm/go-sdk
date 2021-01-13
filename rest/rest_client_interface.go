@@ -1,4 +1,4 @@
-package gosdk
+package rest
 
 import (
 	"net/http"
@@ -13,6 +13,7 @@ type RestClientInterface interface {
 		headers map[string]string,
 		timeout *time.Duration,
 	) (resp *http.Response, err error)
+
 	Post(
 		url string,
 		formParameters *url.Values,
