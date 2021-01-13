@@ -1,13 +1,11 @@
-package rest
+package gosdk
 
 import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
 	"net/http"
+	"errors"
+	"encoding/json"
+	"io/ioutil"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 type OAuthAccessToken struct {
@@ -19,26 +17,26 @@ type OAuthAccessToken struct {
 }
 
 type OAuthAccessTokenResponse struct {
-	TokenType       string `json:"token_type"`
-	ExpiresIn       int64  `json:"expires_in"`
-	AccessTokenJWT  string `json:"access_token"`
-	RefreshTokenJWT string `json:"refresh_token"`
+	TokenType    string `json:"token_type"`
+	ExpiresIn    int64  `json:"expires_in"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 type EventFarmAccessTokenResponse struct {
 	OAuthAccessTokenResponse
-	ExpiresAt int64  `json:"expires_at"`
-	UserId    string `json:"user_id"`
+	ExpiresAt    int64  `json:"expires_at"`
+	UserId       string `json:"user_id"`
 }
 
-func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthAccessToken, err error) {
-	if r.StatusCode != 200 {
+func NewOAuthAccessTokenFromResponse(response *http.Response) (oAuthAccessToken *OAuthAccessToken, err error) {
+	if response.StatusCode != 200 {
 		err = errors.New(`Unable to load access token`)
-		LogResponse(r)
+		LogResponse(response)
 		return
 	}
 
-	bodyBuff, err := ioutil.ReadAll(r.Body)
+	bodyBuff, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return
 	}
@@ -49,43 +47,15 @@ func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthA
 		return
 	}
 
-	accessToken, err := getTokenFromJWT(eventFarmAccessTokenResponse.AccessTokenJWT, "")
-	if err != nil {
-		return
-	}
-
 	oAuthAccessToken = &OAuthAccessToken{
 		tokenType:    eventFarmAccessTokenResponse.TokenType,
-		expiresAt:    accessToken.expiresAt,
-		userId:       accessToken.userId,
-		accessToken:  accessToken.token,
-		refreshToken: "", // wip decode the refresh token
+		expiresAt:    eventFarmAccessTokenResponse.ExpiresAt,
+		userId:       eventFarmAccessTokenResponse.UserId,
+		accessToken:  eventFarmAccessTokenResponse.AccessToken,
+		refreshToken: eventFarmAccessTokenResponse.RefreshToken,
 	}
 
 	return
-}
-
-type OAuthToken struct {
-	token     string
-	userId    string
-	expiresAt int64
-}
-
-func getTokenFromJWT(token string, secret string) (oauthToken *OAuthToken, err error) {
-	claims := jwt.MapClaims{}
-	_, err = jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secret), nil
-	})
-
-	jti := claims["jti"].(string)
-	sub := claims["sub"].(string)
-	exp := claims["exp"].(float64)
-
-	return &OAuthToken{
-		token:     jti,
-		userId:    sub,
-		expiresAt: int64(exp),
-	}, nil
 }
 
 func (t OAuthAccessToken) getHeaderString() string {
