@@ -882,6 +882,31 @@ func (t *Invitation) CheckInWithJSON(data *map[string]interface{}) (r *http.Resp
 	)
 }
 
+type CheckInWebConferenceRegistrantParameters struct {
+	RegistrantId string
+}
+
+func (t *Invitation) CheckInWebConferenceRegistrant(p *CheckInWebConferenceRegistrantParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`registrantId`, p.RegistrantId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/CheckInWebConferenceRegistrant`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CheckInWebConferenceRegistrantWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CheckInWebConferenceRegistrant`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateInvitationParameters struct {
 	EventId                   string
 	StackId                   string

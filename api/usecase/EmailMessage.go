@@ -733,6 +733,165 @@ func (t *EmailMessage) SendAMessageToTicketTypesWithJSON(data *map[string]interf
 	)
 }
 
+type SendAlertUserEmailParameters struct {
+	ToEmail           string
+	Subject           string
+	TemplateName      string
+	TemplateVariables []string
+	CcEmails          *[]string
+	BccEmails         *[]string
+}
+
+func (t *EmailMessage) SendAlertUserEmail(p *SendAlertUserEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`toEmail`, p.ToEmail)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`templateName`, p.TemplateName)
+	for i := range p.TemplateVariables {
+		queryParameters.Add(`templateVariables[]`, p.TemplateVariables[i])
+	}
+	if p.CcEmails != nil {
+		for i := range *p.CcEmails {
+			queryParameters.Add(`ccEmails[]`, (*p.CcEmails)[i])
+		}
+	}
+	if p.BccEmails != nil {
+		for i := range *p.BccEmails {
+			queryParameters.Add(`bccEmails[]`, (*p.BccEmails)[i])
+		}
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendAlertUserEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendAlertUserEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAlertUserEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SendEmailMessageParameters struct {
+	ToEmail             string
+	Subject             string
+	MessageContents     string
+	EventEmail          string
+	Layout              string
+	Associations        *[]string
+	EmailMessageDetails *[]string
+	InvitationId        *string
+	OwnerUserId         *string
+	ContainsEchoLink    *bool
+	EventId             *string
+	RecipientUserId     *string
+}
+
+func (t *EmailMessage) SendEmailMessage(p *SendEmailMessageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`toEmail`, p.ToEmail)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`messageContents`, p.MessageContents)
+	queryParameters.Add(`eventEmail`, p.EventEmail)
+	queryParameters.Add(`layout`, p.Layout)
+	if p.Associations != nil {
+		for i := range *p.Associations {
+			queryParameters.Add(`associations[]`, (*p.Associations)[i])
+		}
+	}
+	if p.EmailMessageDetails != nil {
+		for i := range *p.EmailMessageDetails {
+			queryParameters.Add(`emailMessageDetails[]`, (*p.EmailMessageDetails)[i])
+		}
+	}
+	if p.InvitationId != nil {
+		queryParameters.Add(`invitationId`, *p.InvitationId)
+	}
+	if p.OwnerUserId != nil {
+		queryParameters.Add(`ownerUserId`, *p.OwnerUserId)
+	}
+	if p.ContainsEchoLink != nil {
+		queryParameters.Add(`containsEchoLink`, strconv.FormatBool(*p.ContainsEchoLink))
+	}
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
+	}
+	if p.RecipientUserId != nil {
+		queryParameters.Add(`recipientUserId`, *p.RecipientUserId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendEmailMessage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendEmailMessage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SendGenericEmailParameters struct {
+	ToEmail           string
+	Subject           string
+	TemplateName      string
+	TemplateVariables []string
+	FromEmail         string
+	ReplyEmail        string
+	CcEmails          *[]string
+	BccEmails         *[]string
+}
+
+func (t *EmailMessage) SendGenericEmail(p *SendGenericEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`toEmail`, p.ToEmail)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`templateName`, p.TemplateName)
+	for i := range p.TemplateVariables {
+		queryParameters.Add(`templateVariables[]`, p.TemplateVariables[i])
+	}
+	queryParameters.Add(`fromEmail`, p.FromEmail)
+	queryParameters.Add(`replyEmail`, p.ReplyEmail)
+	if p.CcEmails != nil {
+		for i := range *p.CcEmails {
+			queryParameters.Add(`ccEmails[]`, (*p.CcEmails)[i])
+		}
+	}
+	if p.BccEmails != nil {
+		for i := range *p.BccEmails {
+			queryParameters.Add(`bccEmails[]`, (*p.BccEmails)[i])
+		}
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendGenericEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendGenericEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendGenericEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendScheduledBatchEmailMessageParameters struct {
 	ScheduledBatchEmailMessageId string
 	UserId                       *string
@@ -756,6 +915,100 @@ func (t *EmailMessage) SendScheduledBatchEmailMessage(p *SendScheduledBatchEmail
 func (t *EmailMessage) SendScheduledBatchEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/EmailMessage/UseCase/SendScheduledBatchEmailMessage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SendSystemEmailParameters struct {
+	ToEmail           string
+	Subject           string
+	TemplateName      string
+	TemplateVariables []string
+	CcEmails          *[]string
+	BccEmails         *[]string
+}
+
+func (t *EmailMessage) SendSystemEmail(p *SendSystemEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`toEmail`, p.ToEmail)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`templateName`, p.TemplateName)
+	for i := range p.TemplateVariables {
+		queryParameters.Add(`templateVariables[]`, p.TemplateVariables[i])
+	}
+	if p.CcEmails != nil {
+		for i := range *p.CcEmails {
+			queryParameters.Add(`ccEmails[]`, (*p.CcEmails)[i])
+		}
+	}
+	if p.BccEmails != nil {
+		for i := range *p.BccEmails {
+			queryParameters.Add(`bccEmails[]`, (*p.BccEmails)[i])
+		}
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendSystemEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendSystemEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendSystemEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SendVerifyEmailParameters struct {
+	ToEmail           string
+	Subject           string
+	TemplateName      string
+	TemplateVariables []string
+	CcEmails          *[]string
+	BccEmails         *[]string
+	AppName           *string
+}
+
+func (t *EmailMessage) SendVerifyEmail(p *SendVerifyEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`toEmail`, p.ToEmail)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`templateName`, p.TemplateName)
+	for i := range p.TemplateVariables {
+		queryParameters.Add(`templateVariables[]`, p.TemplateVariables[i])
+	}
+	if p.CcEmails != nil {
+		for i := range *p.CcEmails {
+			queryParameters.Add(`ccEmails[]`, (*p.CcEmails)[i])
+		}
+	}
+	if p.BccEmails != nil {
+		for i := range *p.BccEmails {
+			queryParameters.Add(`bccEmails[]`, (*p.BccEmails)[i])
+		}
+	}
+	if p.AppName != nil {
+		queryParameters.Add(`appName`, *p.AppName)
+	}
+
+	return t.restClient.Post(
+		`/v2/EmailMessage/UseCase/SendVerifyEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendVerifyEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendVerifyEmail`,
 		data,
 		nil,
 		nil,

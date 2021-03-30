@@ -30,6 +30,7 @@ type ProviderType struct {
 	IsMarketo    bool
 	IsLinkedIn   bool
 	IsSalesforce bool
+	IsZoom       bool
 }
 
 type RoleType struct {
@@ -190,6 +191,7 @@ func (f *User) ListProviderTypes() []ProviderType {
 			IsMarketo:    false,
 			IsLinkedIn:   false,
 			IsSalesforce: false,
+			IsZoom:       false,
 		},
 		{
 			Slug:         `marketo`,
@@ -199,6 +201,7 @@ func (f *User) ListProviderTypes() []ProviderType {
 			IsMarketo:    true,
 			IsLinkedIn:   false,
 			IsSalesforce: false,
+			IsZoom:       false,
 		},
 		{
 			Slug:         `linked_in`,
@@ -208,6 +211,7 @@ func (f *User) ListProviderTypes() []ProviderType {
 			IsMarketo:    false,
 			IsLinkedIn:   true,
 			IsSalesforce: false,
+			IsZoom:       false,
 		},
 		{
 			Slug:         `salesforce`,
@@ -217,6 +221,17 @@ func (f *User) ListProviderTypes() []ProviderType {
 			IsMarketo:    false,
 			IsLinkedIn:   false,
 			IsSalesforce: true,
+			IsZoom:       false,
+		},
+		{
+			Slug:         `zoom`,
+			Name:         `Zoom`,
+			Description:  ``,
+			IsGoogle:     false,
+			IsMarketo:    false,
+			IsLinkedIn:   false,
+			IsSalesforce: false,
+			IsZoom:       true,
 		},
 	}
 }

@@ -234,6 +234,10 @@ func (f *Factory) VirbelaWorld() *VirbelaWorld {
 	return NewVirbelaWorld(f.restClient)
 }
 
+func (f *Factory) WebConference() *WebConference {
+	return NewWebConference(f.restClient)
+}
+
 func (f *Factory) Withdrawal() *Withdrawal {
 	return NewWithdrawal(f.restClient)
 }

@@ -98,3 +98,7 @@ func (f *Factory) User() *User {
 func (f *Factory) Virbela() *Virbela {
 	return NewVirbela()
 }
+
+func (f *Factory) WebConference() *WebConference {
+	return NewWebConference()
+}

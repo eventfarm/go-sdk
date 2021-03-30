@@ -69,6 +69,7 @@ type ListPaymentsForEventParameters struct {
 	Query         *string
 	SortBy        *string
 	SortDirection *string
+	TypeFilter    *[]string // transaction | ticket
 }
 
 func (t *Payment) ListPaymentsForEvent(p *ListPaymentsForEventParameters) (r *http.Response, err error) {
@@ -93,6 +94,11 @@ func (t *Payment) ListPaymentsForEvent(p *ListPaymentsForEventParameters) (r *ht
 	}
 	if p.SortDirection != nil {
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.TypeFilter != nil {
+		for i := range *p.TypeFilter {
+			queryParameters.Add(`typeFilter[]`, (*p.TypeFilter)[i])
+		}
 	}
 
 	return t.restClient.Get(

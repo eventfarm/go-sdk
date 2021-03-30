@@ -290,6 +290,33 @@ func (t *Pool) CreatePoolWebhookWithJSON(data *map[string]interface{}) (r *http.
 	)
 }
 
+type RemoveAllUserRolesFromPoolParameters struct {
+	UserId string
+	PoolId string
+}
+
+func (t *Pool) RemoveAllUserRolesFromPool(p *RemoveAllUserRolesFromPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/RemoveAllUserRolesFromPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) RemoveAllUserRolesFromPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/RemoveAllUserRolesFromPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveCustomerDisplayNameForPoolParameters struct {
 	PoolId string
 }

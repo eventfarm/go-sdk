@@ -2145,6 +2145,31 @@ func (t *Event) RemoveTrackingScriptForEventWithJSON(data *map[string]interface{
 	)
 }
 
+type RemoveWebConferenceAttributesFromEventParameters struct {
+	EventId string
+}
+
+func (t *Event) RemoveWebConferenceAttributesFromEvent(p *RemoveWebConferenceAttributesFromEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveWebConferenceAttributesFromEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveWebConferenceAttributesFromEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveWebConferenceAttributesFromEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendContactEmailParameters struct {
 	EventId      string
 	FromName     string
@@ -2768,6 +2793,39 @@ func (t *Event) SetVirbelaSitePageForEvent(p *SetVirbelaSitePageForEventParamete
 func (t *Event) SetVirbelaSitePageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetVirbelaSitePageForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetWebConferenceAttributesForEventParameters struct {
+	EventId         string
+	SourceType      string
+	AuthUserId      string
+	WebConferenceId string
+	Format          string
+}
+
+func (t *Event) SetWebConferenceAttributesForEvent(p *SetWebConferenceAttributesForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`sourceType`, p.SourceType)
+	queryParameters.Add(`authUserId`, p.AuthUserId)
+	queryParameters.Add(`webConferenceId`, p.WebConferenceId)
+	queryParameters.Add(`format`, p.Format)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetWebConferenceAttributesForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetWebConferenceAttributesForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetWebConferenceAttributesForEvent`,
 		data,
 		nil,
 		nil,

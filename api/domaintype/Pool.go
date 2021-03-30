@@ -41,6 +41,7 @@ type FeatureType struct {
 	IsChildEvents          bool
 	IsWaitlist             bool
 	IsVirbela              bool
+	IsWebConference        bool
 }
 
 type PoolAllotmentType struct {
@@ -113,6 +114,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `apiaccess`,
@@ -144,6 +146,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `marketo`,
@@ -175,6 +178,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `emailmasking`,
@@ -206,6 +210,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `whitelabeling`,
@@ -237,6 +242,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `agents`,
@@ -268,6 +274,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `visacheckout`,
@@ -299,6 +306,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `canvas`,
@@ -330,6 +338,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `harvester`,
@@ -361,6 +370,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `accesscontrol-efx`,
@@ -392,6 +402,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `athletebag-efx`,
@@ -423,6 +434,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `concierge-efx`,
@@ -454,6 +466,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `digitalmemorybank-efx`,
@@ -485,6 +498,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `guestinfo-efx`,
@@ -516,6 +530,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `messaging-efx`,
@@ -547,6 +562,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `smsquiz-efx`,
@@ -578,6 +594,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `productpickup-efx`,
@@ -609,6 +626,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `raffle-efx`,
@@ -640,6 +658,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `reservation-efx`,
@@ -671,6 +690,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `roamingphotog-efx`,
@@ -702,6 +722,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `smartbar-efx`,
@@ -733,6 +754,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `teams-efx`,
@@ -764,6 +786,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `event-app`,
@@ -795,6 +818,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `child-events`,
@@ -826,6 +850,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          true,
 			IsWaitlist:             false,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `waitlist`,
@@ -857,6 +882,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             true,
 			IsVirbela:              false,
+			IsWebConference:        false,
 		},
 		{
 			Slug:                   `virbela`,
@@ -888,6 +914,39 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsChildEvents:          false,
 			IsWaitlist:             false,
 			IsVirbela:              true,
+			IsWebConference:        false,
+		},
+		{
+			Slug:                   `web-conference`,
+			Name:                   `Web Conference`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        true,
 		},
 	}
 }
