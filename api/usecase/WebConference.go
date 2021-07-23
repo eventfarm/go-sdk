@@ -81,6 +81,22 @@ func (t *WebConference) ListWebConferencesForAuthUser(p *ListWebConferencesForAu
 	)
 }
 
+type VerifyWebConferenceSettingsAndCapacityForEventParameters struct {
+	EventId string
+}
+
+func (t *WebConference) VerifyWebConferenceSettingsAndCapacityForEvent(p *VerifyWebConferenceSettingsAndCapacityForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Get(
+		`/v2/WebConference/UseCase/VerifyWebConferenceSettingsAndCapacityForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
 
 type CompleteWebConferenceDeAuthorizeFlowParameters struct {
@@ -137,6 +153,62 @@ func (t *WebConference) CompleteWebConferenceOAuthFlow(p *CompleteWebConferenceO
 func (t *WebConference) CompleteWebConferenceOAuthFlowWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/WebConference/UseCase/CompleteWebConferenceOAuthFlow`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type FixWebConferenceSettingsForEventParameters struct {
+	EventId string
+}
+
+func (t *WebConference) FixWebConferenceSettingsForEvent(p *FixWebConferenceSettingsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/WebConference/UseCase/FixWebConferenceSettingsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *WebConference) FixWebConferenceSettingsForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/WebConference/UseCase/FixWebConferenceSettingsForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type QuickCreateWebConferenceForEventParameters struct {
+	EventId string
+	UserId  string
+	Type    string
+	Format  string
+}
+
+func (t *WebConference) QuickCreateWebConferenceForEvent(p *QuickCreateWebConferenceForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`type`, p.Type)
+	queryParameters.Add(`format`, p.Format)
+
+	return t.restClient.Post(
+		`/v2/WebConference/UseCase/QuickCreateWebConferenceForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *WebConference) QuickCreateWebConferenceForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/WebConference/UseCase/QuickCreateWebConferenceForEvent`,
 		data,
 		nil,
 		nil,

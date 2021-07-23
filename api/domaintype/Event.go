@@ -152,6 +152,16 @@ type MapSourceType struct {
 	IsBing      bool
 }
 
+type PaymentProcessorType struct {
+	Slug           string
+	Name           string
+	Description    string
+	IsStripe       bool
+	IsPaypal       bool
+	IsAuthorizeNet bool
+	IsSpreedly     bool
+}
+
 type ProcessingCurrencyType struct {
 	Slug        string
 	Name        string
@@ -1884,6 +1894,47 @@ func (f *Event) ListMapSourceTypes() []MapSourceType {
 			IsGoogle:    false,
 			IsYahoo:     false,
 			IsBing:      true,
+		},
+	}
+}
+
+func (f *Event) ListPaymentProcessorTypes() []PaymentProcessorType {
+	return []PaymentProcessorType{
+		{
+			Slug:           `STRIPE`,
+			Name:           `STRIPE`,
+			Description:    `STRIPE`,
+			IsStripe:       true,
+			IsPaypal:       false,
+			IsAuthorizeNet: false,
+			IsSpreedly:     false,
+		},
+		{
+			Slug:           `PAYPAL`,
+			Name:           `PAYPAL`,
+			Description:    `PAYPAL`,
+			IsStripe:       false,
+			IsPaypal:       true,
+			IsAuthorizeNet: false,
+			IsSpreedly:     false,
+		},
+		{
+			Slug:           `AUTHORIZENET`,
+			Name:           `AUTHORIZENET`,
+			Description:    `AUTHORIZENET`,
+			IsStripe:       false,
+			IsPaypal:       false,
+			IsAuthorizeNet: true,
+			IsSpreedly:     false,
+		},
+		{
+			Slug:           `SPREEDLY`,
+			Name:           `SPREEDLY`,
+			Description:    `SPREEDLY`,
+			IsStripe:       false,
+			IsPaypal:       false,
+			IsAuthorizeNet: false,
+			IsSpreedly:     true,
 		},
 	}
 }

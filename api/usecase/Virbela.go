@@ -104,6 +104,31 @@ func (t *Virbela) SuspendAllUsersForVirbelaWithJSON(data *map[string]interface{}
 	)
 }
 
+type SuspendInvitationForVirbelaParameters struct {
+	InvitationId string
+}
+
+func (t *Virbela) SuspendInvitationForVirbela(p *SuspendInvitationForVirbelaParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+
+	return t.restClient.Post(
+		`/v2/Virbela/UseCase/SuspendInvitationForVirbela`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Virbela) SuspendInvitationForVirbelaWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Virbela/UseCase/SuspendInvitationForVirbela`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SuspendUserForVirbelaParameters struct {
 	InvitationId string
 }

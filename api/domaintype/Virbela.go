@@ -19,6 +19,7 @@ type VirbelaRoleType struct {
 	IsAdmin     bool
 	IsSuspended bool
 	IsModerator bool
+	IsLeader    bool
 }
 
 func (f *Virbela) ListVirbelaRoleTypes() []VirbelaRoleType {
@@ -31,6 +32,7 @@ func (f *Virbela) ListVirbelaRoleTypes() []VirbelaRoleType {
 			IsAdmin:     false,
 			IsSuspended: false,
 			IsModerator: false,
+			IsLeader:    false,
 		},
 		{
 			Slug:        `moderator`,
@@ -40,6 +42,7 @@ func (f *Virbela) ListVirbelaRoleTypes() []VirbelaRoleType {
 			IsAdmin:     false,
 			IsSuspended: false,
 			IsModerator: true,
+			IsLeader:    false,
 		},
 		{
 			Slug:        `admin`,
@@ -49,6 +52,7 @@ func (f *Virbela) ListVirbelaRoleTypes() []VirbelaRoleType {
 			IsAdmin:     true,
 			IsSuspended: false,
 			IsModerator: false,
+			IsLeader:    false,
 		},
 		{
 			Slug:        `suspended`,
@@ -58,6 +62,17 @@ func (f *Virbela) ListVirbelaRoleTypes() []VirbelaRoleType {
 			IsAdmin:     false,
 			IsSuspended: true,
 			IsModerator: false,
+			IsLeader:    false,
+		},
+		{
+			Slug:        `leader`,
+			Name:        `Leader`,
+			Description: ``,
+			IsMember:    false,
+			IsAdmin:     false,
+			IsSuspended: false,
+			IsModerator: false,
+			IsLeader:    true,
 		},
 	}
 }

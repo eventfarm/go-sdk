@@ -5,6 +5,7 @@
 package usecase
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -1363,6 +1364,81 @@ func (t *Event) DisableQuestionWithJSON(data *map[string]interface{}) (r *http.R
 	)
 }
 
+type DisableShieldParameters struct {
+	EventId string
+}
+
+func (t *Event) DisableShield(p *DisableShieldParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/DisableShield`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableShieldWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableShield`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type DisableShowCalendarParameters struct {
+	EventId string
+}
+
+func (t *Event) DisableShowCalendar(p *DisableShowCalendarParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/DisableShowCalendar`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableShowCalendarWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableShowCalendar`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type DisableSocialMediaBarParameters struct {
+	EventId string
+}
+
+func (t *Event) DisableSocialMediaBar(p *DisableSocialMediaBarParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/DisableSocialMediaBar`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableSocialMediaBarWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableSocialMediaBar`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableUserFieldParameters struct {
 	EventId string
 	Field   string
@@ -1840,6 +1916,81 @@ func (t *Event) EnableQuestionWithJSON(data *map[string]interface{}) (r *http.Re
 	)
 }
 
+type EnableShieldParameters struct {
+	EventId string
+}
+
+func (t *Event) EnableShield(p *EnableShieldParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/EnableShield`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableShieldWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableShield`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type EnableShowCalendarParameters struct {
+	EventId string
+}
+
+func (t *Event) EnableShowCalendar(p *EnableShowCalendarParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/EnableShowCalendar`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableShowCalendarWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableShowCalendar`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type EnableSocialMediaBarParameters struct {
+	EventId string
+}
+
+func (t *Event) EnableSocialMediaBar(p *EnableSocialMediaBarParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/EnableSocialMediaBar`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableSocialMediaBarWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableSocialMediaBar`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableUserFieldParameters struct {
 	EventId string
 	Field   string
@@ -2223,6 +2374,60 @@ func (t *Event) SendMessageToGuestListWithJSON(data *map[string]interface{}) (r 
 	)
 }
 
+type SetAltEmailLayoutForEventParameters struct {
+	EventId        string
+	AltEmailLayout string
+}
+
+func (t *Event) SetAltEmailLayoutForEvent(p *SetAltEmailLayoutForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altEmailLayout`, p.AltEmailLayout)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltEmailLayoutForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltEmailLayoutForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltEmailLayoutForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetAltFormStyleVarsForEventParameters struct {
+	EventId          string
+	AltFormStyleVars string
+}
+
+func (t *Event) SetAltFormStyleVarsForEvent(p *SetAltFormStyleVarsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altFormStyleVars`, p.AltFormStyleVars)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltFormStyleVarsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltFormStyleVarsForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltFormStyleVarsForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetAltKeywordForEventParameters struct {
 	EventId    string
 	AltKeyword string
@@ -2244,6 +2449,114 @@ func (t *Event) SetAltKeywordForEvent(p *SetAltKeywordForEventParameters) (r *ht
 func (t *Event) SetAltKeywordForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetAltKeywordForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetAltLayoutForEventParameters struct {
+	EventId   string
+	AltLayout string
+}
+
+func (t *Event) SetAltLayoutForEvent(p *SetAltLayoutForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altLayout`, p.AltLayout)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltLayoutForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltLayoutForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltLayoutForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetAltPayeeForEventParameters struct {
+	EventId  string
+	AltPayee string
+}
+
+func (t *Event) SetAltPayeeForEvent(p *SetAltPayeeForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altPayee`, p.AltPayee)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltPayeeForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltPayeeForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltPayeeForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetAltPaymentFileForEventParameters struct {
+	EventId        string
+	AltPaymentFile string
+}
+
+func (t *Event) SetAltPaymentFileForEvent(p *SetAltPaymentFileForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altPaymentFile`, p.AltPaymentFile)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltPaymentFileForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltPaymentFileForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltPaymentFileForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetAltPaymentProcessorForEventParameters struct {
+	EventId               string
+	AltPaymentProcessType string
+}
+
+func (t *Event) SetAltPaymentProcessorForEvent(p *SetAltPaymentProcessorForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`altPaymentProcessType`, p.AltPaymentProcessType)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetAltPaymentProcessorForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAltPaymentProcessorForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltPaymentProcessorForEvent`,
 		data,
 		nil,
 		nil,
@@ -2352,6 +2665,33 @@ func (t *Event) SetDescriptionForEvent(p *SetDescriptionForEventParameters) (r *
 func (t *Event) SetDescriptionForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetDescriptionForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetEventTypeParameters struct {
+	EventId   string
+	EventType string
+}
+
+func (t *Event) SetEventType(p *SetEventTypeParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventType`, p.EventType)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetEventType`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetEventTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetEventType`,
 		data,
 		nil,
 		nil,
@@ -2611,6 +2951,114 @@ func (t *Event) SetNameForEvent(p *SetNameForEventParameters) (r *http.Response,
 func (t *Event) SetNameForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetNameForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetProcessingCurrencyParameters struct {
+	EventId            string
+	ProcessingCurrency string
+}
+
+func (t *Event) SetProcessingCurrency(p *SetProcessingCurrencyParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`processingCurrency`, p.ProcessingCurrency)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetProcessingCurrency`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetProcessingCurrencyWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetProcessingCurrency`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetProcessingFeeParameters struct {
+	EventId       string
+	ProcessingFee float64
+}
+
+func (t *Event) SetProcessingFee(p *SetProcessingFeeParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`processingFee`, fmt.Sprintf("%f", p.ProcessingFee))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetProcessingFee`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetProcessingFeeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetProcessingFee`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetProcessingPercentageParameters struct {
+	EventId              string
+	ProcessingPercentage float64
+}
+
+func (t *Event) SetProcessingPercentage(p *SetProcessingPercentageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`processingPercentage`, fmt.Sprintf("%f", p.ProcessingPercentage))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetProcessingPercentage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetProcessingPercentageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetProcessingPercentage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetProcessingRefundParameters struct {
+	EventId          string
+	ProcessingRefund float64
+}
+
+func (t *Event) SetProcessingRefund(p *SetProcessingRefundParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`processingRefund`, fmt.Sprintf("%f", p.ProcessingRefund))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetProcessingRefund`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetProcessingRefundWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetProcessingRefund`,
 		data,
 		nil,
 		nil,

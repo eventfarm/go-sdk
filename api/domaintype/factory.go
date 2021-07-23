@@ -11,6 +11,10 @@ func NewDomainTypeFactory() *Factory {
 	return &Factory{}
 }
 
+func (f *Factory) ActivityLog() *ActivityLog {
+	return NewActivityLog()
+}
+
 func (f *Factory) AppVersion() *AppVersion {
 	return NewAppVersion()
 }

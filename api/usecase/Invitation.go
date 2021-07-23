@@ -22,6 +22,24 @@ func NewInvitation(restClient rest.RestClientInterface) *Invitation {
 
 // GET: Queries
 
+type CheckIfInvitationExistsForEventFromClearQRCodeParameters struct {
+	EventId string
+	ClearId string
+}
+
+func (t *Invitation) CheckIfInvitationExistsForEventFromClearQRCode(p *CheckIfInvitationExistsForEventFromClearQRCodeParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`clearId`, p.ClearId)
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/CheckIfInvitationExistsForEventFromClearQRCode`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type GetAllInvitationStatusTypesForStackMethodTypeParameters struct {
 	StackMethodType string
 }
@@ -1083,6 +1101,45 @@ func (t *Invitation) CreateInvitationForTicketBlockWithJSON(data *map[string]int
 	)
 }
 
+type CreateInvitationForUserParameters struct {
+	UserId               string
+	GuestsPerInvitation  int64 // >= 1
+	StackId              string
+	InvitationStatusType string
+	ShouldSendEmail      *bool
+	TicketBlockId        *string
+}
+
+func (t *Invitation) CreateInvitationForUser(p *CreateInvitationForUserParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`guestsPerInvitation`, strconv.FormatInt(p.GuestsPerInvitation, 10))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`invitationStatusType`, p.InvitationStatusType)
+	if p.ShouldSendEmail != nil {
+		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
+	}
+	if p.TicketBlockId != nil {
+		queryParameters.Add(`ticketBlockId`, *p.TicketBlockId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/CreateInvitationForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CreateInvitationForUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateInvitationForUser`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateInvitationsFromGroupParameters struct {
 	GroupId                string
 	StackId                string
@@ -1313,6 +1370,31 @@ func (t *Invitation) RescindAllInvitations(p *RescindAllInvitationsParameters) (
 func (t *Invitation) RescindAllInvitationsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Invitation/UseCase/RescindAllInvitations`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type RescindInvitationParameters struct {
+	InvitationId string
+}
+
+func (t *Invitation) RescindInvitation(p *RescindInvitationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/RescindInvitation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) RescindInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/RescindInvitation`,
 		data,
 		nil,
 		nil,

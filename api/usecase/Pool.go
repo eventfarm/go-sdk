@@ -226,6 +226,37 @@ func (t *Pool) ListUniqueTagNamesForPool(p *ListUniqueTagNamesForPoolParameters)
 
 // POST: Commands
 
+type CreatePoolParameters struct {
+	Name      string
+	ShortName string
+	PoolId    *string
+}
+
+func (t *Pool) CreatePool(p *CreatePoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`shortName`, p.ShortName)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/CreatePool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) CreatePoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/CreatePool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreatePoolContractParameters struct {
 	PoolId           string
 	PoolContractType string
@@ -435,6 +466,33 @@ func (t *Pool) SetCustomerDisplayNameForPoolWithJSON(data *map[string]interface{
 	)
 }
 
+type SetNameForPoolParameters struct {
+	PoolId string
+	Name   string
+}
+
+func (t *Pool) SetNameForPool(p *SetNameForPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`name`, p.Name)
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/SetNameForPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) SetNameForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/SetNameForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetPrivacyPolicyLinkForPoolParameters struct {
 	PoolId            string
 	PrivacyPolicyLink string
@@ -456,6 +514,33 @@ func (t *Pool) SetPrivacyPolicyLinkForPool(p *SetPrivacyPolicyLinkForPoolParamet
 func (t *Pool) SetPrivacyPolicyLinkForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Pool/UseCase/SetPrivacyPolicyLinkForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetShortNameForPoolParameters struct {
+	PoolId    string
+	ShortName string
+}
+
+func (t *Pool) SetShortNameForPool(p *SetShortNameForPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`shortName`, p.ShortName)
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/SetShortNameForPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) SetShortNameForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/SetShortNameForPool`,
 		data,
 		nil,
 		nil,

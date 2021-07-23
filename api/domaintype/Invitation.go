@@ -11,6 +11,16 @@ func NewInvitation() *Invitation {
 	return &Invitation{}
 }
 
+type ClearFailureType struct {
+	Slug          string
+	Name          string
+	Description   string
+	IsExpired     bool
+	IsNonUnique   bool
+	IsNotFound    bool
+	IsInvalidName bool
+}
+
 type InvitationActionType struct {
 	Slug           string
 	Name           string
@@ -103,6 +113,47 @@ type WebhookType struct {
 	IsAffirmativeSMS bool
 	IsUpdatedSMS     bool
 	IsCreatedSMS     bool
+}
+
+func (f *Invitation) ListClearFailureTypes() []ClearFailureType {
+	return []ClearFailureType{
+		{
+			Slug:          `expired`,
+			Name:          `Expired`,
+			Description:   ``,
+			IsExpired:     true,
+			IsNonUnique:   false,
+			IsNotFound:    false,
+			IsInvalidName: false,
+		},
+		{
+			Slug:          `non-unique`,
+			Name:          `Non Unique`,
+			Description:   ``,
+			IsExpired:     false,
+			IsNonUnique:   true,
+			IsNotFound:    false,
+			IsInvalidName: false,
+		},
+		{
+			Slug:          `not-found`,
+			Name:          `Not Found`,
+			Description:   ``,
+			IsExpired:     false,
+			IsNonUnique:   false,
+			IsNotFound:    true,
+			IsInvalidName: false,
+		},
+		{
+			Slug:          `invalid-name`,
+			Name:          `Invalid Name`,
+			Description:   ``,
+			IsExpired:     false,
+			IsNonUnique:   false,
+			IsNotFound:    false,
+			IsInvalidName: true,
+		},
+	}
 }
 
 func (f *Invitation) ListInvitationActionTypes() []InvitationActionType {

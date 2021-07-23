@@ -122,6 +122,10 @@ func (f *Factory) Pool() *Pool {
 	return NewPool(f.restClient)
 }
 
+func (f *Factory) PoolAllotment() *PoolAllotment {
+	return NewPoolAllotment(f.restClient)
+}
+
 func (f *Factory) PoolContact() *PoolContact {
 	return NewPoolContact(f.restClient)
 }
