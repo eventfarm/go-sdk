@@ -18,8 +18,7 @@ type EventFarmRestClient struct {
 	accessTokenRestClient RestClientInterface
 	clientId              string
 	clientSecret          string
-	username              string
-	password              string
+	audience			  string
 	oAuthAccessToken      *OAuthAccessToken
 }
 
@@ -28,8 +27,7 @@ func NewEventFarmRestClient(
 	accessTokenRestClient RestClientInterface,
 	clientId string,
 	clientSecret string,
-	username string,
-	password string,
+	audience string,
 	oAuthAccessToken *OAuthAccessToken,
 ) *EventFarmRestClient {
 
@@ -38,8 +36,7 @@ func NewEventFarmRestClient(
 		accessTokenRestClient: accessTokenRestClient,
 		clientId:              clientId,
 		clientSecret:          clientSecret,
-		username:              username,
-		password:              password,
+		audience: 			   audience,
 		oAuthAccessToken:      oAuthAccessToken,
 	}
 }
@@ -176,7 +173,6 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 	values.Add(`refresh_token`, refreshToken)
 	values.Add(`client_id`, t.clientId)
 	values.Add(`client_secret`, t.clientSecret)
-
 	resp, err := t.accessTokenRestClient.Post(
 		`/oauth2/token`,
 		&values,
@@ -197,16 +193,20 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 }
 
 func (t *EventFarmRestClient) getPasswordGrantAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
-	values := url.Values{}
-	values.Add(`grant_type`, `password`)
-	values.Add(`client_id`, t.clientId)
-	values.Add(`client_secret`, t.clientSecret)
-	values.Add(`username`, t.username)
-	values.Add(`password`, t.password)
+	// newHeaders := make(map[string]string)
+	// newHeaders[`Content-Type`] = `application/json`
 
-	resp, err := t.accessTokenRestClient.Post(
-		`/oauth2/token`,
-		&values,
+
+	values := &map[string]interface{}{
+		"grant_type": "client_credentials",
+		"client_id": t.clientId,
+		"client_secret": t.clientSecret,
+		"audience": t.audience,
+	  }
+
+	resp, err := t.accessTokenRestClient.PostJSON(
+		`/oauth/token`,
+		values,
 		nil,
 		nil,
 	)

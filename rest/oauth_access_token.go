@@ -6,29 +6,25 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 type OAuthAccessToken struct {
 	tokenType    string
 	accessToken  string
-	expiresAt    int64
+	expiresIn    int64
 	refreshToken string
-	userId       string
 }
 
 type OAuthAccessTokenResponse struct {
 	TokenType       string `json:"token_type"`
 	ExpiresIn       int64  `json:"expires_in"`
-	AccessTokenJWT  string `json:"access_token"`
-	RefreshTokenJWT string `json:"refresh_token"`
+	AccessToken  string `json:"access_token"`
 }
 
 type EventFarmAccessTokenResponse struct {
-	OAuthAccessTokenResponse
-	ExpiresAt int64  `json:"expires_at"`
-	UserId    string `json:"user_id"`
+	AccessToken string  `json:"access_token"`
+	TokenType string  `json:"token_type"`
+	ExpiresIn int64  `json:"expires_in"`
 }
 
 func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthAccessToken, err error) {
@@ -49,17 +45,14 @@ func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthA
 		return
 	}
 
-	accessToken, err := getTokenFromJWT(eventFarmAccessTokenResponse.AccessTokenJWT, "")
 	if err != nil {
 		return
 	}
 
 	oAuthAccessToken = &OAuthAccessToken{
 		tokenType:    eventFarmAccessTokenResponse.TokenType,
-		expiresAt:    accessToken.expiresAt,
-		userId:       accessToken.userId,
-		accessToken:  accessToken.token,
-		refreshToken: "", // wip decode the refresh token
+		expiresIn:    eventFarmAccessTokenResponse.ExpiresIn,
+		accessToken:  eventFarmAccessTokenResponse.AccessToken,
 	}
 
 	return
@@ -68,24 +61,7 @@ func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthA
 type OAuthToken struct {
 	token     string
 	userId    string
-	expiresAt int64
-}
-
-func getTokenFromJWT(token string, secret string) (oauthToken *OAuthToken, err error) {
-	claims := jwt.MapClaims{}
-	_, err = jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secret), nil
-	})
-
-	jti := claims["jti"].(string)
-	sub := claims["sub"].(string)
-	exp := claims["exp"].(float64)
-
-	return &OAuthToken{
-		token:     jti,
-		userId:    sub,
-		expiresAt: int64(exp),
-	}, nil
+	expiresIn int64
 }
 
 func (t OAuthAccessToken) getHeaderString() string {
@@ -93,5 +69,5 @@ func (t OAuthAccessToken) getHeaderString() string {
 }
 
 func (t *OAuthAccessToken) isExpired() bool {
-	return time.Now().Unix() > t.expiresAt
+	return time.Now().Unix() > t.expiresIn
 }
