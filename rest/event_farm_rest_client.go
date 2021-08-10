@@ -8,6 +8,9 @@ import (
 
 const version = `7.2.4`
 
+var auth0AccessToken *OAuthAccessToken
+var tokenExpiresAt time.Time
+
 type EventFarmRestConnection struct {
 	LoginUrl string
 	ApiUrl   string
@@ -18,7 +21,7 @@ type EventFarmRestClient struct {
 	accessTokenRestClient RestClientInterface
 	clientId              string
 	clientSecret          string
-	audience			  string
+	audience              string
 	oAuthAccessToken      *OAuthAccessToken
 }
 
@@ -36,7 +39,7 @@ func NewEventFarmRestClient(
 		accessTokenRestClient: accessTokenRestClient,
 		clientId:              clientId,
 		clientSecret:          clientSecret,
-		audience: 			   audience,
+		audience:              audience,
 		oAuthAccessToken:      oAuthAccessToken,
 	}
 }
@@ -129,6 +132,7 @@ func (t *EventFarmRestClient) getAuthorizationHeader(headers map[string]string) 
 	}
 
 	oAuthAccessToken, err := t.getOAuthAccessToken()
+
 	if err != nil {
 		return
 	}
@@ -139,32 +143,29 @@ func (t *EventFarmRestClient) getAuthorizationHeader(headers map[string]string) 
 }
 
 func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
-	if t.oAuthAccessToken == nil {
+	if auth0AccessToken == nil {
 		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
+		auth0AccessToken = t.oAuthAccessToken
+		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(auth0AccessToken.expiresIn-2))
+
+		if err != nil {
+			return
+		}
+	} else {
+		t.oAuthAccessToken = auth0AccessToken
+	}
+
+	if time.Now().After(tokenExpiresAt) {
+		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
+		auth0AccessToken = t.oAuthAccessToken
+		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(auth0AccessToken.expiresIn-2))
 		if err != nil {
 			return
 		}
 	}
 
-	if t.oAuthAccessToken.isExpired() {
-		if t.oAuthAccessToken.refreshToken != `` {
-			t.oAuthAccessToken, err = t.getRefreshToken(t.oAuthAccessToken.refreshToken)
-			if err != nil {
-				oAuthAccessToken, err = t.getPasswordGrantAccessToken()
-				if err != nil {
-					return
-				}
-			}
-		} else {
-			t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
-			if err != nil {
-				return
-			}
-		}
-	}
-
 	oAuthAccessToken = t.oAuthAccessToken
-	return
+	return oAuthAccessToken, err
 }
 
 func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessToken *OAuthAccessToken, err error) {
@@ -193,16 +194,12 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 }
 
 func (t *EventFarmRestClient) getPasswordGrantAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
-	// newHeaders := make(map[string]string)
-	// newHeaders[`Content-Type`] = `application/json`
-
-
 	values := &map[string]interface{}{
-		"grant_type": "client_credentials",
-		"client_id": t.clientId,
+		"grant_type":    "client_credentials",
+		"client_id":     t.clientId,
 		"client_secret": t.clientSecret,
-		"audience": t.audience,
-	  }
+		"audience":      t.audience,
+	}
 
 	resp, err := t.accessTokenRestClient.PostJSON(
 		`/oauth/token`,

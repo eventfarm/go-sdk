@@ -16,15 +16,15 @@ type OAuthAccessToken struct {
 }
 
 type OAuthAccessTokenResponse struct {
-	TokenType       string `json:"token_type"`
-	ExpiresIn       int64  `json:"expires_in"`
-	AccessToken  string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	ExpiresIn   int64  `json:"expires_in"`
+	AccessToken string `json:"access_token"`
 }
 
 type EventFarmAccessTokenResponse struct {
-	AccessToken string  `json:"access_token"`
-	TokenType string  `json:"token_type"`
-	ExpiresIn int64  `json:"expires_in"`
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	ExpiresIn   int64  `json:"expires_in"`
 }
 
 func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthAccessToken, err error) {
@@ -50,9 +50,9 @@ func NewOAuthAccessTokenFromResponse(r *http.Response) (oAuthAccessToken *OAuthA
 	}
 
 	oAuthAccessToken = &OAuthAccessToken{
-		tokenType:    eventFarmAccessTokenResponse.TokenType,
-		expiresIn:    eventFarmAccessTokenResponse.ExpiresIn,
-		accessToken:  eventFarmAccessTokenResponse.AccessToken,
+		tokenType:   eventFarmAccessTokenResponse.TokenType,
+		expiresIn:   eventFarmAccessTokenResponse.ExpiresIn,
+		accessToken: eventFarmAccessTokenResponse.AccessToken,
 	}
 
 	return
