@@ -67,6 +67,10 @@ func (f *Factory) Promotion() *Promotion {
 	return NewPromotion()
 }
 
+func (f *Factory) Question() *Question {
+	return NewQuestion()
+}
+
 func (f *Factory) Queue() *Queue {
 	return NewQueue()
 }

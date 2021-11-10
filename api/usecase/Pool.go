@@ -228,14 +228,16 @@ func (t *Pool) ListUniqueTagNamesForPool(p *ListUniqueTagNamesForPoolParameters)
 
 type CreatePoolParameters struct {
 	Name      string
-	ShortName string
+	ShortName *string
 	PoolId    *string
 }
 
 func (t *Pool) CreatePool(p *CreatePoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`name`, p.Name)
-	queryParameters.Add(`shortName`, p.ShortName)
+	if p.ShortName != nil {
+		queryParameters.Add(`shortName`, *p.ShortName)
+	}
 	if p.PoolId != nil {
 		queryParameters.Add(`poolId`, *p.PoolId)
 	}

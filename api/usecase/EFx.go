@@ -267,7 +267,7 @@ func (t *EFx) EnableSMSForEventWithJSON(data *map[string]interface{}) (r *http.R
 type RequestForEventParameters struct {
 	EventId             string
 	UserId              string
-	RequestedEFxModules *[]string // access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams
+	RequestedEFxModules *[]string // guest-management | access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams
 }
 
 func (t *EFx) RequestForEvent(p *RequestForEventParameters) (r *http.Response, err error) {

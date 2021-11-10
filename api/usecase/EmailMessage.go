@@ -974,6 +974,8 @@ type SendVerifyEmailParameters struct {
 	CcEmails          *[]string
 	BccEmails         *[]string
 	AppName           *string
+	FromEmail         *string
+	ReplyToEmail      *string
 }
 
 func (t *EmailMessage) SendVerifyEmail(p *SendVerifyEmailParameters) (r *http.Response, err error) {
@@ -996,6 +998,12 @@ func (t *EmailMessage) SendVerifyEmail(p *SendVerifyEmailParameters) (r *http.Re
 	}
 	if p.AppName != nil {
 		queryParameters.Add(`appName`, *p.AppName)
+	}
+	if p.FromEmail != nil {
+		queryParameters.Add(`fromEmail`, *p.FromEmail)
+	}
+	if p.ReplyToEmail != nil {
+		queryParameters.Add(`replyToEmail`, *p.ReplyToEmail)
 	}
 
 	return t.restClient.Post(

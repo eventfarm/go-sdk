@@ -127,7 +127,7 @@ func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *ht
 
 type GetQuestionParameters struct {
 	QuestionId string
-	WithData   *[]string // Answers | TicketType | QuestionResponseCounts | AnswerQuestionResponseCounts | QuestionContexts
+	WithData   *[]string // Answers | TicketType | QuestionResponseCounts | AnswerQuestionResponseCounts | QuestionContexts | AnswerBindings
 }
 
 func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err error) {
@@ -2719,6 +2719,33 @@ func (t *Event) SetFacebookHandleForEvent(p *SetFacebookHandleForEventParameters
 func (t *Event) SetFacebookHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetFacebookHandleForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetHealthPassShortCodeForEventParameters struct {
+	EventId             string
+	HealthPassShortCode string
+}
+
+func (t *Event) SetHealthPassShortCodeForEvent(p *SetHealthPassShortCodeForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`healthPassShortCode`, p.HealthPassShortCode)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetHealthPassShortCodeForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetHealthPassShortCodeForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetHealthPassShortCodeForEvent`,
 		data,
 		nil,
 		nil,

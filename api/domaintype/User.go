@@ -87,6 +87,7 @@ type UserAttributeNamespaceType struct {
 	IsGoogle     bool
 	IsCustom     bool
 	IsVirbela    bool
+	IsHealthpass bool
 }
 
 type UserIdentifierType struct {
@@ -983,6 +984,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `info`,
@@ -999,6 +1001,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `hover`,
@@ -1015,6 +1018,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `facebook`,
@@ -1031,6 +1035,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `linked-in`,
@@ -1047,6 +1052,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `salesforce`,
@@ -1063,6 +1069,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `twitter`,
@@ -1079,6 +1086,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `convio`,
@@ -1095,6 +1103,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `google`,
@@ -1111,6 +1120,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     true,
 			IsCustom:     false,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `custom`,
@@ -1127,6 +1137,7 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     true,
 			IsVirbela:    false,
+			IsHealthpass: false,
 		},
 		{
 			Slug:         `virbela`,
@@ -1143,6 +1154,24 @@ func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 			IsGoogle:     false,
 			IsCustom:     false,
 			IsVirbela:    true,
+			IsHealthpass: false,
+		},
+		{
+			Slug:         `healthpass`,
+			Name:         `Healthpass`,
+			Description:  ``,
+			IsInternal:   false,
+			IsInfo:       false,
+			IsHover:      false,
+			IsSpamReport: false,
+			IsLinkedin:   false,
+			IsSalesforce: false,
+			IsTwitter:    false,
+			IsConvio:     false,
+			IsGoogle:     false,
+			IsCustom:     false,
+			IsVirbela:    false,
+			IsHealthpass: true,
 		},
 	}
 }
