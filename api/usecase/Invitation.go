@@ -89,8 +89,9 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 }
 
 type GetInvitationParameters struct {
-	InvitationId string
-	WithData     *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
+	InvitationId       string
+	WithData           *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
+	WithUserAttributes *[]string
 }
 
 func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response, err error) {
@@ -99,6 +100,11 @@ func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response
 	if p.WithData != nil {
 		for i := range *p.WithData {
 			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
 		}
 	}
 
@@ -156,6 +162,22 @@ func (t *Invitation) GetInvitationCountsForUser(p *GetInvitationCountsForUserPar
 
 	return t.restClient.Get(
 		`/v2/Invitation/UseCase/GetInvitationCountsForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type GetInvitationCountsForUserAttributeHealthPassScoreForEventParameters struct {
+	EventId string
+}
+
+func (t *Invitation) GetInvitationCountsForUserAttributeHealthPassScoreForEvent(p *GetInvitationCountsForUserAttributeHealthPassScoreForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/GetInvitationCountsForUserAttributeHealthPassScoreForEvent`,
 		&queryParameters,
 		nil,
 		nil,
