@@ -94,6 +94,7 @@ type InviteSourceType struct {
 	IsOutsidePurchase   bool
 	IsPublicInterface   bool
 	IsTransferred       bool
+	IsWalkIn            bool
 }
 
 type WebhookType struct {
@@ -738,6 +739,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `api-addition`,
@@ -758,6 +760,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `distribution`,
@@ -778,6 +781,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `event-invite`,
@@ -798,6 +802,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `group-invite`,
@@ -818,6 +823,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `import`,
@@ -838,6 +844,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `ios-leave-behind`,
@@ -858,6 +865,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `leave-behind`,
@@ -878,6 +886,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `mobile-leave-behind`,
@@ -898,6 +907,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `mobile-purchase`,
@@ -918,6 +928,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `outside-purchase`,
@@ -938,6 +949,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   true,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `public-interface`,
@@ -958,6 +970,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   true,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `transferred`,
@@ -978,6 +991,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       true,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `import-salesforce`,
@@ -998,6 +1012,7 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
 		},
 		{
 			Slug:                `import-marketo`,
@@ -1018,6 +1033,28 @@ func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 			IsOutsidePurchase:   false,
 			IsPublicInterface:   false,
 			IsTransferred:       false,
+			IsWalkIn:            false,
+		},
+		{
+			Slug:                `walk-in`,
+			Name:                `Walk In Addition`,
+			Description:         ``,
+			IsDirectInvite:      false,
+			IsApiAddition:       false,
+			IsDistribution:      false,
+			IsEventInvite:       false,
+			IsGroupInvite:       false,
+			IsImport:            false,
+			IsImportMarketo:     false,
+			IsImportSalesforce:  false,
+			IsIosLeaveBehind:    false,
+			IsLeaveBehind:       false,
+			IsMobileLeaveBehind: false,
+			IsMobilePurchase:    false,
+			IsOutsidePurchase:   false,
+			IsPublicInterface:   false,
+			IsTransferred:       false,
+			IsWalkIn:            true,
 		},
 	}
 }

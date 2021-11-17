@@ -42,6 +42,7 @@ type FeatureType struct {
 	IsWaitlist             bool
 	IsVirbela              bool
 	IsWebConference        bool
+	IsHealthPass           bool
 }
 
 type PoolAllotmentType struct {
@@ -115,6 +116,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `apiaccess`,
@@ -147,6 +149,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `marketo`,
@@ -179,6 +182,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `emailmasking`,
@@ -211,6 +215,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `whitelabeling`,
@@ -243,6 +248,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `agents`,
@@ -275,6 +281,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `visacheckout`,
@@ -307,6 +314,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `canvas`,
@@ -339,6 +347,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `harvester`,
@@ -371,6 +380,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `accesscontrol-efx`,
@@ -403,6 +413,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `athletebag-efx`,
@@ -435,6 +446,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `concierge-efx`,
@@ -467,6 +479,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `digitalmemorybank-efx`,
@@ -499,6 +512,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `guestinfo-efx`,
@@ -531,6 +545,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `messaging-efx`,
@@ -563,6 +578,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `smsquiz-efx`,
@@ -595,6 +611,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `productpickup-efx`,
@@ -627,6 +644,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `raffle-efx`,
@@ -659,6 +677,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `reservation-efx`,
@@ -691,6 +710,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `roamingphotog-efx`,
@@ -723,6 +743,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `smartbar-efx`,
@@ -755,6 +776,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `teams-efx`,
@@ -787,6 +809,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `event-app`,
@@ -819,6 +842,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `child-events`,
@@ -851,6 +875,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `waitlist`,
@@ -883,6 +908,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             true,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `virbela`,
@@ -915,6 +941,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              true,
 			IsWebConference:        false,
+			IsHealthPass:           false,
 		},
 		{
 			Slug:                   `web-conference`,
@@ -947,6 +974,40 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        true,
+			IsHealthPass:           false,
+		},
+		{
+			Slug:                   `health-pass`,
+			Name:                   `Health Pass`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        false,
+			IsHealthPass:           true,
 		},
 	}
 }
