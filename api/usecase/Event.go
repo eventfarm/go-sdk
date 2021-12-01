@@ -63,7 +63,7 @@ func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r
 
 type GetEventParameters struct {
 	EventId  string
-	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld
+	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld | AnswerBindings
 }
 
 func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {

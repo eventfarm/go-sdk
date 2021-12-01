@@ -203,6 +203,7 @@ type QuestionType struct {
 	IsSelect    bool
 	IsDate      bool
 	IsWaiver    bool
+	IsAddress   bool
 }
 
 type ThemeColorType struct {
@@ -2303,7 +2304,7 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 	return []QuestionType{
 		{
 			Slug:        `checkbox`,
-			Name:        `Checkbox`,
+			Name:        `Checkboxes`,
 			Description: ``,
 			IsCheckbox:  true,
 			IsRadio:     false,
@@ -2312,10 +2313,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `radio`,
-			Name:        `Radio`,
+			Name:        `Radio Buttons`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     true,
@@ -2324,10 +2326,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `multi`,
-			Name:        `Multi`,
+			Name:        `Paragraph`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     false,
@@ -2336,10 +2339,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `text`,
-			Name:        `Text`,
+			Name:        `Short Answer`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     false,
@@ -2348,10 +2352,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `select`,
-			Name:        `Select`,
+			Name:        `Dropdown Select`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     false,
@@ -2360,10 +2365,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    true,
 			IsDate:      false,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `date`,
-			Name:        `Date`,
+			Name:        `Select Date`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     false,
@@ -2372,10 +2378,11 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      true,
 			IsWaiver:    false,
+			IsAddress:   false,
 		},
 		{
 			Slug:        `waiver`,
-			Name:        `Waiver`,
+			Name:        `Sign Waiver`,
 			Description: ``,
 			IsCheckbox:  false,
 			IsRadio:     false,
@@ -2384,6 +2391,20 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    true,
+			IsAddress:   false,
+		},
+		{
+			Slug:        `address`,
+			Name:        `Address`,
+			Description: ``,
+			IsCheckbox:  false,
+			IsRadio:     false,
+			IsMulti:     false,
+			IsText:      false,
+			IsSelect:    false,
+			IsDate:      false,
+			IsWaiver:    false,
+			IsAddress:   true,
 		},
 	}
 }

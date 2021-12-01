@@ -42,6 +42,7 @@ type FeatureType struct {
 	IsWaitlist             bool
 	IsVirbela              bool
 	IsWebConference        bool
+	IsQuestionLogic        bool
 	IsHealthPass           bool
 }
 
@@ -116,6 +117,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -149,6 +151,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -182,6 +185,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -215,6 +219,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -248,6 +253,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -281,6 +287,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -314,6 +321,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -347,6 +355,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -380,6 +389,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -413,6 +423,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -446,6 +457,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -479,6 +491,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -512,6 +525,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -545,6 +559,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -578,6 +593,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -611,6 +627,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -644,6 +661,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -677,6 +695,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -710,6 +729,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -743,6 +763,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -776,6 +797,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -809,6 +831,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -842,6 +865,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -875,6 +899,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -908,6 +933,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             true,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -941,6 +967,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              true,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -974,6 +1001,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        true,
+			IsQuestionLogic:        false,
 			IsHealthPass:           false,
 		},
 		{
@@ -1007,7 +1035,42 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWaitlist:             false,
 			IsVirbela:              false,
 			IsWebConference:        false,
+			IsQuestionLogic:        false,
 			IsHealthPass:           true,
+		},
+		{
+			Slug:                   `question-logic`,
+			Name:                   `Question Logic`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        false,
+			IsQuestionLogic:        true,
+			IsHealthPass:           false,
 		},
 	}
 }

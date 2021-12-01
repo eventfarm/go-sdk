@@ -101,13 +101,11 @@ func (t *Question) CreateAnswerBindingForQuestionWithJSON(data *map[string]inter
 
 type RemoveAnswerBindingForQuestionParameters struct {
 	AnswerBindingId string
-	QuestionId      string
 }
 
 func (t *Question) RemoveAnswerBindingForQuestion(p *RemoveAnswerBindingForQuestionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`answerBindingId`, p.AnswerBindingId)
-	queryParameters.Add(`questionId`, p.QuestionId)
 
 	return t.restClient.Post(
 		`/v2/Question/UseCase/RemoveAnswerBindingForQuestion`,
@@ -120,6 +118,35 @@ func (t *Question) RemoveAnswerBindingForQuestion(p *RemoveAnswerBindingForQuest
 func (t *Question) RemoveAnswerBindingForQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Question/UseCase/RemoveAnswerBindingForQuestion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateAnswerBindingForQuestionParameters struct {
+	AnswerId          string
+	AnswerBindingType string
+	AnswerBindingId   string
+}
+
+func (t *Question) UpdateAnswerBindingForQuestion(p *UpdateAnswerBindingForQuestionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`answerId`, p.AnswerId)
+	queryParameters.Add(`answerBindingType`, p.AnswerBindingType)
+	queryParameters.Add(`answerBindingId`, p.AnswerBindingId)
+
+	return t.restClient.Post(
+		`/v2/Question/UseCase/UpdateAnswerBindingForQuestion`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Question) UpdateAnswerBindingForQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Question/UseCase/UpdateAnswerBindingForQuestion`,
 		data,
 		nil,
 		nil,
