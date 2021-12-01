@@ -22,6 +22,46 @@ func NewImport(restClient rest.RestClientInterface) *Import {
 
 // GET: Queries
 
+type GetHealthPassImportParameters struct {
+	HealthPassImportId string
+	WithData           *[]string // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
+}
+
+func (t *Import) GetHealthPassImport(p *GetHealthPassImportParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`healthPassImportId`, p.HealthPassImportId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Import/UseCase/GetHealthPassImport`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type GetHealthPassImportFileParameters struct {
+	HealthPassImportId string
+	FileId             string
+}
+
+func (t *Import) GetHealthPassImportFile(p *GetHealthPassImportFileParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`healthPassImportId`, p.HealthPassImportId)
+	queryParameters.Add(`fileId`, p.FileId)
+
+	return t.restClient.Get(
+		`/v2/Import/UseCase/GetHealthPassImportFile`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type GetUserImportParameters struct {
 	UserImportId string
 	WithData     *[]string // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
