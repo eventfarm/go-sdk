@@ -39,6 +39,10 @@ func (f *Factory) Event() *Event {
 	return NewEvent()
 }
 
+func (f *Factory) HealthPass() *HealthPass {
+	return NewHealthPass()
+}
+
 func (f *Factory) Import() *Import {
 	return NewImport()
 }

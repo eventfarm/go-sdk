@@ -90,7 +90,7 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 
 type GetInvitationParameters struct {
 	InvitationId       string
-	WithData           *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
+	WithData           *[]string // UserHealthPass | Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
 	WithUserAttributes *[]string
 }
 
@@ -234,7 +234,7 @@ func (t *Invitation) GetInvitationStatusTypeCountsForTicketBlock(p *GetInvitatio
 
 type ListInvitationsForEventParameters struct {
 	EventId                      string
-	WithData                     *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData                     *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes           *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                        *string
 	StatusFilter                 *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -309,7 +309,7 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 type ListInvitationsForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -372,7 +372,7 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 
 type ListInvitationsForTicketBlockParameters struct {
 	TicketBlockId         string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -434,7 +434,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 
 type ListInvitationsForTransactionParameters struct {
 	TransactionId         string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -700,7 +700,7 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 
 type ListWaitlistForEventParameters struct {
 	EventId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	LastModifiedTimestamp *int64
@@ -757,7 +757,7 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 type ListWaitlistForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted

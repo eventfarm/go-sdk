@@ -86,6 +86,10 @@ func (f *Factory) Group() *Group {
 	return NewGroup(f.restClient)
 }
 
+func (f *Factory) HealthPass() *HealthPass {
+	return NewHealthPass(f.restClient)
+}
+
 func (f *Factory) Import() *Import {
 	return NewImport(f.restClient)
 }

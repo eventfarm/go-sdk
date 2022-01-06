@@ -104,31 +104,6 @@ func (t *Import) GetUserImportFile(p *GetUserImportFileParameters) (r *http.Resp
 
 // POST: Commands
 
-type PostProcessAndImportHealthPassParameters struct {
-	HealthPassImportId string
-}
-
-func (t *Import) PostProcessAndImportHealthPass(p *PostProcessAndImportHealthPassParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`healthPassImportId`, p.HealthPassImportId)
-
-	return t.restClient.Post(
-		`/v2/Import/UseCase/PostProcessAndImportHealthPass`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Import) PostProcessAndImportHealthPassWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Import/UseCase/PostProcessAndImportHealthPass`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type PostProcessAndImportInvitationsParameters struct {
 	UserImportId           string
 	EventId                string
@@ -211,24 +186,6 @@ func (t *Import) PostProcessAndImportUsers(p *PostProcessAndImportUsersParameter
 func (t *Import) PostProcessAndImportUsersWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Import/UseCase/PostProcessAndImportUsers`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type PreProcessSpreadsheetForHealthPassImportParameters struct {
-	Spreadsheet string
-}
-
-func (t *Import) PreProcessSpreadsheetForHealthPassImport(p *PreProcessSpreadsheetForHealthPassImportParameters) (r *http.Response, err error) {
-	// TODO
-	return
-}
-
-func (t *Import) PreProcessSpreadsheetForHealthPassImportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Import/UseCase/PreProcessSpreadsheetForHealthPassImport`,
 		data,
 		nil,
 		nil,

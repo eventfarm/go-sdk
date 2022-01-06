@@ -109,7 +109,7 @@ func (t *User) GetUserByEmail(p *GetUserByEmailParameters) (r *http.Response, er
 type GetUserInPoolParameters struct {
 	PoolId             string
 	UserId             string
-	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
+	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName | UserHealthPass
 	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 }
 
