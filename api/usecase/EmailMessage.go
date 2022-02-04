@@ -541,18 +541,19 @@ func (t *EmailMessage) SendAMessageToEventWaitListWithJSON(data *map[string]inte
 }
 
 type SendAMessageToGroupParameters struct {
-	GroupId                string
-	EventId                string
-	OwnerUserId            string
-	MessageContents        string
-	Subject                string
-	FromName               string
-	ReplyEmail             *string
-	CcEmails               *[]string
-	BccEmails              *[]string
-	UseEventSpecificLayout *bool
-	BackgroundColor        *string
-	DomainMaskEmail        *string
+	GroupId                    string
+	EventId                    string
+	OwnerUserId                string
+	MessageContents            string
+	Subject                    string
+	FromName                   string
+	ReplyEmail                 *string
+	CcEmails                   *[]string
+	BccEmails                  *[]string
+	UseEventSpecificLayout     *bool
+	BackgroundColor            *string
+	DomainMaskEmail            *string
+	EventGroupStatusFilterType *string
 }
 
 func (t *EmailMessage) SendAMessageToGroup(p *SendAMessageToGroupParameters) (r *http.Response, err error) {
@@ -584,6 +585,9 @@ func (t *EmailMessage) SendAMessageToGroup(p *SendAMessageToGroupParameters) (r 
 	}
 	if p.DomainMaskEmail != nil {
 		queryParameters.Add(`domainMaskEmail`, *p.DomainMaskEmail)
+	}
+	if p.EventGroupStatusFilterType != nil {
+		queryParameters.Add(`eventGroupStatusFilterType`, *p.EventGroupStatusFilterType)
 	}
 
 	return t.restClient.Post(
