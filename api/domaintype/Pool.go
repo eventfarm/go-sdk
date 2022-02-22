@@ -44,6 +44,7 @@ type FeatureType struct {
 	IsWebConference        bool
 	IsQuestionLogic        bool
 	IsHealthPass           bool
+	IsLogi                 bool
 }
 
 type PoolAllotmentType struct {
@@ -119,6 +120,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `apiaccess`,
@@ -153,6 +155,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `marketo`,
@@ -187,6 +190,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `emailmasking`,
@@ -221,6 +225,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `whitelabeling`,
@@ -255,6 +260,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `agents`,
@@ -289,6 +295,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `visacheckout`,
@@ -323,6 +330,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `canvas`,
@@ -357,6 +365,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `harvester`,
@@ -391,6 +400,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `accesscontrol-efx`,
@@ -425,6 +435,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `athletebag-efx`,
@@ -459,6 +470,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `concierge-efx`,
@@ -493,6 +505,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `digitalmemorybank-efx`,
@@ -527,6 +540,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `guestinfo-efx`,
@@ -561,6 +575,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `messaging-efx`,
@@ -595,6 +610,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `smsquiz-efx`,
@@ -629,6 +645,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `productpickup-efx`,
@@ -663,6 +680,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `raffle-efx`,
@@ -697,6 +715,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `reservation-efx`,
@@ -731,6 +750,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `roamingphotog-efx`,
@@ -765,6 +785,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `smartbar-efx`,
@@ -799,6 +820,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `teams-efx`,
@@ -833,6 +855,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `event-app`,
@@ -867,6 +890,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `child-events`,
@@ -901,6 +925,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `waitlist`,
@@ -935,6 +960,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `virbela`,
@@ -969,6 +995,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `web-conference`,
@@ -1003,6 +1030,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        true,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `health-pass`,
@@ -1037,6 +1065,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           true,
+			IsLogi:                 false,
 		},
 		{
 			Slug:                   `question-logic`,
@@ -1071,6 +1100,42 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        true,
 			IsHealthPass:           false,
+			IsLogi:                 false,
+		},
+		{
+			Slug:                   `logi`,
+			Name:                   `Logi`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        false,
+			IsQuestionLogic:        false,
+			IsHealthPass:           false,
+			IsLogi:                 true,
 		},
 	}
 }

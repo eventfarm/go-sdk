@@ -67,6 +67,10 @@ func (f *Factory) Invitation() *Invitation {
 	return NewInvitation()
 }
 
+func (f *Factory) PaymentGateway() *PaymentGateway {
+	return NewPaymentGateway()
+}
+
 func (f *Factory) Pool() *Pool {
 	return NewPool()
 }

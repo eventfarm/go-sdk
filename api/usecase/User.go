@@ -258,6 +258,50 @@ func (t *User) ListUsersForTicketBlock(p *ListUsersForTicketBlockParameters) (r 
 	)
 }
 
+type ListUsersInExhibitorParameters struct {
+	ExhibitorId   string
+	PoolId        string
+	WithData      *[]string // UserIdentifiers | UserNames | UserAttributes
+	Query         *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
+}
+
+func (t *User) ListUsersInExhibitor(p *ListUsersInExhibitorParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`exhibitorId`, p.ExhibitorId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/User/UseCase/ListUsersInExhibitor`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListUsersInGroupParameters struct {
 	GroupId       string
 	PoolId        string

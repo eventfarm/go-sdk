@@ -74,6 +74,10 @@ func (f *Factory) EventTheme() *EventTheme {
 	return NewEventTheme(f.restClient)
 }
 
+func (f *Factory) Exhibitor() *Exhibitor {
+	return NewExhibitor(f.restClient)
+}
+
 func (f *Factory) Feature() *Feature {
 	return NewFeature(f.restClient)
 }
@@ -110,6 +114,14 @@ func (f *Factory) Invitation() *Invitation {
 	return NewInvitation(f.restClient)
 }
 
+func (f *Factory) Lead() *Lead {
+	return NewLead(f.restClient)
+}
+
+func (f *Factory) Logi() *Logi {
+	return NewLogi(f.restClient)
+}
+
 func (f *Factory) OAuth() *OAuth {
 	return NewOAuth(f.restClient)
 }
@@ -120,6 +132,10 @@ func (f *Factory) OAuth2() *OAuth2 {
 
 func (f *Factory) Payment() *Payment {
 	return NewPayment(f.restClient)
+}
+
+func (f *Factory) PaymentGateway() *PaymentGateway {
+	return NewPaymentGateway(f.restClient)
 }
 
 func (f *Factory) Pool() *Pool {
