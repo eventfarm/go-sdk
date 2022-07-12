@@ -2321,6 +2321,39 @@ func (t *Event) RemoveWebConferenceAttributesFromEventWithJSON(data *map[string]
 	)
 }
 
+type ResendEventUserRoleEmailParameters struct {
+	EventId             string
+	UserId              string
+	EventRole           string
+	AuthenticatedUserId *string
+}
+
+func (t *Event) ResendEventUserRoleEmail(p *ResendEventUserRoleEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`eventRole`, p.EventRole)
+	if p.AuthenticatedUserId != nil {
+		queryParameters.Add(`authenticatedUserId`, *p.AuthenticatedUserId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/ResendEventUserRoleEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) ResendEventUserRoleEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/ResendEventUserRoleEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendContactEmailParameters struct {
 	EventId      string
 	FromName     string
@@ -2984,6 +3017,33 @@ func (t *Event) SetNameForEventWithJSON(data *map[string]interface{}) (r *http.R
 	)
 }
 
+type SetPaymentGatewayForEventParameters struct {
+	EventId          string
+	PaymentGatewayId string
+}
+
+func (t *Event) SetPaymentGatewayForEvent(p *SetPaymentGatewayForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetPaymentGatewayForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetPaymentGatewayForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetProcessingCurrencyParameters struct {
 	EventId            string
 	ProcessingCurrency string
@@ -3326,6 +3386,31 @@ func (t *Event) UnarchiveEvent(p *UnarchiveEventParameters) (r *http.Response, e
 func (t *Event) UnarchiveEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/UnarchiveEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UnsetPaymentGatewayForEventParameters struct {
+	EventId string
+}
+
+func (t *Event) UnsetPaymentGatewayForEvent(p *UnsetPaymentGatewayForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/UnsetPaymentGatewayForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) UnsetPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/UnsetPaymentGatewayForEvent`,
 		data,
 		nil,
 		nil,

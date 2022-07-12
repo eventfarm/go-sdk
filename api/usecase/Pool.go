@@ -122,6 +122,7 @@ type ListPoolContactsByPoolIdParameters struct {
 	PoolId       string
 	Page         *int64 // >= 1
 	ItemsPerPage *int64 // 1-500
+	WithData     *[]string
 }
 
 func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (r *http.Response, err error) {
@@ -133,6 +134,11 @@ func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (
 	if p.ItemsPerPage != nil {
 		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
 
 	return t.restClient.Get(
 		`/v2/Pool/UseCase/ListPoolContactsByPoolId`,
@@ -143,11 +149,12 @@ func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (
 }
 
 type ListPoolsParameters struct {
-	Name          *string
-	SortBy        *string
-	SortDirection *string
-	Page          *int64 // >= 1
-	ItemsPerPage  *int64 // 1-100
+	Name              *string
+	SortBy            *string
+	SortDirection     *string
+	Page              *int64 // >= 1
+	ItemsPerPage      *int64 // 1-100
+	ShouldHideDeleted *bool
 }
 
 func (t *Pool) ListPools(p *ListPoolsParameters) (r *http.Response, err error) {
@@ -166,6 +173,9 @@ func (t *Pool) ListPools(p *ListPoolsParameters) (r *http.Response, err error) {
 	}
 	if p.ItemsPerPage != nil {
 		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
 
 	return t.restClient.Get(
@@ -225,6 +235,31 @@ func (t *Pool) ListUniqueTagNamesForPool(p *ListUniqueTagNamesForPoolParameters)
 }
 
 // POST: Commands
+
+type ArchivePoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) ArchivePool(p *ArchivePoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/ArchivePool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) ArchivePoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/ArchivePool`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type CreatePoolParameters struct {
 	Name      string
@@ -317,6 +352,31 @@ func (t *Pool) CreatePoolWebhook(p *CreatePoolWebhookParameters) (r *http.Respon
 func (t *Pool) CreatePoolWebhookWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Pool/UseCase/CreatePoolWebhook`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type DeletePoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) DeletePool(p *DeletePoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+
+	return t.restClient.Post(
+		`/v2/Pool/UseCase/DeletePool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) DeletePoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/DeletePool`,
 		data,
 		nil,
 		nil,

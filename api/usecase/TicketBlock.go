@@ -322,6 +322,37 @@ func (t *TicketBlock) RemoveTicketBlockWithJSON(data *map[string]interface{}) (r
 	)
 }
 
+type ResendTicketBlockUserRoleEmailParameters struct {
+	TicketBlockId       string
+	UserId              string
+	AuthenticatedUserId *string
+}
+
+func (t *TicketBlock) ResendTicketBlockUserRoleEmail(p *ResendTicketBlockUserRoleEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.AuthenticatedUserId != nil {
+		queryParameters.Add(`authenticatedUserId`, *p.AuthenticatedUserId)
+	}
+
+	return t.restClient.Post(
+		`/v2/TicketBlock/UseCase/ResendTicketBlockUserRoleEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketBlock) ResendTicketBlockUserRoleEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/ResendTicketBlockUserRoleEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTicketBlockEmailTextParameters struct {
 	TicketBlockId string
 	EmailText     string

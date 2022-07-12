@@ -67,12 +67,20 @@ func (f *Factory) Invitation() *Invitation {
 	return NewInvitation()
 }
 
+func (f *Factory) Lead() *Lead {
+	return NewLead()
+}
+
 func (f *Factory) PaymentGateway() *PaymentGateway {
 	return NewPaymentGateway()
 }
 
 func (f *Factory) Pool() *Pool {
 	return NewPool()
+}
+
+func (f *Factory) Profile() *Profile {
+	return NewProfile()
 }
 
 func (f *Factory) Promotion() *Promotion {

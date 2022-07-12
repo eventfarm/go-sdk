@@ -72,6 +72,31 @@ func (t *PaymentGateway) CreatePaymentGatewayForPoolWithJSON(data *map[string]in
 	)
 }
 
+type DeletePaymentGatewayForPoolParameters struct {
+	PaymentGatewayId string
+}
+
+func (t *PaymentGateway) DeletePaymentGatewayForPool(p *DeletePaymentGatewayForPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
+
+	return t.restClient.Post(
+		`/v2/PaymentGateway/UseCase/DeletePaymentGatewayForPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *PaymentGateway) DeletePaymentGatewayForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PaymentGateway/UseCase/DeletePaymentGatewayForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemovePaymentGatewayForPoolParameters struct {
 	PaymentGatewayId string
 }

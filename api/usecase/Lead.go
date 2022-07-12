@@ -45,6 +45,7 @@ type ListLeadsForExhibitorParameters struct {
 	ItemsPerPage  *int64 // 1-500
 	SortBy        *string
 	SortDirection *string
+	SourceUserId  *string
 }
 
 func (t *Lead) ListLeadsForExhibitor(p *ListLeadsForExhibitorParameters) (r *http.Response, err error) {
@@ -62,6 +63,9 @@ func (t *Lead) ListLeadsForExhibitor(p *ListLeadsForExhibitorParameters) (r *htt
 	if p.SortDirection != nil {
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
+	if p.SourceUserId != nil {
+		queryParameters.Add(`sourceUserId`, *p.SourceUserId)
+	}
 
 	return t.restClient.Get(
 		`/v2/Lead/UseCase/ListLeadsForExhibitor`,
@@ -77,11 +81,14 @@ type CreateLeadParameters struct {
 	ExhibitorId  string
 	FirstName    string
 	LastName     string
+	SourceUserId string
 	EmailAddress *string
 	PhoneNumber  *string
 	Score        *float64
 	Notes        *string
-	SourceUserId *string
+	Temperature  *string
+	Title        *string
+	Company      *string
 	LeadId       *string
 }
 
@@ -90,6 +97,7 @@ func (t *Lead) CreateLead(p *CreateLeadParameters) (r *http.Response, err error)
 	queryParameters.Add(`exhibitorId`, p.ExhibitorId)
 	queryParameters.Add(`firstName`, p.FirstName)
 	queryParameters.Add(`lastName`, p.LastName)
+	queryParameters.Add(`sourceUserId`, p.SourceUserId)
 	if p.EmailAddress != nil {
 		queryParameters.Add(`emailAddress`, *p.EmailAddress)
 	}
@@ -102,8 +110,14 @@ func (t *Lead) CreateLead(p *CreateLeadParameters) (r *http.Response, err error)
 	if p.Notes != nil {
 		queryParameters.Add(`notes`, *p.Notes)
 	}
-	if p.SourceUserId != nil {
-		queryParameters.Add(`sourceUserId`, *p.SourceUserId)
+	if p.Temperature != nil {
+		queryParameters.Add(`temperature`, *p.Temperature)
+	}
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
+	}
+	if p.Company != nil {
+		queryParameters.Add(`company`, *p.Company)
 	}
 	if p.LeadId != nil {
 		queryParameters.Add(`leadId`, *p.LeadId)
@@ -151,6 +165,33 @@ func (t *Lead) DeleteLeadWithJSON(data *map[string]interface{}) (r *http.Respons
 	)
 }
 
+type ExportLeadsForExhibitorParameters struct {
+	ExhibitorId string
+	UserId      string
+}
+
+func (t *Lead) ExportLeadsForExhibitor(p *ExportLeadsForExhibitorParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`exhibitorId`, p.ExhibitorId)
+	queryParameters.Add(`userId`, p.UserId)
+
+	return t.restClient.Post(
+		`/v2/Lead/UseCase/ExportLeadsForExhibitor`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Lead) ExportLeadsForExhibitorWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Lead/UseCase/ExportLeadsForExhibitor`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveLeadParameters struct {
 	LeadId string
 }
@@ -170,6 +211,33 @@ func (t *Lead) RemoveLead(p *RemoveLeadParameters) (r *http.Response, err error)
 func (t *Lead) RemoveLeadWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Lead/UseCase/RemoveLead`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetLeadCompanyParameters struct {
+	LeadId  string
+	Company string
+}
+
+func (t *Lead) SetLeadCompany(p *SetLeadCompanyParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`leadId`, p.LeadId)
+	queryParameters.Add(`company`, p.Company)
+
+	return t.restClient.Post(
+		`/v2/Lead/UseCase/SetLeadCompany`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Lead) SetLeadCompanyWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Lead/UseCase/SetLeadCompany`,
 		data,
 		nil,
 		nil,
@@ -332,6 +400,121 @@ func (t *Lead) SetLeadScore(p *SetLeadScoreParameters) (r *http.Response, err er
 func (t *Lead) SetLeadScoreWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Lead/UseCase/SetLeadScore`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetLeadTemperatureParameters struct {
+	LeadId          string
+	LeadTemperature string
+}
+
+func (t *Lead) SetLeadTemperature(p *SetLeadTemperatureParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`leadId`, p.LeadId)
+	queryParameters.Add(`leadTemperature`, p.LeadTemperature)
+
+	return t.restClient.Post(
+		`/v2/Lead/UseCase/SetLeadTemperature`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Lead) SetLeadTemperatureWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Lead/UseCase/SetLeadTemperature`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetLeadTitleParameters struct {
+	LeadId    string
+	LeadNotes string
+}
+
+func (t *Lead) SetLeadTitle(p *SetLeadTitleParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`leadId`, p.LeadId)
+	queryParameters.Add(`leadNotes`, p.LeadNotes)
+
+	return t.restClient.Post(
+		`/v2/Lead/UseCase/SetLeadTitle`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Lead) SetLeadTitleWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Lead/UseCase/SetLeadTitle`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateLeadParameters struct {
+	LeadId       string
+	FirstName    *string
+	LastName     *string
+	EmailAddress *string
+	PhoneNumber  *string
+	Score        *float64
+	Notes        *string
+	Temperature  *string
+	Title        *string
+	Company      *string
+}
+
+func (t *Lead) UpdateLead(p *UpdateLeadParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`leadId`, p.LeadId)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
+	}
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
+	}
+	if p.EmailAddress != nil {
+		queryParameters.Add(`emailAddress`, *p.EmailAddress)
+	}
+	if p.PhoneNumber != nil {
+		queryParameters.Add(`phoneNumber`, *p.PhoneNumber)
+	}
+	if p.Score != nil {
+		queryParameters.Add(`score`, fmt.Sprintf("%f", *p.Score))
+	}
+	if p.Notes != nil {
+		queryParameters.Add(`notes`, *p.Notes)
+	}
+	if p.Temperature != nil {
+		queryParameters.Add(`temperature`, *p.Temperature)
+	}
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
+	}
+	if p.Company != nil {
+		queryParameters.Add(`company`, *p.Company)
+	}
+
+	return t.restClient.Post(
+		`/v2/Lead/UseCase/UpdateLead`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Lead) UpdateLeadWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Lead/UseCase/UpdateLead`,
 		data,
 		nil,
 		nil,

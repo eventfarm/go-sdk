@@ -30,12 +30,34 @@ type EFxModuleType struct {
 	IsSmartBar            bool
 	IsSmsQuiz             bool
 	IsTeams               bool
+	IsLeadRetrieval       bool
 	IsAdminOnly           bool
 	IconURL               string
 	DependencyNFC         bool
 	DependencySMS         bool
 	CompatibilityNFC      bool
 	CompatibilitySMS      bool
+}
+
+type EFxScreenType struct {
+	Slug                  string
+	Name                  string
+	Description           string
+	IsScanView            bool
+	IsFailureView         bool
+	IsCheckOutView        bool
+	IsSuccessView         bool
+	IsRegisterSuccessView bool
+	IsRegisterScanView    bool
+	IsRegisterFailureView bool
+}
+
+type EFxStationType struct {
+	Slug         string
+	Name         string
+	Description  string
+	IsCheckIn    bool
+	IsCheckInOut bool
 }
 
 func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
@@ -59,6 +81,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/guest-management.png`,
 			DependencyNFC:         true,
@@ -85,6 +108,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/access.png`,
 			DependencyNFC:         true,
@@ -111,6 +135,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           true,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/nike.png`,
 			DependencyNFC:         true,
@@ -137,6 +162,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/concierge.png`,
 			DependencyNFC:         true,
@@ -163,6 +189,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/digital-memory-bank.png`,
 			DependencyNFC:         false,
@@ -189,6 +216,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           true,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/access.png`,
 			DependencyNFC:         true,
@@ -215,6 +243,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/messaging.png`,
 			DependencyNFC:         false,
@@ -241,6 +270,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             true,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/polling.png`,
 			DependencyNFC:         false,
@@ -267,6 +297,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/product-pickup.png`,
 			DependencyNFC:         true,
@@ -293,6 +324,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/raffle.png`,
 			DependencyNFC:         true,
@@ -319,6 +351,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/reservation.png`,
 			DependencyNFC:         true,
@@ -345,6 +378,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/photographer.png`,
 			DependencyNFC:         false,
@@ -371,6 +405,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            true,
 			IsSmsQuiz:             false,
 			IsTeams:               false,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/smartbar-vertical.png`,
 			DependencyNFC:         true,
@@ -397,12 +432,148 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			IsSmartBar:            false,
 			IsSmsQuiz:             false,
 			IsTeams:               true,
+			IsLeadRetrieval:       false,
 			IsAdminOnly:           false,
 			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/teams.png`,
 			DependencyNFC:         false,
 			DependencySMS:         false,
 			CompatibilityNFC:      false,
 			CompatibilitySMS:      true,
+		},
+		{
+			Id:                    `LeadRetrieval`,
+			Slug:                  `lead-retrieval`,
+			Name:                  `Lead Retrieval`,
+			Description:           `Get leads for your events`,
+			IsAccessControl:       false,
+			IsGuestManagement:     false,
+			IsConcierge:           false,
+			IsAthleteBag:          false,
+			IsDigitalMemoryBank:   false,
+			IsGuestInfo:           false,
+			IsMessaging:           false,
+			IsProductPickup:       false,
+			IsRaffle:              false,
+			IsReservation:         false,
+			IsRoamingPhotographer: false,
+			IsSmartBar:            false,
+			IsSmsQuiz:             false,
+			IsTeams:               false,
+			IsLeadRetrieval:       true,
+			IsAdminOnly:           false,
+			IconURL:               `https://cdn.eventfarm.com/platform/img/icons/lead-retrieval.png`,
+			DependencyNFC:         false,
+			DependencySMS:         false,
+			CompatibilityNFC:      true,
+			CompatibilitySMS:      false,
+		},
+	}
+}
+
+func (f *EFx) ListEFxScreenTypes() []EFxScreenType {
+	return []EFxScreenType{
+		{
+			Slug:                  `scan-view`,
+			Name:                  `Scan View`,
+			Description:           ``,
+			IsScanView:            true,
+			IsFailureView:         false,
+			IsCheckOutView:        false,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `failure-view`,
+			Name:                  `Failure View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         true,
+			IsCheckOutView:        false,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `check-out-view`,
+			Name:                  `Check Out View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         false,
+			IsCheckOutView:        true,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `success-view`,
+			Name:                  `Success View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         false,
+			IsCheckOutView:        false,
+			IsSuccessView:         true,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `register-success-view`,
+			Name:                  `Register Success View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         false,
+			IsCheckOutView:        false,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: true,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `register-scan-view`,
+			Name:                  `Register Scan View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         false,
+			IsCheckOutView:        false,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    true,
+			IsRegisterFailureView: false,
+		},
+		{
+			Slug:                  `register-failure-view`,
+			Name:                  `Register Failure View`,
+			Description:           ``,
+			IsScanView:            false,
+			IsFailureView:         false,
+			IsCheckOutView:        false,
+			IsSuccessView:         false,
+			IsRegisterSuccessView: false,
+			IsRegisterScanView:    false,
+			IsRegisterFailureView: true,
+		},
+	}
+}
+
+func (f *EFx) ListEFxStationTypes() []EFxStationType {
+	return []EFxStationType{
+		{
+			Slug:         `check-in`,
+			Name:         `CheckIn`,
+			Description:  ``,
+			IsCheckIn:    true,
+			IsCheckInOut: false,
+		},
+		{
+			Slug:         `check-in-out`,
+			Name:         `CheckInOut`,
+			Description:  ``,
+			IsCheckIn:    false,
+			IsCheckInOut: true,
 		},
 	}
 }

@@ -22,6 +22,22 @@ func NewHealthPass(restClient rest.RestClientInterface) *HealthPass {
 
 // GET: Queries
 
+type GetHealthPassScoreCountsForEventParameters struct {
+	EventId string
+}
+
+func (t *HealthPass) GetHealthPassScoreCountsForEvent(p *GetHealthPassScoreCountsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Get(
+		`/v2/HealthPass/UseCase/GetHealthPassScoreCountsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
 
 type AddUserHealthPassRecordFromClearParameters struct {
@@ -30,6 +46,7 @@ type AddUserHealthPassRecordFromClearParameters struct {
 	Email               string
 	Score               string
 	FinalScoringTime    string
+	ExpiresAt           string
 	HealthPassShortCode string
 	ExternalUserId      string
 }
@@ -41,6 +58,7 @@ func (t *HealthPass) AddUserHealthPassRecordFromClear(p *AddUserHealthPassRecord
 	queryParameters.Add(`email`, p.Email)
 	queryParameters.Add(`score`, p.Score)
 	queryParameters.Add(`finalScoringTime`, p.FinalScoringTime)
+	queryParameters.Add(`expiresAt`, p.ExpiresAt)
 	queryParameters.Add(`healthPassShortCode`, p.HealthPassShortCode)
 	queryParameters.Add(`externalUserId`, p.ExternalUserId)
 

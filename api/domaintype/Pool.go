@@ -44,6 +44,7 @@ type FeatureType struct {
 	IsWebConference        bool
 	IsQuestionLogic        bool
 	IsHealthPass           bool
+	IsExhibitors           bool
 	IsLogi                 bool
 }
 
@@ -120,6 +121,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -155,6 +157,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -190,6 +193,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -225,6 +229,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -260,6 +265,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -295,6 +301,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -330,6 +337,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -365,6 +373,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -400,6 +409,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -435,6 +445,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -470,6 +481,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -505,6 +517,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -540,6 +553,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -575,6 +589,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -610,6 +625,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -645,6 +661,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -680,6 +697,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -715,6 +733,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -750,6 +769,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -785,6 +805,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -820,6 +841,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -855,6 +877,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -890,6 +913,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -925,6 +949,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -960,6 +985,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -995,6 +1021,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -1030,6 +1057,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        true,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -1065,6 +1093,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           true,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -1100,6 +1129,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        true,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 false,
 		},
 		{
@@ -1135,7 +1165,44 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsWebConference:        false,
 			IsQuestionLogic:        false,
 			IsHealthPass:           false,
+			IsExhibitors:           false,
 			IsLogi:                 true,
+		},
+		{
+			Slug:                   `exhibitors`,
+			Name:                   `Exhibitors`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        false,
+			IsQuestionLogic:        false,
+			IsHealthPass:           false,
+			IsExhibitors:           true,
+			IsLogi:                 false,
 		},
 	}
 }

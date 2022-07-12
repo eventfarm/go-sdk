@@ -42,6 +42,7 @@ type EmailArchiveSubCategoryType struct {
 	IsNoShow         bool
 	IsWaitList       bool
 	IsNone           bool
+	IsExhibitor      bool
 }
 
 type EmailMessageType struct {
@@ -310,6 +311,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `group`,
@@ -323,6 +325,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `eventcheckedin`,
@@ -336,6 +339,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `tickettype`,
@@ -349,6 +353,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `preview`,
@@ -362,6 +367,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `noshow`,
@@ -375,6 +381,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         true,
 			IsWaitList:       false,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `waitlist`,
@@ -388,6 +395,7 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       true,
 			IsNone:           false,
+			IsExhibitor:      false,
 		},
 		{
 			Slug:             `None`,
@@ -401,6 +409,21 @@ func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCateg
 			IsNoShow:         false,
 			IsWaitList:       false,
 			IsNone:           true,
+			IsExhibitor:      false,
+		},
+		{
+			Slug:             `exhibitor`,
+			Name:             `Exhibitor`,
+			Description:      ``,
+			IsTicketBlock:    false,
+			IsGroup:          false,
+			IsEventCheckedIn: false,
+			IsTicketType:     false,
+			IsPreview:        false,
+			IsNoShow:         false,
+			IsWaitList:       false,
+			IsNone:           false,
+			IsExhibitor:      true,
 		},
 	}
 }

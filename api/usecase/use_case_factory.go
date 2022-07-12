@@ -30,6 +30,10 @@ func (f *Factory) BugReport() *BugReport {
 	return NewBugReport(f.restClient)
 }
 
+func (f *Factory) Campaign() *Campaign {
+	return NewCampaign(f.restClient)
+}
+
 func (f *Factory) Canvas() *Canvas {
 	return NewCanvas(f.restClient)
 }
@@ -118,6 +122,10 @@ func (f *Factory) Lead() *Lead {
 	return NewLead(f.restClient)
 }
 
+func (f *Factory) Link() *Link {
+	return NewLink(f.restClient)
+}
+
 func (f *Factory) Logi() *Logi {
 	return NewLogi(f.restClient)
 }
@@ -160,6 +168,10 @@ func (f *Factory) PoolFeature() *PoolFeature {
 
 func (f *Factory) PoolWorld() *PoolWorld {
 	return NewPoolWorld(f.restClient)
+}
+
+func (f *Factory) Profile() *Profile {
+	return NewProfile(f.restClient)
 }
 
 func (f *Factory) Promotion() *Promotion {

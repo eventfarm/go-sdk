@@ -168,22 +168,6 @@ func (t *Invitation) GetInvitationCountsForUser(p *GetInvitationCountsForUserPar
 	)
 }
 
-type GetInvitationCountsForUserAttributeHealthPassScoreForEventParameters struct {
-	EventId string
-}
-
-func (t *Invitation) GetInvitationCountsForUserAttributeHealthPassScoreForEvent(p *GetInvitationCountsForUserAttributeHealthPassScoreForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-
-	return t.restClient.Get(
-		`/v2/Invitation/UseCase/GetInvitationCountsForUserAttributeHealthPassScoreForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
 type GetInvitationLastActionCountsForEventParameters struct {
 	EventId string
 }

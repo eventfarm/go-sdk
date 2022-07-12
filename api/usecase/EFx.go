@@ -58,7 +58,112 @@ func (t *EFx) GetAllModulesForEvent(p *GetAllModulesForEventParameters) (r *http
 	)
 }
 
+type GetEFxStationParameters struct {
+	StationId string
+	WithData  *[]string // StackAndTicketType | EFxScreens
+}
+
+func (t *EFx) GetEFxStation(p *GetEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/EFx/UseCase/GetEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type ListEFxStationsForEventParameters struct {
+	EventId       string
+	WithData      *[]string // StackAndTicketType | EFxScreens
+	SortBy        *string
+	SortDirection *string
+	Page          *int64    // >= 1
+	ItemsPerPage  *int64    // 1-100
+	ModuleFilter  *[]string // guest-management | access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams | lead-retrieval
+	Query         *string
+}
+
+func (t *EFx) ListEFxStationsForEvent(p *ListEFxStationsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.ModuleFilter != nil {
+		for i := range *p.ModuleFilter {
+			queryParameters.Add(`moduleFilter[]`, (*p.ModuleFilter)[i])
+		}
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+
+	return t.restClient.Get(
+		`/v2/EFx/UseCase/ListEFxStationsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
+
+type CreateEFxStationParameters struct {
+	EventId     string
+	StationName string
+	ModuleType  string
+	StationType string
+	StationId   *string
+}
+
+func (t *EFx) CreateEFxStation(p *CreateEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`stationName`, p.StationName)
+	queryParameters.Add(`moduleType`, p.ModuleType)
+	queryParameters.Add(`stationType`, p.StationType)
+	if p.StationId != nil {
+		queryParameters.Add(`stationId`, *p.StationId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/CreateEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) CreateEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/CreateEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type DisableForEventParameters struct {
 	EventId string
@@ -264,10 +369,35 @@ func (t *EFx) EnableSMSForEventWithJSON(data *map[string]interface{}) (r *http.R
 	)
 }
 
+type RemoveEFxStationParameters struct {
+	StationId string
+}
+
+func (t *EFx) RemoveEFxStation(p *RemoveEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/RemoveEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) RemoveEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/RemoveEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RequestForEventParameters struct {
 	EventId             string
 	UserId              string
-	RequestedEFxModules *[]string // guest-management | access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams
+	RequestedEFxModules *[]string // guest-management | access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams | lead-retrieval
 }
 
 func (t *EFx) RequestForEvent(p *RequestForEventParameters) (r *http.Response, err error) {
@@ -370,6 +500,66 @@ func (t *EFx) SetSMSForEvent(p *SetSMSForEventParameters) (r *http.Response, err
 func (t *EFx) SetSMSForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/EFx/UseCase/SetSMSForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetStacksForEFxStationParameters struct {
+	StationId string
+	StackIds  *[]string
+}
+
+func (t *EFx) SetStacksForEFxStation(p *SetStacksForEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+	if p.StackIds != nil {
+		for i := range *p.StackIds {
+			queryParameters.Add(`stackIds[]`, (*p.StackIds)[i])
+		}
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/SetStacksForEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetStacksForEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetStacksForEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateEFxStationParameters struct {
+	StationId   string
+	StationName string
+	StationType string
+}
+
+func (t *EFx) UpdateEFxStation(p *UpdateEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+	queryParameters.Add(`stationName`, p.StationName)
+	queryParameters.Add(`stationType`, p.StationType)
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/UpdateEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) UpdateEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/UpdateEFxStation`,
 		data,
 		nil,
 		nil,

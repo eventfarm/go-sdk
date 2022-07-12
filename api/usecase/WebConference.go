@@ -39,6 +39,26 @@ func (t *WebConference) GetWebConferenceRedirectURIByType(p *GetWebConferenceRed
 	)
 }
 
+type GetWebConferenceSettingsForUserParameters struct {
+	UserId  string
+	EventId string
+	Type    string
+}
+
+func (t *WebConference) GetWebConferenceSettingsForUser(p *GetWebConferenceSettingsForUserParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`type`, p.Type)
+
+	return t.restClient.Get(
+		`/v2/WebConference/UseCase/GetWebConferenceSettingsForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListWebConferenceConnectionsForPoolParameters struct {
 	PoolId string
 	Type   *string

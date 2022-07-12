@@ -105,6 +105,33 @@ func (t *PoolContact) RemovePoolContactWithJSON(data *map[string]interface{}) (r
 	)
 }
 
+type ResendPoolContactEmailParameters struct {
+	PoolId string
+	UserId string
+}
+
+func (t *PoolContact) ResendPoolContactEmail(p *ResendPoolContactEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+
+	return t.restClient.Post(
+		`/v2/PoolContact/UseCase/ResendPoolContactEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *PoolContact) ResendPoolContactEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PoolContact/UseCase/ResendPoolContactEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type UpdateTypeForPoolContactParameters struct {
 	PoolContactId   string
 	PoolContactType string

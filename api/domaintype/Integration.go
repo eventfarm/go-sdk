@@ -94,6 +94,11 @@ func (f *Integration) ListUserAttributeInfoFieldTypes() []UserAttributeInfoField
 			Description: ``,
 		},
 		{
+			Slug:        `user-email-unsubscribe`,
+			Name:        `Email Unsubscribe`,
+			Description: ``,
+		},
+		{
 			Slug:        `newCustomField`,
 			Name:        `New Custom Field`,
 			Description: ``,

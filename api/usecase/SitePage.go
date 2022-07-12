@@ -190,6 +190,31 @@ func (t *SitePage) CreateTemplateWithJSON(data *map[string]interface{}) (r *http
 	)
 }
 
+type DisableSearchEngineIndexingForSitePageParameters struct {
+	SitePageId string
+}
+
+func (t *SitePage) DisableSearchEngineIndexingForSitePage(p *DisableSearchEngineIndexingForSitePageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+
+	return t.restClient.Post(
+		`/v2/SitePage/UseCase/DisableSearchEngineIndexingForSitePage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) DisableSearchEngineIndexingForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/DisableSearchEngineIndexingForSitePage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DuplicateSitePageParameters struct {
 	SitePageId    string
 	NewSitePageId *string
@@ -250,6 +275,31 @@ func (t *SitePage) DuplicateTemplate(p *DuplicateTemplateParameters) (r *http.Re
 func (t *SitePage) DuplicateTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/SitePage/UseCase/DuplicateTemplate`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type EnableSearchEngineIndexingForSitePageParameters struct {
+	SitePageId string
+}
+
+func (t *SitePage) EnableSearchEngineIndexingForSitePage(p *EnableSearchEngineIndexingForSitePageParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+
+	return t.restClient.Post(
+		`/v2/SitePage/UseCase/EnableSearchEngineIndexingForSitePage`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) EnableSearchEngineIndexingForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/EnableSearchEngineIndexingForSitePage`,
 		data,
 		nil,
 		nil,
@@ -328,7 +378,8 @@ func (t *SitePage) RemoveTemplateWithJSON(data *map[string]interface{}) (r *http
 
 type SetContentForSitePageParameters struct {
 	SitePageId string
-	Content    string
+	EditorJson string
+	Content    *string
 	Styles     *string
 	Scripts    *string
 }
@@ -336,7 +387,10 @@ type SetContentForSitePageParameters struct {
 func (t *SitePage) SetContentForSitePage(p *SetContentForSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`sitePageId`, p.SitePageId)
-	queryParameters.Add(`content`, p.Content)
+	queryParameters.Add(`editorJson`, p.EditorJson)
+	if p.Content != nil {
+		queryParameters.Add(`content`, *p.Content)
+	}
 	if p.Styles != nil {
 		queryParameters.Add(`styles`, *p.Styles)
 	}
