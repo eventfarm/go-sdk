@@ -22,6 +22,10 @@ func (f *Factory) Allotment() *Allotment {
 	return NewAllotment(f.restClient)
 }
 
+func (f *Factory) Answer() *Answer {
+	return NewAnswer(f.restClient)
+}
+
 func (f *Factory) AppVersion() *AppVersion {
 	return NewAppVersion(f.restClient)
 }
@@ -36,6 +40,10 @@ func (f *Factory) Campaign() *Campaign {
 
 func (f *Factory) Canvas() *Canvas {
 	return NewCanvas(f.restClient)
+}
+
+func (f *Factory) Country() *Country {
+	return NewCountry(f.restClient)
 }
 
 func (f *Factory) DomainMask() *DomainMask {
@@ -166,6 +174,14 @@ func (f *Factory) PoolFeature() *PoolFeature {
 	return NewPoolFeature(f.restClient)
 }
 
+func (f *Factory) PoolFile() *PoolFile {
+	return NewPoolFile(f.restClient)
+}
+
+func (f *Factory) PoolImage() *PoolImage {
+	return NewPoolImage(f.restClient)
+}
+
 func (f *Factory) PoolWorld() *PoolWorld {
 	return NewPoolWorld(f.restClient)
 }
@@ -230,6 +246,10 @@ func (f *Factory) TicketType() *TicketType {
 	return NewTicketType(f.restClient)
 }
 
+func (f *Factory) Track() *Track {
+	return NewTrack(f.restClient)
+}
+
 func (f *Factory) Transaction() *Transaction {
 	return NewTransaction(f.restClient)
 }
@@ -260,6 +280,10 @@ func (f *Factory) UserName() *UserName {
 
 func (f *Factory) UserUnsubscribe() *UserUnsubscribe {
 	return NewUserUnsubscribe(f.restClient)
+}
+
+func (f *Factory) Venue() *Venue {
+	return NewVenue(f.restClient)
 }
 
 func (f *Factory) Virbela() *Virbela {

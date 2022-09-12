@@ -187,22 +187,24 @@ func (t *EmailMessage) ListSentEmailMessagesByEvent(p *ListSentEmailMessagesByEv
 type CreateEmailMessageParameters struct {
 	EmailMessageType string
 	EventId          string
-	OwnerUserId      string
 	EmailDesignId    string
 	InvitationId     string
 	Category         string
 	SubCategory      string
+	OwnerUserId      *string
 }
 
 func (t *EmailMessage) CreateEmailMessage(p *CreateEmailMessageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`emailMessageType`, p.EmailMessageType)
 	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
 	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
 	queryParameters.Add(`invitationId`, p.InvitationId)
 	queryParameters.Add(`category`, p.Category)
 	queryParameters.Add(`subCategory`, p.SubCategory)
+	if p.OwnerUserId != nil {
+		queryParameters.Add(`ownerUserId`, *p.OwnerUserId)
+	}
 
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/CreateEmailMessage`,

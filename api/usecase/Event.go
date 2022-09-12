@@ -39,28 +39,6 @@ func (t *Event) CheckAltKeywordAvailability(p *CheckAltKeywordAvailabilityParame
 	)
 }
 
-type GetAllQuestionsForEventParameters struct {
-	EventId  string
-	WithData *[]string // Answers | TicketType | QuestionContexts
-}
-
-func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	if p.WithData != nil {
-		for i := range *p.WithData {
-			queryParameters.Add(`withData[]`, (*p.WithData)[i])
-		}
-	}
-
-	return t.restClient.Get(
-		`/v2/Event/UseCase/GetAllQuestionsForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
 type GetEventParameters struct {
 	EventId  string
 	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld | AnswerBindings
@@ -125,32 +103,10 @@ func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *ht
 	)
 }
 
-type GetQuestionParameters struct {
-	QuestionId string
-	WithData   *[]string // Answers | TicketType | QuestionResponseCounts | AnswerQuestionResponseCounts | QuestionContexts | AnswerBindings
-}
-
-func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-	if p.WithData != nil {
-		for i := range *p.WithData {
-			queryParameters.Add(`withData[]`, (*p.WithData)[i])
-		}
-	}
-
-	return t.restClient.Get(
-		`/v2/Event/UseCase/GetQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
 type ListChildrenForEventParameters struct {
 	ParentEventId           string
 	Query                   *string
-	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl
+	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks
 	Page                    *int64    // >= 1
 	ItemsPerPage            *int64    // 1-100
 	SortBy                  *string
@@ -345,6 +301,60 @@ func (t *Event) ListEventsForPool(p *ListEventsForPoolParameters) (r *http.Respo
 	)
 }
 
+type ListEventsForTrackParameters struct {
+	TrackId                string
+	PoolId                 string
+	WithData               *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | VirbelaWorld
+	Page                   *int64    // >= 1
+	ItemsPerPage           *int64    // 1-500
+	SortBy                 *string
+	SortDirection          *string
+	EventDateFilterType    *string
+	Tags                   *[]string
+	EarliestStartTimestamp *int64 // >= 0
+}
+
+func (t *Event) ListEventsForTrack(p *ListEventsForTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`trackId`, p.TrackId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
+	}
+	if p.Tags != nil {
+		for i := range *p.Tags {
+			queryParameters.Add(`tags[]`, (*p.Tags)[i])
+		}
+	}
+	if p.EarliestStartTimestamp != nil {
+		queryParameters.Add(`earliestStartTimestamp`, strconv.FormatInt(*p.EarliestStartTimestamp, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/Event/UseCase/ListEventsForTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListEventsForUserParameters struct {
 	UserId                  string
 	Query                   *string
@@ -429,28 +439,6 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 	)
 }
 
-type ListQuestionsByEventAndContextParameters struct {
-	EventId              string
-	QuestionContextTypes *[]string // registration | lead
-}
-
-func (t *Event) ListQuestionsByEventAndContext(p *ListQuestionsByEventAndContextParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	if p.QuestionContextTypes != nil {
-		for i := range *p.QuestionContextTypes {
-			queryParameters.Add(`questionContextTypes[]`, (*p.QuestionContextTypes)[i])
-		}
-	}
-
-	return t.restClient.Get(
-		`/v2/Event/UseCase/ListQuestionsByEventAndContext`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
 // POST: Commands
 
 type AddChildEventParameters struct {
@@ -474,6 +462,33 @@ func (t *Event) AddChildEvent(p *AddChildEventParameters) (r *http.Response, err
 func (t *Event) AddChildEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/AddChildEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type AddEventToTrackParameters struct {
+	EventId string
+	TrackId string
+}
+
+func (t *Event) AddEventToTrack(p *AddEventToTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`trackId`, p.TrackId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/AddEventToTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) AddEventToTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddEventToTrack`,
 		data,
 		nil,
 		nil,
@@ -565,6 +580,33 @@ func (t *Event) AddUserRoleToEvent(p *AddUserRoleToEventParameters) (r *http.Res
 func (t *Event) AddUserRoleToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/AddUserRoleToEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type AddVenueToEventParameters struct {
+	EventId string
+	VenueId string
+}
+
+func (t *Event) AddVenueToEvent(p *AddVenueToEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`venueId`, p.VenueId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/AddVenueToEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) AddVenueToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddVenueToEvent`,
 		data,
 		nil,
 		nil,
@@ -772,45 +814,6 @@ func (t *Event) CopyExistingEventConfigurationWithJSON(data *map[string]interfac
 	)
 }
 
-type CreateAnswerParameters struct {
-	QuestionId string
-	Text       string
-	SortOrder  *int64
-	IsDefault  *bool
-	AnswerId   *string
-}
-
-func (t *Event) CreateAnswer(p *CreateAnswerParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-	queryParameters.Add(`text`, p.Text)
-	if p.SortOrder != nil {
-		queryParameters.Add(`sortOrder`, strconv.FormatInt(*p.SortOrder, 10))
-	}
-	if p.IsDefault != nil {
-		queryParameters.Add(`isDefault`, strconv.FormatBool(*p.IsDefault))
-	}
-	if p.AnswerId != nil {
-		queryParameters.Add(`answerId`, *p.AnswerId)
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/CreateAnswer`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) CreateAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/CreateAnswer`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type CreateCIOEventParameters struct {
 	PoolId    string
 	UserId    string
@@ -857,15 +860,17 @@ func (t *Event) CreateCIOEventWithJSON(data *map[string]interface{}) (r *http.Re
 }
 
 type CreateEventParameters struct {
-	PoolId       string
-	UserId       string
-	EventName    string
-	AltKeyword   *string
-	ContactEmail *string
-	StartTime    *string
-	EndTime      *string
-	Timezone     *string
-	EventId      *string
+	PoolId        string
+	UserId        string
+	EventName     string
+	AltKeyword    *string
+	ContactEmail  *string
+	StartTime     *string
+	EndTime       *string
+	Timezone      *string
+	Description   *string
+	ParentEventId *string
+	EventId       *string
 }
 
 func (t *Event) CreateEvent(p *CreateEventParameters) (r *http.Response, err error) {
@@ -888,6 +893,12 @@ func (t *Event) CreateEvent(p *CreateEventParameters) (r *http.Response, err err
 	if p.Timezone != nil {
 		queryParameters.Add(`timezone`, *p.Timezone)
 	}
+	if p.Description != nil {
+		queryParameters.Add(`description`, *p.Description)
+	}
+	if p.ParentEventId != nil {
+		queryParameters.Add(`parentEventId`, *p.ParentEventId)
+	}
 	if p.EventId != nil {
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
@@ -903,111 +914,6 @@ func (t *Event) CreateEvent(p *CreateEventParameters) (r *http.Response, err err
 func (t *Event) CreateEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/CreateEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type CreateQuestionParameters struct {
-	EventId              string
-	Text                 string
-	QuestionType         string
-	SortOrder            *int64
-	IsRequired           *bool
-	IsIndividual         *bool
-	TicketTypeId         *string
-	QuestionId           *string
-	QuestionContextTypes *[]string // registration | lead
-}
-
-func (t *Event) CreateQuestion(p *CreateQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`text`, p.Text)
-	queryParameters.Add(`questionType`, p.QuestionType)
-	if p.SortOrder != nil {
-		queryParameters.Add(`sortOrder`, strconv.FormatInt(*p.SortOrder, 10))
-	}
-	if p.IsRequired != nil {
-		queryParameters.Add(`isRequired`, strconv.FormatBool(*p.IsRequired))
-	}
-	if p.IsIndividual != nil {
-		queryParameters.Add(`isIndividual`, strconv.FormatBool(*p.IsIndividual))
-	}
-	if p.TicketTypeId != nil {
-		queryParameters.Add(`ticketTypeId`, *p.TicketTypeId)
-	}
-	if p.QuestionId != nil {
-		queryParameters.Add(`questionId`, *p.QuestionId)
-	}
-	if p.QuestionContextTypes != nil {
-		for i := range *p.QuestionContextTypes {
-			queryParameters.Add(`questionContextTypes[]`, (*p.QuestionContextTypes)[i])
-		}
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/CreateQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) CreateQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/CreateQuestion`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type DeleteAnswerParameters struct {
-	AnswerId string
-}
-
-func (t *Event) DeleteAnswer(p *DeleteAnswerParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`answerId`, p.AnswerId)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/DeleteAnswer`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) DeleteAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/DeleteAnswer`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type DeleteQuestionParameters struct {
-	QuestionId string
-}
-
-func (t *Event) DeleteQuestion(p *DeleteQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/DeleteQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) DeleteQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/DeleteQuestion`,
 		data,
 		nil,
 		nil,
@@ -1333,31 +1239,6 @@ func (t *Event) DisableQRCodeConfirmation(p *DisableQRCodeConfirmationParameters
 func (t *Event) DisableQRCodeConfirmationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/DisableQRCodeConfirmation`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type DisableQuestionParameters struct {
-	QuestionId string
-}
-
-func (t *Event) DisableQuestion(p *DisableQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/DisableQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) DisableQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/DisableQuestion`,
 		data,
 		nil,
 		nil,
@@ -1891,31 +1772,6 @@ func (t *Event) EnableQRCodeConfirmationWithJSON(data *map[string]interface{}) (
 	)
 }
 
-type EnableQuestionParameters struct {
-	QuestionId string
-}
-
-func (t *Event) EnableQuestion(p *EnableQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/EnableQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) EnableQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/EnableQuestion`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type EnableShieldParameters struct {
 	EventId string
 }
@@ -2190,6 +2046,33 @@ func (t *Event) RemoveChildEventWithJSON(data *map[string]interface{}) (r *http.
 	)
 }
 
+type RemoveEventFromTrackParameters struct {
+	EventId string
+	TrackId string
+}
+
+func (t *Event) RemoveEventFromTrack(p *RemoveEventFromTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`trackId`, p.TrackId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveEventFromTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveEventFromTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveEventFromTrack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveMessageForEventParameters struct {
 	EventId     string
 	MessageType string
@@ -2290,6 +2173,31 @@ func (t *Event) RemoveTrackingScriptForEvent(p *RemoveTrackingScriptForEventPara
 func (t *Event) RemoveTrackingScriptForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/RemoveTrackingScriptForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type RemoveVenueFromEventParameters struct {
+	EventId string
+}
+
+func (t *Event) RemoveVenueFromEvent(p *RemoveVenueFromEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveVenueFromEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveVenueFromEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveVenueFromEvent`,
 		data,
 		nil,
 		nil,
@@ -2596,33 +2504,6 @@ func (t *Event) SetAltPaymentProcessorForEventWithJSON(data *map[string]interfac
 	)
 }
 
-type SetAnswerSortOrderParameters struct {
-	AnswerId  string
-	SortOrder int64
-}
-
-func (t *Event) SetAnswerSortOrder(p *SetAnswerSortOrderParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`answerId`, p.AnswerId)
-	queryParameters.Add(`sortOrder`, strconv.FormatInt(p.SortOrder, 10))
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetAnswerSortOrder`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetAnswerSortOrderWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetAnswerSortOrder`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type SetContactEmailForEventParameters struct {
 	EventId      string
 	ContactEmail string
@@ -2833,47 +2714,6 @@ func (t *Event) SetLanguageForEvent(p *SetLanguageForEventParameters) (r *http.R
 func (t *Event) SetLanguageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetLanguageForEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type SetLocationForEventParameters struct {
-	EventId         string
-	LocationName    *string
-	LocationAddress *string
-	LocationType    *string
-	LocationDetails *string
-}
-
-func (t *Event) SetLocationForEvent(p *SetLocationForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	if p.LocationName != nil {
-		queryParameters.Add(`locationName`, *p.LocationName)
-	}
-	if p.LocationAddress != nil {
-		queryParameters.Add(`locationAddress`, *p.LocationAddress)
-	}
-	if p.LocationType != nil {
-		queryParameters.Add(`locationType`, *p.LocationType)
-	}
-	if p.LocationDetails != nil {
-		queryParameters.Add(`locationDetails`, *p.LocationDetails)
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetLocationForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetLocationForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetLocationForEvent`,
 		data,
 		nil,
 		nil,
@@ -3152,33 +2992,6 @@ func (t *Event) SetProcessingRefundWithJSON(data *map[string]interface{}) (r *ht
 	)
 }
 
-type SetQuestionSortOrderParameters struct {
-	QuestionId string
-	SortOrder  int64
-}
-
-func (t *Event) SetQuestionSortOrder(p *SetQuestionSortOrderParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-	queryParameters.Add(`sortOrder`, strconv.FormatInt(p.SortOrder, 10))
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetQuestionSortOrder`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetQuestionSortOrderWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetQuestionSortOrder`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type SetTimeForEventParameters struct {
 	EventId   string
 	StartTime string
@@ -3260,47 +3073,6 @@ func (t *Event) SetTwitterHandleForEvent(p *SetTwitterHandleForEventParameters) 
 func (t *Event) SetTwitterHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetTwitterHandleForEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type SetVenueForEventParameters struct {
-	EventId         string
-	LocationName    *string
-	LocationAddress *string
-	LocationType    *string
-	LocationDetails *string
-}
-
-func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	if p.LocationName != nil {
-		queryParameters.Add(`locationName`, *p.LocationName)
-	}
-	if p.LocationAddress != nil {
-		queryParameters.Add(`locationAddress`, *p.LocationAddress)
-	}
-	if p.LocationType != nil {
-		queryParameters.Add(`locationType`, *p.LocationType)
-	}
-	if p.LocationDetails != nil {
-		queryParameters.Add(`locationDetails`, *p.LocationDetails)
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetVenueForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetVenueForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetVenueForEvent`,
 		data,
 		nil,
 		nil,
@@ -3411,84 +3183,6 @@ func (t *Event) UnsetPaymentGatewayForEvent(p *UnsetPaymentGatewayForEventParame
 func (t *Event) UnsetPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/UnsetPaymentGatewayForEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type UpdateAnswerParameters struct {
-	AnswerId  string
-	Text      string
-	IsDefault *bool
-}
-
-func (t *Event) UpdateAnswer(p *UpdateAnswerParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`answerId`, p.AnswerId)
-	queryParameters.Add(`text`, p.Text)
-	if p.IsDefault != nil {
-		queryParameters.Add(`isDefault`, strconv.FormatBool(*p.IsDefault))
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/UpdateAnswer`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) UpdateAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/UpdateAnswer`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type UpdateQuestionParameters struct {
-	QuestionId           string
-	Text                 string
-	QuestionType         string
-	QuestionContextTypes *[]string // registration | lead
-	IsRequired           *bool
-	IsIndividual         *bool
-	TicketTypeId         *string
-}
-
-func (t *Event) UpdateQuestion(p *UpdateQuestionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`questionId`, p.QuestionId)
-	queryParameters.Add(`text`, p.Text)
-	queryParameters.Add(`questionType`, p.QuestionType)
-	if p.QuestionContextTypes != nil {
-		for i := range *p.QuestionContextTypes {
-			queryParameters.Add(`questionContextTypes[]`, (*p.QuestionContextTypes)[i])
-		}
-	}
-	if p.IsRequired != nil {
-		queryParameters.Add(`isRequired`, strconv.FormatBool(*p.IsRequired))
-	}
-	if p.IsIndividual != nil {
-		queryParameters.Add(`isIndividual`, strconv.FormatBool(*p.IsIndividual))
-	}
-	if p.TicketTypeId != nil {
-		queryParameters.Add(`ticketTypeId`, *p.TicketTypeId)
-	}
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/UpdateQuestion`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) UpdateQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/UpdateQuestion`,
 		data,
 		nil,
 		nil,

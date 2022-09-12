@@ -79,6 +79,24 @@ type PoolContractType struct {
 	IsInternal    bool
 }
 
+type PoolFileCategoryType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsProfile   bool
+	IsEFx       bool
+	IsOther     bool
+}
+
+type PoolImageType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsProfile   bool
+	IsEFx       bool
+	IsOther     bool
+}
+
 type PoolWebhookType struct {
 	Slug        string
 	Name        string
@@ -1360,6 +1378,64 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremierPlus: false,
 			IsCustom:      false,
 			IsInternal:    true,
+		},
+	}
+}
+
+func (f *Pool) ListPoolFileCategoryTypes() []PoolFileCategoryType {
+	return []PoolFileCategoryType{
+		{
+			Slug:        `profile`,
+			Name:        `Profile`,
+			Description: ``,
+			IsProfile:   true,
+			IsEFx:       false,
+			IsOther:     false,
+		},
+		{
+			Slug:        `efx`,
+			Name:        `EFx`,
+			Description: ``,
+			IsProfile:   false,
+			IsEFx:       true,
+			IsOther:     false,
+		},
+		{
+			Slug:        `other`,
+			Name:        `Other`,
+			Description: ``,
+			IsProfile:   false,
+			IsEFx:       false,
+			IsOther:     true,
+		},
+	}
+}
+
+func (f *Pool) ListPoolImageTypes() []PoolImageType {
+	return []PoolImageType{
+		{
+			Slug:        `profile`,
+			Name:        `Profile`,
+			Description: ``,
+			IsProfile:   true,
+			IsEFx:       false,
+			IsOther:     false,
+		},
+		{
+			Slug:        `efx`,
+			Name:        `EFx`,
+			Description: ``,
+			IsProfile:   false,
+			IsEFx:       true,
+			IsOther:     false,
+		},
+		{
+			Slug:        `other`,
+			Name:        `Other`,
+			Description: ``,
+			IsProfile:   false,
+			IsEFx:       false,
+			IsOther:     true,
 		},
 	}
 }

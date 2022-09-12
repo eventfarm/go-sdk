@@ -97,19 +97,21 @@ func (t *Link) AddLinksToProfileWithJSON(data *map[string]interface{}) (r *http.
 
 type CreateLinkParameters struct {
 	PoolId    string
-	Url       *string
+	Url       string
 	ShownText *string
+	LinkType  *string
 	LinkId    *string
 }
 
 func (t *Link) CreateLink(p *CreateLinkParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`poolId`, p.PoolId)
-	if p.Url != nil {
-		queryParameters.Add(`url`, *p.Url)
-	}
+	queryParameters.Add(`url`, p.Url)
 	if p.ShownText != nil {
 		queryParameters.Add(`shownText`, *p.ShownText)
+	}
+	if p.LinkType != nil {
+		queryParameters.Add(`linkType`, *p.LinkType)
 	}
 	if p.LinkId != nil {
 		queryParameters.Add(`linkId`, *p.LinkId)
@@ -238,6 +240,33 @@ func (t *Link) RemoveLinksFromProfileWithJSON(data *map[string]interface{}) (r *
 	)
 }
 
+type SetLinkTypeParameters struct {
+	LinkId   string
+	LinkType string
+}
+
+func (t *Link) SetLinkType(p *SetLinkTypeParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`linkId`, p.LinkId)
+	queryParameters.Add(`linkType`, p.LinkType)
+
+	return t.restClient.Post(
+		`/v2/Link/UseCase/SetLinkType`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Link) SetLinkTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Link/UseCase/SetLinkType`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetShownTextParameters struct {
 	LinkId    string
 	ShownText string
@@ -297,6 +326,7 @@ type UpdateLinkParameters struct {
 	PoolId    string
 	Url       *string
 	ShownText *string
+	LinkType  *string
 }
 
 func (t *Link) UpdateLink(p *UpdateLinkParameters) (r *http.Response, err error) {
@@ -308,6 +338,9 @@ func (t *Link) UpdateLink(p *UpdateLinkParameters) (r *http.Response, err error)
 	}
 	if p.ShownText != nil {
 		queryParameters.Add(`shownText`, *p.ShownText)
+	}
+	if p.LinkType != nil {
+		queryParameters.Add(`linkType`, *p.LinkType)
 	}
 
 	return t.restClient.Post(

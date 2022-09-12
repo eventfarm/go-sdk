@@ -71,6 +71,10 @@ func (f *Factory) Lead() *Lead {
 	return NewLead()
 }
 
+func (f *Factory) Link() *Link {
+	return NewLink()
+}
+
 func (f *Factory) PaymentGateway() *PaymentGateway {
 	return NewPaymentGateway()
 }
@@ -121,6 +125,10 @@ func (f *Factory) Stack() *Stack {
 
 func (f *Factory) User() *User {
 	return NewUser()
+}
+
+func (f *Factory) Venue() *Venue {
+	return NewVenue()
 }
 
 func (f *Factory) Virbela() *Virbela {

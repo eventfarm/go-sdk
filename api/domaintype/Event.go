@@ -65,6 +65,16 @@ type EventDateFilterType struct {
 	IsPast6Months          bool
 }
 
+type EventEventType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsInPerson  bool
+	IsHybrid    bool
+	IsVirtual   bool
+	IsOther     bool
+}
+
 type EventMessageSlugType struct {
 	Slug                      string
 	Name                      string
@@ -125,22 +135,20 @@ type EventType struct {
 	Slug        string
 	Name        string
 	Description string
-	IsEventFarm bool
-	IsCio       bool
-	IsListly    bool
-	IsDnc       bool
-	IsRnc       bool
-	IsRslc      bool
-	IsSundance  bool
+	IsInPerson  bool
+	IsVirtual   bool
+	IsHybrid    bool
+	IsOther     bool
 }
 
 type LocationType struct {
 	Slug        string
 	Name        string
 	Description string
-	IsInPerson  bool
+	IsPhysical  bool
 	IsVirbela   bool
 	IsVirtual   bool
+	IsOther     bool
 }
 
 type MapSourceType struct {
@@ -182,28 +190,6 @@ type ProcessingCurrencyType struct {
 	IsCHF       bool
 	IsTHB       bool
 	IsUSD       bool
-}
-
-type QuestionContextType struct {
-	Slug           string
-	Name           string
-	Description    string
-	IsRegistration bool
-	IsLeadCapture  bool
-}
-
-type QuestionType struct {
-	Slug        string
-	Name        string
-	Description string
-	IsCheckbox  bool
-	IsRadio     bool
-	IsMulti     bool
-	IsText      bool
-	IsSelect    bool
-	IsDate      bool
-	IsWaiver    bool
-	IsAddress   bool
 }
 
 type ThemeColorType struct {
@@ -520,6 +506,47 @@ func (f *Event) ListEventDateFilterTypes() []EventDateFilterType {
 			IsPast3Months:          false,
 			IsPast3MonthsAndFuture: false,
 			IsPast6Months:          true,
+		},
+	}
+}
+
+func (f *Event) ListEventEventTypes() []EventEventType {
+	return []EventEventType{
+		{
+			Slug:        `in-person`,
+			Name:        `In Person`,
+			Description: ``,
+			IsInPerson:  true,
+			IsHybrid:    false,
+			IsVirtual:   false,
+			IsOther:     false,
+		},
+		{
+			Slug:        `hybrid`,
+			Name:        `Hybrid`,
+			Description: ``,
+			IsInPerson:  false,
+			IsHybrid:    true,
+			IsVirtual:   false,
+			IsOther:     false,
+		},
+		{
+			Slug:        `virtual`,
+			Name:        `Virtual`,
+			Description: ``,
+			IsInPerson:  false,
+			IsHybrid:    false,
+			IsVirtual:   true,
+			IsOther:     false,
+		},
+		{
+			Slug:        `other`,
+			Name:        `Other`,
+			Description: ``,
+			IsInPerson:  false,
+			IsHybrid:    false,
+			IsVirtual:   false,
+			IsOther:     true,
 		},
 	}
 }
@@ -1755,88 +1782,40 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 func (f *Event) ListEventTypes() []EventType {
 	return []EventType{
 		{
-			Slug:        `eventfarm`,
-			Name:        `Event Farm`,
+			Slug:        `in-person`,
+			Name:        `In-Person`,
 			Description: ``,
-			IsEventFarm: true,
-			IsCio:       false,
-			IsListly:    false,
-			IsDnc:       false,
-			IsRnc:       false,
-			IsRslc:      false,
-			IsSundance:  false,
+			IsInPerson:  true,
+			IsVirtual:   false,
+			IsHybrid:    false,
+			IsOther:     false,
 		},
 		{
-			Slug:        `cio`,
-			Name:        `Check-in-Only`,
+			Slug:        `virtual`,
+			Name:        `Virtual`,
 			Description: ``,
-			IsEventFarm: false,
-			IsCio:       true,
-			IsListly:    false,
-			IsDnc:       false,
-			IsRnc:       false,
-			IsRslc:      false,
-			IsSundance:  false,
+			IsInPerson:  false,
+			IsVirtual:   true,
+			IsHybrid:    false,
+			IsOther:     false,
 		},
 		{
-			Slug:        `listly`,
-			Name:        `Listly`,
+			Slug:        `hybrid`,
+			Name:        `Hybrid`,
 			Description: ``,
-			IsEventFarm: false,
-			IsCio:       false,
-			IsListly:    true,
-			IsDnc:       false,
-			IsRnc:       false,
-			IsRslc:      false,
-			IsSundance:  false,
+			IsInPerson:  false,
+			IsVirtual:   false,
+			IsHybrid:    true,
+			IsOther:     false,
 		},
 		{
-			Slug:        `dnc`,
-			Name:        `DNC`,
+			Slug:        `other`,
+			Name:        `Other`,
 			Description: ``,
-			IsEventFarm: false,
-			IsCio:       false,
-			IsListly:    false,
-			IsDnc:       true,
-			IsRnc:       false,
-			IsRslc:      false,
-			IsSundance:  false,
-		},
-		{
-			Slug:        `rnc`,
-			Name:        `RNC`,
-			Description: ``,
-			IsEventFarm: false,
-			IsCio:       false,
-			IsListly:    false,
-			IsDnc:       false,
-			IsRnc:       true,
-			IsRslc:      false,
-			IsSundance:  false,
-		},
-		{
-			Slug:        `rslc`,
-			Name:        `RSLC`,
-			Description: ``,
-			IsEventFarm: false,
-			IsCio:       false,
-			IsListly:    false,
-			IsDnc:       false,
-			IsRnc:       false,
-			IsRslc:      true,
-			IsSundance:  false,
-		},
-		{
-			Slug:        `sundance`,
-			Name:        `Sundance`,
-			Description: ``,
-			IsEventFarm: false,
-			IsCio:       false,
-			IsListly:    false,
-			IsDnc:       false,
-			IsRnc:       false,
-			IsRslc:      false,
-			IsSundance:  true,
+			IsInPerson:  false,
+			IsVirtual:   false,
+			IsHybrid:    false,
+			IsOther:     true,
 		},
 	}
 }
@@ -1844,28 +1823,40 @@ func (f *Event) ListEventTypes() []EventType {
 func (f *Event) ListLocationTypes() []LocationType {
 	return []LocationType{
 		{
-			Slug:        `in-person`,
-			Name:        `in-person`,
+			Slug:        `physical`,
+			Name:        `physical`,
 			Description: ``,
-			IsInPerson:  true,
+			IsPhysical:  true,
 			IsVirbela:   false,
 			IsVirtual:   false,
+			IsOther:     false,
 		},
 		{
 			Slug:        `virbela`,
 			Name:        `virbela`,
 			Description: ``,
-			IsInPerson:  false,
+			IsPhysical:  false,
 			IsVirbela:   true,
 			IsVirtual:   false,
+			IsOther:     false,
 		},
 		{
 			Slug:        `virtual`,
 			Name:        `virtual`,
 			Description: ``,
-			IsInPerson:  false,
+			IsPhysical:  false,
 			IsVirbela:   false,
 			IsVirtual:   true,
+			IsOther:     false,
+		},
+		{
+			Slug:        `other`,
+			Name:        `other`,
+			Description: ``,
+			IsPhysical:  false,
+			IsVirbela:   false,
+			IsVirtual:   false,
+			IsOther:     true,
 		},
 	}
 }
@@ -2277,134 +2268,6 @@ func (f *Event) ListProcessingCurrencyTypes() []ProcessingCurrencyType {
 			IsCHF:       false,
 			IsTHB:       false,
 			IsUSD:       true,
-		},
-	}
-}
-
-func (f *Event) ListQuestionContextTypes() []QuestionContextType {
-	return []QuestionContextType{
-		{
-			Slug:           `registration`,
-			Name:           `Registration`,
-			Description:    ``,
-			IsRegistration: true,
-			IsLeadCapture:  false,
-		},
-		{
-			Slug:           `lead`,
-			Name:           `Lead Capture`,
-			Description:    ``,
-			IsRegistration: false,
-			IsLeadCapture:  true,
-		},
-	}
-}
-
-func (f *Event) ListQuestionTypes() []QuestionType {
-	return []QuestionType{
-		{
-			Slug:        `checkbox`,
-			Name:        `Checkboxes`,
-			Description: ``,
-			IsCheckbox:  true,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `radio`,
-			Name:        `Radio Buttons`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     true,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `multi`,
-			Name:        `Paragraph`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     true,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `text`,
-			Name:        `Short Answer`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      true,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `select`,
-			Name:        `Dropdown Select`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    true,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `date`,
-			Name:        `Select Date`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      true,
-			IsWaiver:    false,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `waiver`,
-			Name:        `Sign Waiver`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    true,
-			IsAddress:   false,
-		},
-		{
-			Slug:        `address`,
-			Name:        `Address`,
-			Description: ``,
-			IsCheckbox:  false,
-			IsRadio:     false,
-			IsMulti:     false,
-			IsText:      false,
-			IsSelect:    false,
-			IsDate:      false,
-			IsWaiver:    false,
-			IsAddress:   true,
 		},
 	}
 }

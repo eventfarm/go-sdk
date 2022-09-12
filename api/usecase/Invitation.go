@@ -642,6 +642,7 @@ type ListInvitationsForUserForParentParameters struct {
 	SortDirection       *string
 	WithData            *[]string // Event | Stack
 	StatusFilter        *[]string
+	ExcludeParent       *bool
 }
 
 func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserForParentParameters) (r *http.Response, err error) {
@@ -672,6 +673,9 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 		for i := range *p.StatusFilter {
 			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
 		}
+	}
+	if p.ExcludeParent != nil {
+		queryParameters.Add(`excludeParent`, strconv.FormatBool(*p.ExcludeParent))
 	}
 
 	return t.restClient.Get(

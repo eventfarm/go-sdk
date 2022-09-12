@@ -39,11 +39,13 @@ func (t *Profile) GetProfile(p *GetProfileParameters) (r *http.Response, err err
 }
 
 type ListProfilesForEventParameters struct {
-	EventId       string
-	Page          *int64 // >= 1
-	ItemsPerPage  *int64 // 1-500
-	SortBy        *string
-	SortDirection *string
+	EventId           string
+	Page              *int64 // >= 1
+	ItemsPerPage      *int64 // 1-500
+	SortBy            *string
+	SortDirection     *string
+	Query             *string
+	ShouldHideDeleted *bool
 }
 
 func (t *Profile) ListProfilesForEvent(p *ListProfilesForEventParameters) (r *http.Response, err error) {
@@ -60,6 +62,12 @@ func (t *Profile) ListProfilesForEvent(p *ListProfilesForEventParameters) (r *ht
 	}
 	if p.SortDirection != nil {
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
 
 	return t.restClient.Get(

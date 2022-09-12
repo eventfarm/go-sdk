@@ -58,6 +58,22 @@ func (t *EFx) GetAllModulesForEvent(p *GetAllModulesForEventParameters) (r *http
 	)
 }
 
+type GetEFxScreenParameters struct {
+	ScreenId string
+}
+
+func (t *EFx) GetEFxScreen(p *GetEFxScreenParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`screenId`, p.ScreenId)
+
+	return t.restClient.Get(
+		`/v2/EFx/UseCase/GetEFxScreen`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type GetEFxStationParameters struct {
 	StationId string
 	WithData  *[]string // StackAndTicketType | EFxScreens
@@ -80,14 +96,52 @@ func (t *EFx) GetEFxStation(p *GetEFxStationParameters) (r *http.Response, err e
 	)
 }
 
+type ListEFxScreensForEventParameters struct {
+	EventId          string
+	SortBy           *string
+	SortDirection    *string
+	Page             *int64 // >= 1
+	ItemsPerPage     *int64 // 1-100
+	ScreenTypeFilter *[]string
+}
+
+func (t *EFx) ListEFxScreensForEvent(p *ListEFxScreensForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.ScreenTypeFilter != nil {
+		for i := range *p.ScreenTypeFilter {
+			queryParameters.Add(`screenTypeFilter[]`, (*p.ScreenTypeFilter)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/EFx/UseCase/ListEFxScreensForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListEFxStationsForEventParameters struct {
 	EventId       string
 	WithData      *[]string // StackAndTicketType | EFxScreens
 	SortBy        *string
 	SortDirection *string
-	Page          *int64    // >= 1
-	ItemsPerPage  *int64    // 1-100
-	ModuleFilter  *[]string // guest-management | access-control | athletes-bag | concierge | digital-memory-bank | guest-info | messaging | smsquiz | product-pickup | raffle | reservation | roaming-photographer | smart-bar | teams | lead-retrieval
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
+	ModuleFilter  *[]string
 	Query         *string
 }
 
@@ -129,6 +183,43 @@ func (t *EFx) ListEFxStationsForEvent(p *ListEFxStationsForEventParameters) (r *
 }
 
 // POST: Commands
+
+type CreateEFxScreenParameters struct {
+	EventId       string
+	BackgroundUrl string
+	TextColor     string
+	ScreenType    string
+	Text          string
+	ScreenId      *string
+}
+
+func (t *EFx) CreateEFxScreen(p *CreateEFxScreenParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`backgroundUrl`, p.BackgroundUrl)
+	queryParameters.Add(`textColor`, p.TextColor)
+	queryParameters.Add(`screenType`, p.ScreenType)
+	queryParameters.Add(`text`, p.Text)
+	if p.ScreenId != nil {
+		queryParameters.Add(`screenId`, *p.ScreenId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/CreateEFxScreen`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) CreateEFxScreenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/CreateEFxScreen`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type CreateEFxStationParameters struct {
 	EventId     string
@@ -479,6 +570,43 @@ func (t *EFx) SetAdminPinForEventWithJSON(data *map[string]interface{}) (r *http
 	)
 }
 
+type SetContentDeliveryForEFxStationParameters struct {
+	StationId     string
+	SmsText       *string
+	SmsMedialUrl  *string
+	EmailDesignId *string
+}
+
+func (t *EFx) SetContentDeliveryForEFxStation(p *SetContentDeliveryForEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+	if p.SmsText != nil {
+		queryParameters.Add(`smsText`, *p.SmsText)
+	}
+	if p.SmsMedialUrl != nil {
+		queryParameters.Add(`smsMedialUrl`, *p.SmsMedialUrl)
+	}
+	if p.EmailDesignId != nil {
+		queryParameters.Add(`emailDesignId`, *p.EmailDesignId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/SetContentDeliveryForEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetContentDeliveryForEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetContentDeliveryForEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetSMSForEventParameters struct {
 	EventId string
 	Message string
@@ -500,6 +628,37 @@ func (t *EFx) SetSMSForEvent(p *SetSMSForEventParameters) (r *http.Response, err
 func (t *EFx) SetSMSForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/EFx/UseCase/SetSMSForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetScreensForEFxStationParameters struct {
+	StationId string
+	ScreenIds *[]string
+}
+
+func (t *EFx) SetScreensForEFxStation(p *SetScreensForEFxStationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stationId`, p.StationId)
+	if p.ScreenIds != nil {
+		for i := range *p.ScreenIds {
+			queryParameters.Add(`screenIds[]`, (*p.ScreenIds)[i])
+		}
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/SetScreensForEFxStation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetScreensForEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetScreensForEFxStation`,
 		data,
 		nil,
 		nil,
@@ -531,6 +690,37 @@ func (t *EFx) SetStacksForEFxStation(p *SetStacksForEFxStationParameters) (r *ht
 func (t *EFx) SetStacksForEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/EFx/UseCase/SetStacksForEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateEFxScreenParameters struct {
+	ScreenId      string
+	Text          string
+	TextColor     string
+	BackgroundUrl string
+}
+
+func (t *EFx) UpdateEFxScreen(p *UpdateEFxScreenParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`screenId`, p.ScreenId)
+	queryParameters.Add(`text`, p.Text)
+	queryParameters.Add(`textColor`, p.TextColor)
+	queryParameters.Add(`backgroundUrl`, p.BackgroundUrl)
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/UpdateEFxScreen`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) UpdateEFxScreenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/UpdateEFxScreen`,
 		data,
 		nil,
 		nil,
