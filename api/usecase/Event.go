@@ -106,7 +106,7 @@ func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *ht
 type ListChildrenForEventParameters struct {
 	ParentEventId           string
 	Query                   *string
-	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks
+	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks | Venue
 	Page                    *int64    // >= 1
 	ItemsPerPage            *int64    // 1-100
 	SortBy                  *string

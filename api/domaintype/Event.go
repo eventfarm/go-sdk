@@ -65,16 +65,6 @@ type EventDateFilterType struct {
 	IsPast6Months          bool
 }
 
-type EventEventType struct {
-	Slug        string
-	Name        string
-	Description string
-	IsInPerson  bool
-	IsHybrid    bool
-	IsVirtual   bool
-	IsOther     bool
-}
-
 type EventMessageSlugType struct {
 	Slug                      string
 	Name                      string
@@ -129,6 +119,15 @@ type EventMessageType struct {
 	IsWaitListSMS                      bool
 	DefaultValue                       string
 	Value                              string
+}
+
+type EventStateType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsPublished bool
+	IsDraft     bool
+	IsArchived  bool
 }
 
 type EventType struct {
@@ -224,6 +223,20 @@ type TrackingScriptType struct {
 	IsRegistration bool
 	IsConfirmation bool
 	Value          string
+}
+
+type VariantType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsFull      bool
+	IsCio       bool
+	IsLite      bool
+	IsSession   bool
+	IsPanel     bool
+	IsKeynote   bool
+	IsBlock     bool
+	IsSample    bool
 }
 
 func (f *Event) ListCIOMarketingEventCountTypes() []CIOMarketingEventCountType {
@@ -506,47 +519,6 @@ func (f *Event) ListEventDateFilterTypes() []EventDateFilterType {
 			IsPast3Months:          false,
 			IsPast3MonthsAndFuture: false,
 			IsPast6Months:          true,
-		},
-	}
-}
-
-func (f *Event) ListEventEventTypes() []EventEventType {
-	return []EventEventType{
-		{
-			Slug:        `in-person`,
-			Name:        `In Person`,
-			Description: ``,
-			IsInPerson:  true,
-			IsHybrid:    false,
-			IsVirtual:   false,
-			IsOther:     false,
-		},
-		{
-			Slug:        `hybrid`,
-			Name:        `Hybrid`,
-			Description: ``,
-			IsInPerson:  false,
-			IsHybrid:    true,
-			IsVirtual:   false,
-			IsOther:     false,
-		},
-		{
-			Slug:        `virtual`,
-			Name:        `Virtual`,
-			Description: ``,
-			IsInPerson:  false,
-			IsHybrid:    false,
-			IsVirtual:   true,
-			IsOther:     false,
-		},
-		{
-			Slug:        `other`,
-			Name:        `Other`,
-			Description: ``,
-			IsInPerson:  false,
-			IsHybrid:    false,
-			IsVirtual:   false,
-			IsOther:     true,
 		},
 	}
 }
@@ -1779,6 +1751,35 @@ func (f *Event) ListEventMessageTypes() []EventMessageType {
 	}
 }
 
+func (f *Event) ListEventStateTypes() []EventStateType {
+	return []EventStateType{
+		{
+			Slug:        `published`,
+			Name:        `Published`,
+			Description: ``,
+			IsPublished: true,
+			IsDraft:     false,
+			IsArchived:  false,
+		},
+		{
+			Slug:        `draft`,
+			Name:        `Draft`,
+			Description: ``,
+			IsPublished: false,
+			IsDraft:     true,
+			IsArchived:  false,
+		},
+		{
+			Slug:        `archived`,
+			Name:        `Archived`,
+			Description: ``,
+			IsPublished: false,
+			IsDraft:     false,
+			IsArchived:  true,
+		},
+	}
+}
+
 func (f *Event) ListEventTypes() []EventType {
 	return []EventType{
 		{
@@ -2366,6 +2367,115 @@ func (f *Event) ListTrackingScriptTypes() []TrackingScriptType {
 			IsRegistration: false,
 			IsConfirmation: true,
 			Value:          ``,
+		},
+	}
+}
+
+func (f *Event) ListVariantTypes() []VariantType {
+	return []VariantType{
+		{
+			Slug:        `full`,
+			Name:        `Full`,
+			Description: ``,
+			IsFull:      true,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `cio`,
+			Name:        `Check-in-Only`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       true,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `lite`,
+			Name:        `Lite`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      true,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `session`,
+			Name:        `Session`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   true,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `panel`,
+			Name:        `Panel`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     true,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `keynote`,
+			Name:        `Keynote`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   true,
+			IsBlock:     false,
+			IsSample:    false,
+		},
+		{
+			Slug:        `block`,
+			Name:        `Block`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     true,
+			IsSample:    false,
+		},
+		{
+			Slug:        `sample`,
+			Name:        `Sample`,
+			Description: ``,
+			IsFull:      false,
+			IsCio:       false,
+			IsLite:      false,
+			IsSession:   false,
+			IsPanel:     false,
+			IsKeynote:   false,
+			IsBlock:     false,
+			IsSample:    true,
 		},
 	}
 }
