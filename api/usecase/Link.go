@@ -7,6 +7,7 @@ package usecase
 import (
 	"net/http"
 	"net/url"
+	"strconv"
 
 	"github.com/eventfarm/go-sdk/rest"
 )
@@ -37,7 +38,74 @@ func (t *Link) GetLink(p *GetLinkParameters) (r *http.Response, err error) {
 	)
 }
 
+type ListLinksForEventParameters struct {
+	EventId           string
+	Page              *int64 // >= 1
+	ItemsPerPage      *int64 // 1-500
+	SortBy            *string
+	SortDirection     *string
+	Query             *string
+	ShouldHideDeleted *bool
+}
+
+func (t *Link) ListLinksForEvent(p *ListLinksForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
+	}
+
+	return t.restClient.Get(
+		`/v2/Link/UseCase/ListLinksForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
+
+type AddLinkToEventParameters struct {
+	LinkId  string
+	EventId string
+}
+
+func (t *Link) AddLinkToEvent(p *AddLinkToEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`linkId`, p.LinkId)
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Link/UseCase/AddLinkToEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Link) AddLinkToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Link/UseCase/AddLinkToEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type AddLinkToProfileParameters struct {
 	LinkId    string
@@ -178,6 +246,33 @@ func (t *Link) RemoveLink(p *RemoveLinkParameters) (r *http.Response, err error)
 func (t *Link) RemoveLinkWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Link/UseCase/RemoveLink`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type RemoveLinkFromEventParameters struct {
+	LinkId  string
+	EventId string
+}
+
+func (t *Link) RemoveLinkFromEvent(p *RemoveLinkFromEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`linkId`, p.LinkId)
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Link/UseCase/RemoveLinkFromEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Link) RemoveLinkFromEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Link/UseCase/RemoveLinkFromEvent`,
 		data,
 		nil,
 		nil,

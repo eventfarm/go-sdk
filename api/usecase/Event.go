@@ -41,7 +41,7 @@ func (t *Event) CheckAltKeywordAvailability(p *CheckAltKeywordAvailabilityParame
 
 type GetEventParameters struct {
 	EventId  string
-	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld | AnswerBindings
+	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme | VirbelaWorld | AnswerBindings | EventLinks
 }
 
 func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
