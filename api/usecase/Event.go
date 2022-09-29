@@ -2612,6 +2612,33 @@ func (t *Event) SetEventTypeWithJSON(data *map[string]interface{}) (r *http.Resp
 	)
 }
 
+type SetEventVariantParameters struct {
+	EventId      string
+	EventVariant string
+}
+
+func (t *Event) SetEventVariant(p *SetEventVariantParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventVariant`, p.EventVariant)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetEventVariant`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetEventVariantWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetEventVariant`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetFacebookHandleForEventParameters struct {
 	EventId        string
 	FacebookHandle string
