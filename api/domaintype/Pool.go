@@ -46,6 +46,7 @@ type FeatureType struct {
 	IsHealthPass           bool
 	IsExhibitors           bool
 	IsLogi                 bool
+	IsSessionManagement    bool
 }
 
 type PoolAllotmentType struct {
@@ -141,6 +142,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `apiaccess`,
@@ -177,6 +179,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `marketo`,
@@ -213,6 +216,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `emailmasking`,
@@ -249,6 +253,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `whitelabeling`,
@@ -285,6 +290,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `agents`,
@@ -321,6 +327,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `visacheckout`,
@@ -357,6 +364,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `canvas`,
@@ -393,6 +401,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `harvester`,
@@ -429,6 +438,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `accesscontrol-efx`,
@@ -465,6 +475,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `athletebag-efx`,
@@ -501,6 +512,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `concierge-efx`,
@@ -537,6 +549,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `digitalmemorybank-efx`,
@@ -573,6 +586,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `guestinfo-efx`,
@@ -609,6 +623,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `messaging-efx`,
@@ -645,6 +660,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `smsquiz-efx`,
@@ -681,6 +697,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `productpickup-efx`,
@@ -717,6 +734,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `raffle-efx`,
@@ -753,6 +771,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `reservation-efx`,
@@ -789,6 +808,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `roamingphotog-efx`,
@@ -825,6 +845,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `smartbar-efx`,
@@ -861,6 +882,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `teams-efx`,
@@ -897,6 +919,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `event-app`,
@@ -933,6 +956,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `child-events`,
@@ -969,6 +993,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `waitlist`,
@@ -1005,6 +1030,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `virbela`,
@@ -1041,6 +1067,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `web-conference`,
@@ -1077,6 +1104,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `health-pass`,
@@ -1113,6 +1141,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           true,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `question-logic`,
@@ -1149,6 +1178,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `logi`,
@@ -1185,6 +1215,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           false,
 			IsLogi:                 true,
+			IsSessionManagement:    false,
 		},
 		{
 			Slug:                   `exhibitors`,
@@ -1221,6 +1252,44 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsHealthPass:           false,
 			IsExhibitors:           true,
 			IsLogi:                 false,
+			IsSessionManagement:    false,
+		},
+		{
+			Slug:                   `session-management`,
+			Name:                   `Session Management`,
+			Description:            ``,
+			IsSalesforce:           false,
+			IsApiAccess:            false,
+			IsMarketo:              false,
+			IsEmailMasking:         false,
+			IsWhiteLabeling:        false,
+			IsAgents:               false,
+			IsVisaCheckout:         false,
+			IsCanvas:               false,
+			IsHarvesterPPP:         false,
+			IsAccessControlEFx:     false,
+			IsAthleteBagEFx:        false,
+			IsConciergeEFx:         false,
+			IsDigitalMemoryBankEFx: false,
+			IsGuestInfoEFx:         false,
+			IsMessagingEFx:         false,
+			IsSmsQuizEFx:           false,
+			IsProductPickupEFx:     false,
+			IsRaffleEFx:            false,
+			IsReservationEFx:       false,
+			IsRoamingPhotogEFx:     false,
+			IsSmartBarEFx:          false,
+			IsTeamsEFx:             false,
+			IsEventApp:             false,
+			IsChildEvents:          false,
+			IsWaitlist:             false,
+			IsVirbela:              false,
+			IsWebConference:        false,
+			IsQuestionLogic:        false,
+			IsHealthPass:           false,
+			IsExhibitors:           false,
+			IsLogi:                 false,
+			IsSessionManagement:    true,
 		},
 	}
 }
