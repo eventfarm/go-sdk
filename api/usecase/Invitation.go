@@ -640,7 +640,7 @@ type ListInvitationsForUserForParentParameters struct {
 	ItemsPerPage        *int64 // 1-100
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string // Event | Stack
+	WithData            *[]string // Event | Stack | Venue | Tracks
 	StatusFilter        *[]string
 	ExcludeParent       *bool
 }

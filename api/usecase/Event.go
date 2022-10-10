@@ -108,7 +108,7 @@ type ListChildrenForEventParameters struct {
 	Query                   *string
 	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks | Venue
 	Page                    *int64    // >= 1
-	ItemsPerPage            *int64    // 1-100
+	ItemsPerPage            *int64    // 1-500
 	SortBy                  *string
 	SortDirection           *string
 	EventDateFilterType     *string

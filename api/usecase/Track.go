@@ -40,11 +40,12 @@ func (t *Track) GetTrack(p *GetTrackParameters) (r *http.Response, err error) {
 
 type ListTracksForEventParameters struct {
 	EventId       string
-	WithData      *[]string // Event
+	WithData      *[]string // Event | EventTracks
 	SortBy        *string
 	SortDirection *string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
+	Query         *string
 }
 
 func (t *Track) ListTracksForEvent(p *ListTracksForEventParameters) (r *http.Response, err error) {
@@ -66,6 +67,9 @@ func (t *Track) ListTracksForEvent(p *ListTracksForEventParameters) (r *http.Res
 	}
 	if p.ItemsPerPage != nil {
 		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
 
 	return t.restClient.Get(
