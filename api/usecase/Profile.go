@@ -141,17 +141,50 @@ func (t *Profile) AddProfileToEventWithJSON(data *map[string]interface{}) (r *ht
 	)
 }
 
+type AddProfilesToEventParameters struct {
+	ProfileIds       []string
+	EventId          string
+	EventProfileType string
+}
+
+func (t *Profile) AddProfilesToEvent(p *AddProfilesToEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	for i := range p.ProfileIds {
+		queryParameters.Add(`profileIds[]`, p.ProfileIds[i])
+	}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventProfileType`, p.EventProfileType)
+
+	return t.restClient.Post(
+		`/v2/Profile/UseCase/AddProfilesToEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Profile) AddProfilesToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Profile/UseCase/AddProfilesToEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateProfileParameters struct {
-	PoolId       string
-	FirstName    *string
-	LastName     *string
-	Company      *string
-	EmailAddress *string
-	Title        *string
-	Description  *string
-	ImageUrl     *string
-	ProfileType  *string
-	ProfileId    *string
+	PoolId           string
+	FirstName        *string
+	LastName         *string
+	Company          *string
+	EmailAddress     *string
+	Title            *string
+	Description      *string
+	ImageUrl         *string
+	ProfileType      *string
+	ProfileId        *string
+	EventId          *string
+	EventProfileType *string
 }
 
 func (t *Profile) CreateProfile(p *CreateProfileParameters) (r *http.Response, err error) {
@@ -183,6 +216,12 @@ func (t *Profile) CreateProfile(p *CreateProfileParameters) (r *http.Response, e
 	}
 	if p.ProfileId != nil {
 		queryParameters.Add(`profileId`, *p.ProfileId)
+	}
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
+	}
+	if p.EventProfileType != nil {
+		queryParameters.Add(`eventProfileType`, *p.EventProfileType)
 	}
 
 	return t.restClient.Post(
@@ -387,6 +426,33 @@ func (t *Profile) SetProfileType(p *SetProfileTypeParameters) (r *http.Response,
 func (t *Profile) SetProfileTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Profile/UseCase/SetProfileType`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateEventProfileTypeParameters struct {
+	EventProfileId   string
+	EventProfileType string
+}
+
+func (t *Profile) UpdateEventProfileType(p *UpdateEventProfileTypeParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventProfileId`, p.EventProfileId)
+	queryParameters.Add(`eventProfileType`, p.EventProfileType)
+
+	return t.restClient.Post(
+		`/v2/Profile/UseCase/UpdateEventProfileType`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Profile) UpdateEventProfileTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Profile/UseCase/UpdateEventProfileType`,
 		data,
 		nil,
 		nil,

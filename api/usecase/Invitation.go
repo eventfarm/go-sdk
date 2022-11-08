@@ -22,6 +22,30 @@ func NewInvitation(restClient rest.RestClientInterface) *Invitation {
 
 // GET: Queries
 
+type CheckIfInvitationExistsForEventFromClearJSONParameters struct {
+	EventId     string
+	FirstName   string
+	LastName    string
+	ClearUserId string
+	Score       string
+}
+
+func (t *Invitation) CheckIfInvitationExistsForEventFromClearJSON(p *CheckIfInvitationExistsForEventFromClearJSONParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`firstName`, p.FirstName)
+	queryParameters.Add(`lastName`, p.LastName)
+	queryParameters.Add(`clearUserId`, p.ClearUserId)
+	queryParameters.Add(`score`, p.Score)
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/CheckIfInvitationExistsForEventFromClearJSON`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type CheckIfInvitationExistsForEventFromClearQRCodeParameters struct {
 	EventId string
 	ClearId string
@@ -479,15 +503,16 @@ func (t *Invitation) ListInvitationsForTransaction(p *ListInvitationsForTransact
 }
 
 type ListInvitationsForUserParameters struct {
-	UserId              string
-	PoolId              *string
-	EventId             *string
-	Page                *int64 // >= 1
-	ItemsPerPage        *int64 // 1-250
-	EventDateFilterType *string
-	SortDirection       *string
-	WithData            *[]string // Event | EventWithTags | Stack | StackAndTicketType
-	StatusFilter        *[]string
+	UserId                string
+	PoolId                *string
+	EventId               *string
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-250
+	EventDateFilterType   *string
+	SortDirection         *string
+	WithData              *[]string // Event | EventWithTags | Stack | StackAndTicketType
+	StatusFilter          *[]string
+	EventAttributesFilter *[]string
 }
 
 func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters) (r *http.Response, err error) {
@@ -519,6 +544,11 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 	if p.StatusFilter != nil {
 		for i := range *p.StatusFilter {
 			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
+		}
+	}
+	if p.EventAttributesFilter != nil {
+		for i := range *p.EventAttributesFilter {
+			queryParameters.Add(`eventAttributesFilter[]`, (*p.EventAttributesFilter)[i])
 		}
 	}
 

@@ -106,7 +106,7 @@ func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *ht
 type ListChildrenForEventParameters struct {
 	ParentEventId           string
 	Query                   *string
-	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks | Venue
+	WithData                *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl | Tracks | SessionTracks | Venue
 	Page                    *int64    // >= 1
 	ItemsPerPage            *int64    // 1-500
 	SortBy                  *string
@@ -914,6 +914,63 @@ func (t *Event) CreateEvent(p *CreateEventParameters) (r *http.Response, err err
 func (t *Event) CreateEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/CreateEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type CreateSessionEventParameters struct {
+	PoolId        string
+	UserId        string
+	Variant       string
+	EventName     string
+	ParentEventId string
+	Description   string
+	Capacity      int64
+	StartTime     *string
+	EndTime       *string
+	Timezone      *string
+	VenueId       *string
+	EventId       *string
+}
+
+func (t *Event) CreateSessionEvent(p *CreateSessionEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`variant`, p.Variant)
+	queryParameters.Add(`eventName`, p.EventName)
+	queryParameters.Add(`parentEventId`, p.ParentEventId)
+	queryParameters.Add(`description`, p.Description)
+	queryParameters.Add(`capacity`, strconv.FormatInt(p.Capacity, 10))
+	if p.StartTime != nil {
+		queryParameters.Add(`startTime`, *p.StartTime)
+	}
+	if p.EndTime != nil {
+		queryParameters.Add(`endTime`, *p.EndTime)
+	}
+	if p.Timezone != nil {
+		queryParameters.Add(`timezone`, *p.Timezone)
+	}
+	if p.VenueId != nil {
+		queryParameters.Add(`venueId`, *p.VenueId)
+	}
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/CreateSessionEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) CreateSessionEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CreateSessionEvent`,
 		data,
 		nil,
 		nil,
