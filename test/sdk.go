@@ -1,13 +1,14 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
 	"os"
+	"log"
 
-	"github.com/eventfarm/go-sdk/api/usecase"
-	"github.com/eventfarm/go-sdk/rest"
+	"gosdk"
+	"gosdk/api/usecase"
+	"gosdk/api/domaintype"
+	"io/ioutil"
+	"encoding/json"
 )
 
 type EventAttributes struct {
@@ -67,35 +68,44 @@ type EventData struct {
 }
 
 type EventsResponse struct {
-	Meta  PaginationMetaData `json:"meta"`
-	Links PaginationLinks    `json:"links"`
-	Data  []EventData        `json:"data"`
+	Meta PaginationMetaData `json:"meta"`
+	Links PaginationLinks   `json:"links"`
+	Data []EventData        `json:"data"`
 }
 
 func main() {
 	testUseCase()
+	testType()
 }
 
-func testUseCase() {
-	apiDomain := os.Getenv(`EF_API_DOMAIN`)
-	restClient := rest.NewHttpRestClient(apiDomain)
-	restClient.EnableLogging = true
+func testType() {
+	typeFactory := domaintype.NewDomainTypeFactory()
 
-	authDomain := os.Getenv(`EF_AUTH_DOMAIN`)
-	accessTokenRestClient := rest.NewHttpRestClient(authDomain)
+	log.Printf("%+v", typeFactory.GetInvitationDomainModel().GetInvitationStatusType()[0])
+}
+
+func getEventFarmRestClient() *gosdk.EventFarmRestClient {
+	apiRestClient := gosdk.NewHttpRestClient(os.Getenv(`API2_BASE_URI`))
+	accessTokenRestClient := gosdk.NewHttpRestClient(os.Getenv(`LOGIN_BASE_URI`))
+
+	apiRestClient.EnableLogging = true
 	accessTokenRestClient.EnableLogging = true
 
-	c := *rest.NewEventFarmRestClient(
-		restClient,
+	eventFarmRestClient := gosdk.NewEventFarmRestClient(
+		apiRestClient,
 		accessTokenRestClient,
-		os.Getenv(`EF_CLIENT_ID`),
-		os.Getenv(`EF_CLIENT_SECRET`),
-		os.Getenv(`EF_USER`),
-		os.Getenv(`EF_PASSWORD`),
+		os.Getenv(`EF_ADMIN_CLIENT_ID`),
+		os.Getenv(`EF_ADMIN_CLIENT_SECRET`),
 		nil,
 	)
 
-	uc := usecase.NewUseCaseFactory(&c)
+	return eventFarmRestClient
+}
+
+func testUseCase() {
+	eventFarmRestClient := getEventFarmRestClient()
+
+	useCaseFactory := usecase.NewUseCaseFactory(eventFarmRestClient)
 
 	page := 1
 	itemsPerPage := 20
@@ -110,14 +120,20 @@ func testUseCase() {
 		`TicketBlocks`,
 		`QuestionsAndAnswers`,
 	}
-	resp, err := uc.Event().ListEventsForUser(&usecase.ListEventsForUserParameters{
-		UserId:        `7fff1483-0000-4578-ad31-f6114a033eb7`,
-		WithData:      &withData,
-		Page:          &page,
-		ItemsPerPage:  &itemsPerPage,
-		SortBy:        &sortBy,
-		SortDirection: &sortDirection,
-	})
+	resp, err := useCaseFactory.GetEventDomainModel().ListEventsForUser(
+		`7fff1483-0000-4578-ad31-f6114a033eb7`,
+		nil,
+		nil,
+		nil,
+		&withData,
+		nil,
+		&page,
+		&itemsPerPage,
+		&sortBy,
+		&sortDirection,
+		nil,
+		nil,
+	)
 	if err != nil {
 		logError(err)
 		return
