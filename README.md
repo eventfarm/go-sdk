@@ -1,7 +1,7 @@
 
 <h1 align="center">
       	<img height="100" src="https://i.imgur.com/yiv5YMX.png" alt="Event Farm Logo" /> 
-      	<br />Official Event Farm Golang SDK
+      	<br /> Official Event Farm Golang SDK
 </h1>
 
 ### Installation
