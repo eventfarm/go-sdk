@@ -3011,33 +3011,6 @@ func (t *Event) SetNameForEventWithJSON(data *map[string]interface{}) (r *http.R
 	)
 }
 
-type SetPoolPaymentGatewayForEventParameters struct {
-	EventId              string
-	PoolPaymentGatewayId string
-}
-
-func (t *Event) SetPoolPaymentGatewayForEvent(p *SetPoolPaymentGatewayForEventParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`poolPaymentGatewayId`, p.PoolPaymentGatewayId)
-
-	return t.restClient.Post(
-		`/v2/Event/UseCase/SetPoolPaymentGatewayForEvent`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *Event) SetPoolPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetPoolPaymentGatewayForEvent`,
-		data,
-		nil,
-		nil,
-	)
-}
-
 type SetProcessingCurrencyParameters struct {
 	EventId            string
 	ProcessingCurrency string
