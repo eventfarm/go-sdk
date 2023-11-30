@@ -75,8 +75,12 @@ func (f *Factory) Link() *Link {
 	return NewLink()
 }
 
-func (f *Factory) PaymentGateway() *PaymentGateway {
-	return NewPaymentGateway()
+func (f *Factory) Mobile() *Mobile {
+	return NewMobile()
+}
+
+func (f *Factory) Payment() *Payment {
+	return NewPayment()
 }
 
 func (f *Factory) Pool() *Pool {
@@ -121,6 +125,10 @@ func (f *Factory) SitePage() *SitePage {
 
 func (f *Factory) Stack() *Stack {
 	return NewStack()
+}
+
+func (f *Factory) TicketBlock() *TicketBlock {
+	return NewTicketBlock()
 }
 
 func (f *Factory) User() *User {

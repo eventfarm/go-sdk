@@ -336,23 +336,25 @@ func (t *Stack) CreateStackWithJSON(data *map[string]interface{}) (r *http.Respo
 }
 
 type CreateStackFromSettingsParameters struct {
-	EventId         string
-	TicketTypeId    string
-	PrivateInvite   bool
-	Fcfs            bool
-	Quantity        int64
-	MaxQty          int64
-	Price           *float64
-	ServiceFee      *float64
-	OpeningTime     *string
-	ClosingTime     *string
-	Transferable    *bool
-	InviteDesignId  *string
-	ConfirmDesignId *string
-	DeclineDesignId *string
-	StackId         *string
-	VirbelaTeamId   *int64
-	VirbelaRole     *string
+	EventId             string
+	TicketTypeId        string
+	PrivateInvite       bool
+	Fcfs                bool
+	Quantity            int64
+	MaxQty              int64
+	Price               *float64
+	ServiceFee          *float64
+	OpeningTime         *string
+	ClosingTime         *string
+	Transferable        *bool
+	InviteDesignId      *string
+	ConfirmDesignId     *string
+	DeclineDesignId     *string
+	StackId             *string
+	VirbelaTeamId       *int64
+	VirbelaRole         *string
+	ExpirationStartTime *string
+	ExpirationEndTime   *string
 }
 
 func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r *http.Response, err error) {
@@ -396,6 +398,12 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 	if p.VirbelaRole != nil {
 		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
 	}
+	if p.ExpirationStartTime != nil {
+		queryParameters.Add(`expirationStartTime`, *p.ExpirationStartTime)
+	}
+	if p.ExpirationEndTime != nil {
+		queryParameters.Add(`expirationEndTime`, *p.ExpirationEndTime)
+	}
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/CreateStackFromSettings`,
@@ -408,6 +416,75 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 func (t *Stack) CreateStackFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Stack/UseCase/CreateStackFromSettings`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type CreateStacksForTicketTypeFromSettingsParameters struct {
+	EventId         string
+	TicketTypeId    string
+	Stacks          []string
+	PrivateInvite   bool
+	Fcfs            bool
+	MaxQty          int64
+	Price           *float64
+	ServiceFee      *float64
+	OpeningTime     *string
+	ClosingTime     *string
+	Transferable    *bool
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
+}
+
+func (t *Stack) CreateStacksForTicketTypeFromSettings(p *CreateStacksForTicketTypeFromSettingsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	for i := range p.Stacks {
+		queryParameters.Add(`stacks[]`, p.Stacks[i])
+	}
+	queryParameters.Add(`privateInvite`, strconv.FormatBool(p.PrivateInvite))
+	queryParameters.Add(`fcfs`, strconv.FormatBool(p.Fcfs))
+	queryParameters.Add(`maxQty`, strconv.FormatInt(p.MaxQty, 10))
+	if p.Price != nil {
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
+	}
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
+	}
+	if p.OpeningTime != nil {
+		queryParameters.Add(`openingTime`, *p.OpeningTime)
+	}
+	if p.ClosingTime != nil {
+		queryParameters.Add(`closingTime`, *p.ClosingTime)
+	}
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
+	}
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
+	}
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Stack/UseCase/CreateStacksForTicketTypeFromSettings`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) CreateStacksForTicketTypeFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/CreateStacksForTicketTypeFromSettings`,
 		data,
 		nil,
 		nil,
@@ -779,23 +856,25 @@ func (t *Stack) UpdateStackWithJSON(data *map[string]interface{}) (r *http.Respo
 }
 
 type UpdateStackFromSettingsParameters struct {
-	StackId         string
-	EventId         *string
-	TicketTypeId    *string
-	PrivateInvite   *bool
-	Fcfs            *bool
-	Quantity        *int64
-	MaxQty          *int64
-	Price           *float64
-	ServiceFee      *float64
-	OpeningTime     *string
-	ClosingTime     *string
-	Transferable    *bool
-	InviteDesignId  *string
-	ConfirmDesignId *string
-	DeclineDesignId *string
-	VirbelaTeamId   *int64
-	VirbelaRole     *string
+	StackId             string
+	EventId             *string
+	TicketTypeId        *string
+	PrivateInvite       *bool
+	Fcfs                *bool
+	Quantity            *int64
+	MaxQty              *int64
+	Price               *float64
+	ServiceFee          *float64
+	OpeningTime         *string
+	ClosingTime         *string
+	Transferable        *bool
+	InviteDesignId      *string
+	ConfirmDesignId     *string
+	DeclineDesignId     *string
+	VirbelaTeamId       *int64
+	VirbelaRole         *string
+	ExpirationStartTime *string
+	ExpirationEndTime   *string
 }
 
 func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r *http.Response, err error) {
@@ -849,6 +928,12 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 	if p.VirbelaRole != nil {
 		queryParameters.Add(`virbelaRole`, *p.VirbelaRole)
 	}
+	if p.ExpirationStartTime != nil {
+		queryParameters.Add(`expirationStartTime`, *p.ExpirationStartTime)
+	}
+	if p.ExpirationEndTime != nil {
+		queryParameters.Add(`expirationEndTime`, *p.ExpirationEndTime)
+	}
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/UpdateStackFromSettings`,
@@ -861,6 +946,81 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 func (t *Stack) UpdateStackFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Stack/UseCase/UpdateStackFromSettings`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateStacksForTicketTypeFromSettingsParameters struct {
+	EventId         string
+	TicketTypeId    string
+	Stacks          []string
+	PrivateInvite   *bool
+	Fcfs            *bool
+	MaxQty          *int64
+	Price           *float64
+	ServiceFee      *float64
+	OpeningTime     *string
+	ClosingTime     *string
+	Transferable    *bool
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
+}
+
+func (t *Stack) UpdateStacksForTicketTypeFromSettings(p *UpdateStacksForTicketTypeFromSettingsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	for i := range p.Stacks {
+		queryParameters.Add(`stacks[]`, p.Stacks[i])
+	}
+	if p.PrivateInvite != nil {
+		queryParameters.Add(`privateInvite`, strconv.FormatBool(*p.PrivateInvite))
+	}
+	if p.Fcfs != nil {
+		queryParameters.Add(`fcfs`, strconv.FormatBool(*p.Fcfs))
+	}
+	if p.MaxQty != nil {
+		queryParameters.Add(`maxQty`, strconv.FormatInt(*p.MaxQty, 10))
+	}
+	if p.Price != nil {
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
+	}
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
+	}
+	if p.OpeningTime != nil {
+		queryParameters.Add(`openingTime`, *p.OpeningTime)
+	}
+	if p.ClosingTime != nil {
+		queryParameters.Add(`closingTime`, *p.ClosingTime)
+	}
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
+	}
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
+	}
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Stack/UseCase/UpdateStacksForTicketTypeFromSettings`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) UpdateStacksForTicketTypeFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/UpdateStacksForTicketTypeFromSettings`,
 		data,
 		nil,
 		nil,

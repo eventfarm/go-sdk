@@ -11,6 +11,17 @@ func NewAppVersion() *AppVersion {
 	return &AppVersion{}
 }
 
+type AppCategoryType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsCheckIn   bool
+	IsEFx       bool
+	IsEvents    bool
+	IsListed    bool
+	IsExhibitor bool
+}
+
 type AppVersionType struct {
 	Slug                           string
 	Name                           string
@@ -24,6 +35,61 @@ type AppVersionType struct {
 	IsEventsIos                    bool
 	IsEventsAndroid                bool
 	IsLeadsFlutter                 bool
+}
+
+func (f *AppVersion) ListAppCategoryTypes() []AppCategoryType {
+	return []AppCategoryType{
+		{
+			Slug:        `check-in`,
+			Name:        `Check-In by Event Farm`,
+			Description: ``,
+			IsCheckIn:   true,
+			IsEFx:       false,
+			IsEvents:    false,
+			IsListed:    false,
+			IsExhibitor: false,
+		},
+		{
+			Slug:        `efx`,
+			Name:        `EFx by Event Farm`,
+			Description: ``,
+			IsCheckIn:   false,
+			IsEFx:       true,
+			IsEvents:    false,
+			IsListed:    false,
+			IsExhibitor: false,
+		},
+		{
+			Slug:        `events`,
+			Name:        `Events by Event Farm`,
+			Description: ``,
+			IsCheckIn:   false,
+			IsEFx:       false,
+			IsEvents:    true,
+			IsListed:    false,
+			IsExhibitor: false,
+		},
+		{
+			Slug:        `listed`,
+			Name:        `Listed by Event Farm`,
+			Description: ``,
+			IsCheckIn:   false,
+			IsEFx:       false,
+			IsEvents:    false,
+			IsListed:    true,
+			IsExhibitor: false,
+		},
+		{
+			Slug:        `exhibitor`,
+			Name:        `Exhibitor by Event Farm`,
+			Description: ``,
+			IsCheckIn:   false,
+			IsEFx:       false,
+			IsEvents:    false,
+			IsListed:    false,
+			IsExhibitor: true,
+		},
+	}
 }
 
 func (f *AppVersion) ListAppVersionTypes() []AppVersionType {

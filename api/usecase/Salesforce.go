@@ -139,11 +139,13 @@ func (t *Salesforce) ListSalesforceStatusNamesForEvent(p *ListSalesforceStatusNa
 
 type ExportEventToSalesforceParameters struct {
 	EventId string
+	UserId  string
 }
 
 func (t *Salesforce) ExportEventToSalesforce(p *ExportEventToSalesforceParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`userId`, p.UserId)
 
 	return t.restClient.Post(
 		`/v2/Salesforce/UseCase/ExportEventToSalesforce`,

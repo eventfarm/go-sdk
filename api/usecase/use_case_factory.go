@@ -138,6 +138,10 @@ func (f *Factory) Logi() *Logi {
 	return NewLogi(f.restClient)
 }
 
+func (f *Factory) Mobile() *Mobile {
+	return NewMobile(f.restClient)
+}
+
 func (f *Factory) OAuth() *OAuth {
 	return NewOAuth(f.restClient)
 }
@@ -180,6 +184,10 @@ func (f *Factory) PoolFile() *PoolFile {
 
 func (f *Factory) PoolImage() *PoolImage {
 	return NewPoolImage(f.restClient)
+}
+
+func (f *Factory) PoolPaymentGateway() *PoolPaymentGateway {
+	return NewPoolPaymentGateway(f.restClient)
 }
 
 func (f *Factory) PoolWorld() *PoolWorld {

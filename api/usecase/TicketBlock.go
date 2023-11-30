@@ -23,8 +23,9 @@ func NewTicketBlock(restClient rest.RestClientInterface) *TicketBlock {
 // GET: Queries
 
 type GetTicketBlockParameters struct {
-	TicketBlockId string
-	WithData      *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
+	TicketBlockId     string
+	WithData          *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
+	ShouldHideDeleted *bool
 }
 
 func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Response, err error) {
@@ -34,6 +35,9 @@ func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Respo
 		for i := range *p.WithData {
 			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
+	}
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
 
 	return t.restClient.Get(
@@ -49,7 +53,7 @@ type ListTicketBlocksForEventParameters struct {
 	Query               *string
 	WithData            *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
 	Page                *int64    // >= 1
-	ItemsPerPage        *int64    // 1-50
+	ItemsPerPage        *int64    // 1-100
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -186,6 +190,7 @@ type CreateTicketBlockParameters struct {
 	Name               string
 	IsBlacklistEnabled *bool
 	EmailText          *string
+	TicketBlockType    *string
 	TicketBlockId      *string
 }
 
@@ -198,6 +203,9 @@ func (t *TicketBlock) CreateTicketBlock(p *CreateTicketBlockParameters) (r *http
 	}
 	if p.EmailText != nil {
 		queryParameters.Add(`emailText`, *p.EmailText)
+	}
+	if p.TicketBlockType != nil {
+		queryParameters.Add(`ticketBlockType`, *p.TicketBlockType)
 	}
 	if p.TicketBlockId != nil {
 		queryParameters.Add(`ticketBlockId`, *p.TicketBlockId)

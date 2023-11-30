@@ -96,6 +96,24 @@ func (t *EFx) GetEFxStation(p *GetEFxStationParameters) (r *http.Response, err e
 	)
 }
 
+type GetInvitationIdByTagIdParameters struct {
+	TagId   string
+	EventId string
+}
+
+func (t *EFx) GetInvitationIdByTagId(p *GetInvitationIdByTagIdParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`tagId`, p.TagId)
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Get(
+		`/v2/EFx/UseCase/GetInvitationIdByTagId`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListEFxScreensForEventParameters struct {
 	EventId          string
 	SortBy           *string
@@ -183,6 +201,33 @@ func (t *EFx) ListEFxStationsForEvent(p *ListEFxStationsForEventParameters) (r *
 }
 
 // POST: Commands
+
+type ActivateInvitationParameters struct {
+	InvitationId string
+	TagId        string
+}
+
+func (t *EFx) ActivateInvitation(p *ActivateInvitationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	queryParameters.Add(`tagId`, p.TagId)
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/ActivateInvitation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) ActivateInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/ActivateInvitation`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type CreateEFxScreenParameters struct {
 	EventId       string
@@ -519,12 +564,16 @@ func (t *EFx) RequestForEventWithJSON(data *map[string]interface{}) (r *http.Res
 }
 
 type SendSMSWithAppLinkParameters struct {
-	PhoneNumber string
+	PhoneNumber     string
+	AppCategoryType *string
 }
 
 func (t *EFx) SendSMSWithAppLink(p *SendSMSWithAppLinkParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`phoneNumber`, p.PhoneNumber)
+	if p.AppCategoryType != nil {
+		queryParameters.Add(`appCategoryType`, *p.AppCategoryType)
+	}
 
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/SendSMSWithAppLink`,
@@ -634,6 +683,33 @@ func (t *EFx) SetSMSForEventWithJSON(data *map[string]interface{}) (r *http.Resp
 	)
 }
 
+type SetSMSMediaUrlForEventParameters struct {
+	EventId  string
+	MediaUrl string
+}
+
+func (t *EFx) SetSMSMediaUrlForEvent(p *SetSMSMediaUrlForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`mediaUrl`, p.MediaUrl)
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/SetSMSMediaUrlForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetSMSMediaUrlForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetSMSMediaUrlForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetScreensForEFxStationParameters struct {
 	StationId string
 	ScreenIds *[]string
@@ -690,6 +766,35 @@ func (t *EFx) SetStacksForEFxStation(p *SetStacksForEFxStationParameters) (r *ht
 func (t *EFx) SetStacksForEFxStationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/EFx/UseCase/SetStacksForEFxStation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetWelcomeEmailDesignForEventParameters struct {
+	EventId       string
+	EmailDesignId *string
+}
+
+func (t *EFx) SetWelcomeEmailDesignForEvent(p *SetWelcomeEmailDesignForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.EmailDesignId != nil {
+		queryParameters.Add(`emailDesignId`, *p.EmailDesignId)
+	}
+
+	return t.restClient.Post(
+		`/v2/EFx/UseCase/SetWelcomeEmailDesignForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetWelcomeEmailDesignForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetWelcomeEmailDesignForEvent`,
 		data,
 		nil,
 		nil,

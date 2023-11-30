@@ -119,10 +119,12 @@ func (t *Pool) ListPoolAllotmentsForPool(p *ListPoolAllotmentsForPoolParameters)
 }
 
 type ListPoolContactsByPoolIdParameters struct {
-	PoolId       string
-	Page         *int64 // >= 1
-	ItemsPerPage *int64 // 1-500
-	WithData     *[]string
+	PoolId        string
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-500
+	WithData      *[]string
+	SortBy        *string
+	SortDirection *string
 }
 
 func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (r *http.Response, err error) {
@@ -138,6 +140,12 @@ func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (
 		for i := range *p.WithData {
 			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 
 	return t.restClient.Get(

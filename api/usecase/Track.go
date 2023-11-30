@@ -40,7 +40,7 @@ func (t *Track) GetTrack(p *GetTrackParameters) (r *http.Response, err error) {
 
 type ListTracksForEventParameters struct {
 	EventId       string
-	WithData      *[]string // Event | EventTracks
+	WithData      *[]string // SessionTracks | TicketTypeTracks
 	SortBy        *string
 	SortDirection *string
 	Page          *int64 // >= 1
@@ -81,6 +81,33 @@ func (t *Track) ListTracksForEvent(p *ListTracksForEventParameters) (r *http.Res
 }
 
 // POST: Commands
+
+type AddTicketTypeToTrackParameters struct {
+	TicketTypeId string
+	TrackId      string
+}
+
+func (t *Track) AddTicketTypeToTrack(p *AddTicketTypeToTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`trackId`, p.TrackId)
+
+	return t.restClient.Post(
+		`/v2/Track/UseCase/AddTicketTypeToTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Track) AddTicketTypeToTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Track/UseCase/AddTicketTypeToTrack`,
+		data,
+		nil,
+		nil,
+	)
+}
 
 type CreateTrackParameters struct {
 	EventId     string
@@ -142,6 +169,33 @@ func (t *Track) DeleteTrackWithJSON(data *map[string]interface{}) (r *http.Respo
 	)
 }
 
+type RemoveTicketTypeFromTrackParameters struct {
+	TicketTypeId string
+	TrackId      string
+}
+
+func (t *Track) RemoveTicketTypeFromTrack(p *RemoveTicketTypeFromTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`trackId`, p.TrackId)
+
+	return t.restClient.Post(
+		`/v2/Track/UseCase/RemoveTicketTypeFromTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Track) RemoveTicketTypeFromTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Track/UseCase/RemoveTicketTypeFromTrack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveTrackParameters struct {
 	TrackId string
 }
@@ -161,6 +215,64 @@ func (t *Track) RemoveTrack(p *RemoveTrackParameters) (r *http.Response, err err
 func (t *Track) RemoveTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Track/UseCase/RemoveTrack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetSessionsForTrackParameters struct {
+	TrackId  string
+	EventIds []string
+}
+
+func (t *Track) SetSessionsForTrack(p *SetSessionsForTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`trackId`, p.TrackId)
+	for i := range p.EventIds {
+		queryParameters.Add(`eventIds[]`, p.EventIds[i])
+	}
+
+	return t.restClient.Post(
+		`/v2/Track/UseCase/SetSessionsForTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Track) SetSessionsForTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Track/UseCase/SetSessionsForTrack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetTicketTypesForTrackParameters struct {
+	TrackId       string
+	TicketTypeIds []string
+}
+
+func (t *Track) SetTicketTypesForTrack(p *SetTicketTypesForTrackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`trackId`, p.TrackId)
+	for i := range p.TicketTypeIds {
+		queryParameters.Add(`ticketTypeIds[]`, p.TicketTypeIds[i])
+	}
+
+	return t.restClient.Post(
+		`/v2/Track/UseCase/SetTicketTypesForTrack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Track) SetTicketTypesForTrackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Track/UseCase/SetTicketTypesForTrack`,
 		data,
 		nil,
 		nil,

@@ -11,6 +11,19 @@ func NewSalesforce() *Salesforce {
 	return &Salesforce{}
 }
 
+type CampaignMemberExportType struct {
+	Slug                          string
+	Name                          string
+	Description                   string
+	IsSkipped                     bool
+	IsCreated                     bool
+	IsUpdated                     bool
+	IsFailedCreating              bool
+	IsFailedUpdating              bool
+	IsDuplicate                   bool
+	IsFailedUpdatingConvertedLead bool
+}
+
 type CampaignMemberImportType struct {
 	Slug                     string
 	Name                     string
@@ -37,6 +50,95 @@ type NewContactRuleType struct {
 	IsDoNothing     bool
 	IsCreateContact bool
 	IsCreateLead    bool
+}
+
+func (f *Salesforce) ListCampaignMemberExportTypes() []CampaignMemberExportType {
+	return []CampaignMemberExportType{
+		{
+			Slug:                          `duplicate`,
+			Name:                          `Duplicate`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     false,
+			IsUpdated:                     false,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   true,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `skipped`,
+			Name:                          `Skipped`,
+			Description:                   ``,
+			IsSkipped:                     true,
+			IsCreated:                     false,
+			IsUpdated:                     false,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `created`,
+			Name:                          `Created`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     true,
+			IsUpdated:                     false,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `updated`,
+			Name:                          `Updated`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     false,
+			IsUpdated:                     true,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `failed-creating`,
+			Name:                          `Failed Creating`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     false,
+			IsUpdated:                     false,
+			IsFailedCreating:              true,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `failed-updating`,
+			Name:                          `Failed Updating`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     false,
+			IsUpdated:                     false,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              true,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: false,
+		},
+		{
+			Slug:                          `failed-updating-converted-lead`,
+			Name:                          `Failed Updating Converted Lead`,
+			Description:                   ``,
+			IsSkipped:                     false,
+			IsCreated:                     false,
+			IsUpdated:                     false,
+			IsFailedCreating:              false,
+			IsFailedUpdating:              false,
+			IsDuplicate:                   false,
+			IsFailedUpdatingConvertedLead: true,
+		},
+	}
 }
 
 func (f *Salesforce) ListCampaignMemberImportTypes() []CampaignMemberImportType {

@@ -39,18 +39,23 @@ func (t *Profile) GetProfile(p *GetProfileParameters) (r *http.Response, err err
 }
 
 type ListProfilesForEventParameters struct {
-	EventId           string
-	Page              *int64 // >= 1
-	ItemsPerPage      *int64 // 1-500
-	SortBy            *string
-	SortDirection     *string
-	Query             *string
-	ShouldHideDeleted *bool
+	EventId                string
+	WithData               []string // EventProfiles | ProfileLinks
+	Page                   *int64   // >= 1
+	ItemsPerPage           *int64   // 1-500
+	SortBy                 *string
+	SortDirection          *string
+	Query                  *string
+	ShouldHideDeleted      *bool
+	EventProfileTypeFilter *[]string // speaker | presenter | sponsor | panelist | moderator | host | participant | other
 }
 
 func (t *Profile) ListProfilesForEvent(p *ListProfilesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
+	for i := range p.WithData {
+		queryParameters.Add(`withData[]`, p.WithData[i])
+	}
 	if p.Page != nil {
 		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
@@ -68,6 +73,11 @@ func (t *Profile) ListProfilesForEvent(p *ListProfilesForEventParameters) (r *ht
 	}
 	if p.ShouldHideDeleted != nil {
 		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
+	}
+	if p.EventProfileTypeFilter != nil {
+		for i := range *p.EventProfileTypeFilter {
+			queryParameters.Add(`eventProfileTypeFilter[]`, (*p.EventProfileTypeFilter)[i])
+		}
 	}
 
 	return t.restClient.Get(
@@ -142,18 +152,16 @@ func (t *Profile) AddProfileToEventWithJSON(data *map[string]interface{}) (r *ht
 }
 
 type AddProfilesToEventParameters struct {
-	ProfileIds       []string
-	EventId          string
-	EventProfileType string
+	EventId       string
+	EventProfiles []string
 }
 
 func (t *Profile) AddProfilesToEvent(p *AddProfilesToEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	for i := range p.ProfileIds {
-		queryParameters.Add(`profileIds[]`, p.ProfileIds[i])
-	}
 	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`eventProfileType`, p.EventProfileType)
+	for i := range p.EventProfiles {
+		queryParameters.Add(`eventProfiles[]`, p.EventProfiles[i])
+	}
 
 	return t.restClient.Post(
 		`/v2/Profile/UseCase/AddProfilesToEvent`,

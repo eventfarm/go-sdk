@@ -114,7 +114,7 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 
 type GetInvitationParameters struct {
 	InvitationId       string
-	WithData           *[]string // UserHealthPass | Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase
+	WithData           *[]string // UserHealthPass | Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer | Purchase | DayPassAvailabilityCounts | EFxActivationStatus | RelatedInvitation
 	WithUserAttributes *[]string
 }
 
@@ -242,7 +242,7 @@ func (t *Invitation) GetInvitationStatusTypeCountsForTicketBlock(p *GetInvitatio
 
 type ListInvitationsForEventParameters struct {
 	EventId                      string
-	WithData                     *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData                     *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes           *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                        *string
 	StatusFilter                 *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -317,7 +317,7 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 type ListInvitationsForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -380,7 +380,7 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 
 type ListInvitationsForTicketBlockParameters struct {
 	TicketBlockId         string
-	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -442,7 +442,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 
 type ListInvitationsForTransactionParameters struct {
 	TransactionId         string
-	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -667,10 +667,10 @@ type ListInvitationsForUserForParentParameters struct {
 	ParentEventId       string
 	PoolId              *string
 	Page                *int64 // >= 1
-	ItemsPerPage        *int64 // 1-100
+	ItemsPerPage        *int64 // 1-500
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string // Event | Stack | Venue | Tracks
+	WithData            *[]string // Event | Stack | Venue | SessionTracks
 	StatusFilter        *[]string
 	ExcludeParent       *bool
 }
@@ -716,9 +716,83 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 	)
 }
 
+type ListRelatedInvitationsParameters struct {
+	RelatedInvitationId          string
+	WithData                     *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
+	WithUserAttributes           *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
+	Query                        *string
+	StatusFilter                 *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	LastModifiedTimestamp        *int64
+	IsCheckedIn                  *bool
+	SortBy                       *string
+	SortDirection                *string
+	Page                         *int64    // >= 1
+	ItemsPerPage                 *int64    // 1-250
+	HealthPassScoreFilter        *[]string // green | red | amber | unknown
+	ExcludeHealthPassScoreFilter *[]string // green | red | amber | unknown
+}
+
+func (t *Invitation) ListRelatedInvitations(p *ListRelatedInvitationsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`relatedInvitationId`, p.RelatedInvitationId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
+		}
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.StatusFilter != nil {
+		for i := range *p.StatusFilter {
+			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
+		}
+	}
+	if p.LastModifiedTimestamp != nil {
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
+	}
+	if p.IsCheckedIn != nil {
+		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.HealthPassScoreFilter != nil {
+		for i := range *p.HealthPassScoreFilter {
+			queryParameters.Add(`healthPassScoreFilter[]`, (*p.HealthPassScoreFilter)[i])
+		}
+	}
+	if p.ExcludeHealthPassScoreFilter != nil {
+		for i := range *p.ExcludeHealthPassScoreFilter {
+			queryParameters.Add(`excludeHealthPassScoreFilter[]`, (*p.ExcludeHealthPassScoreFilter)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/ListRelatedInvitations`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListWaitlistForEventParameters struct {
 	EventId               string
-	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	LastModifiedTimestamp *int64
@@ -775,7 +849,7 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 type ListWaitlistForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithData              *[]string // UserHealthPasses | UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt | DayPassAvailabilityCounts | RelatedInvitation
 	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom | virbela | healthpass
 	Query                 *string
 	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
@@ -998,6 +1072,8 @@ type CreateInvitationParameters struct {
 	Other                     *string
 	CreatedTime               *int64
 	ForceDuplicateInvitations *bool
+	RelatedInvitationId       *string
+	ExternalId                *string
 }
 
 func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Response, err error) {
@@ -1050,6 +1126,12 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	if p.ForceDuplicateInvitations != nil {
 		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))
 	}
+	if p.RelatedInvitationId != nil {
+		queryParameters.Add(`relatedInvitationId`, *p.RelatedInvitationId)
+	}
+	if p.ExternalId != nil {
+		queryParameters.Add(`externalId`, *p.ExternalId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Invitation/UseCase/CreateInvitation`,
@@ -1069,25 +1151,26 @@ func (t *Invitation) CreateInvitationWithJSON(data *map[string]interface{}) (r *
 }
 
 type CreateInvitationForTicketBlockParameters struct {
-	EventId              string
-	StackId              string
-	TicketBlockId        string
-	InvitationStatus     string
-	InviteSource         string
-	IsCheckedIn          bool
-	InviteCount          int64 // >= 1
-	Email                *string
-	FirstName            *string
-	LastName             *string
-	Company              *string
-	Position             *string
-	CheckInNotes         *string
-	InvitationId         *string
-	ShouldSendInvitation *bool
-	InvitationNotes      *string
-	Title                *string
-	Telephone            *string
-	Other                *string
+	EventId                      string
+	StackId                      string
+	TicketBlockId                string
+	InvitationStatus             string
+	InviteSource                 string
+	IsCheckedIn                  bool
+	InviteCount                  int64 // >= 1
+	Email                        *string
+	FirstName                    *string
+	LastName                     *string
+	Company                      *string
+	Position                     *string
+	CheckInNotes                 *string
+	InvitationId                 *string
+	ShouldSendInvitation         *bool
+	InvitationNotes              *string
+	Title                        *string
+	Telephone                    *string
+	Other                        *string
+	ShouldCreateParentInvitation *bool
 }
 
 func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicketBlockParameters) (r *http.Response, err error) {
@@ -1134,6 +1217,9 @@ func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicket
 	}
 	if p.Other != nil {
 		queryParameters.Add(`other`, *p.Other)
+	}
+	if p.ShouldCreateParentInvitation != nil {
+		queryParameters.Add(`shouldCreateParentInvitation`, strconv.FormatBool(*p.ShouldCreateParentInvitation))
 	}
 
 	return t.restClient.Post(
@@ -1283,6 +1369,37 @@ func (t *Invitation) CreateInvitationsFromGroupForTicketBlock(p *CreateInvitatio
 func (t *Invitation) CreateInvitationsFromGroupForTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Invitation/UseCase/CreateInvitationsFromGroupForTicketBlock`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type CreateSessionInvitationParameters struct {
+	ParentEventInvitationId string
+	SessionId               string
+	InvitationId            *string
+}
+
+func (t *Invitation) CreateSessionInvitation(p *CreateSessionInvitationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`parentEventInvitationId`, p.ParentEventInvitationId)
+	queryParameters.Add(`sessionId`, p.SessionId)
+	if p.InvitationId != nil {
+		queryParameters.Add(`invitationId`, *p.InvitationId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/CreateSessionInvitation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) CreateSessionInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/CreateSessionInvitation`,
 		data,
 		nil,
 		nil,
@@ -1453,6 +1570,31 @@ func (t *Invitation) RescindInvitationWithJSON(data *map[string]interface{}) (r 
 	)
 }
 
+type RescindInvitationForSessionParameters struct {
+	InvitationId string
+}
+
+func (t *Invitation) RescindInvitationForSession(p *RescindInvitationForSessionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/RescindInvitationForSession`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) RescindInvitationForSessionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/RescindInvitationForSession`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ResendAllInvitationEmailsParameters struct {
 	EventId  string
 	DayCount int64 // 0-90
@@ -1474,6 +1616,31 @@ func (t *Invitation) ResendAllInvitationEmails(p *ResendAllInvitationEmailsParam
 func (t *Invitation) ResendAllInvitationEmailsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Invitation/UseCase/ResendAllInvitationEmails`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type ResendAllTicketBlockInvitationEmailsParameters struct {
+	TicketBlockId string
+}
+
+func (t *Invitation) ResendAllTicketBlockInvitationEmails(p *ResendAllTicketBlockInvitationEmailsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/ResendAllTicketBlockInvitationEmails`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) ResendAllTicketBlockInvitationEmailsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/ResendAllTicketBlockInvitationEmails`,
 		data,
 		nil,
 		nil,
@@ -1625,6 +1792,35 @@ func (t *Invitation) SetCheckInNotesWithJSON(data *map[string]interface{}) (r *h
 	)
 }
 
+type SetDayPassCountParameters struct {
+	InvitationId string
+	DayPassCount *int64 // >= -1
+}
+
+func (t *Invitation) SetDayPassCount(p *SetDayPassCountParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	if p.DayPassCount != nil {
+		queryParameters.Add(`dayPassCount`, strconv.FormatInt(*p.DayPassCount, 10))
+	}
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/SetDayPassCount`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Invitation) SetDayPassCountWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Invitation/UseCase/SetDayPassCount`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetInvitationNotesParameters struct {
 	InvitationId    string
 	InvitationNotes *string
@@ -1730,6 +1926,9 @@ type UpdateInvitationParameters struct {
 	UpdatedTime               *int64
 	ForceDuplicateInvitations *bool
 	InviteCount               *int64
+	Title                     *string
+	CheckInNotes              *string
+	RelatedInvitationId       *string
 }
 
 func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Response, err error) {
@@ -1766,6 +1965,15 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	}
 	if p.InviteCount != nil {
 		queryParameters.Add(`inviteCount`, strconv.FormatInt(*p.InviteCount, 10))
+	}
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
+	}
+	if p.CheckInNotes != nil {
+		queryParameters.Add(`checkInNotes`, *p.CheckInNotes)
+	}
+	if p.RelatedInvitationId != nil {
+		queryParameters.Add(`relatedInvitationId`, *p.RelatedInvitationId)
 	}
 
 	return t.restClient.Post(

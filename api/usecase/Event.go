@@ -175,7 +175,7 @@ type ListChildrenForEventForUserParameters struct {
 	ParentEventId       string
 	UserId              string
 	Query               *string
-	WithData            *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
+	WithData            *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | SessionTracks
 	Page                *int64    // >= 1
 	ItemsPerPage        *int64    // 1-100
 	SortBy              *string
@@ -232,8 +232,8 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 type ListEventsForPoolParameters struct {
 	PoolId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
 	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
@@ -358,9 +358,9 @@ func (t *Event) ListEventsForTrack(p *ListEventsForTrackParameters) (r *http.Res
 type ListEventsForUserParameters struct {
 	UserId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled
-	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | VirbelaWorld
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | VirbelaWorld | EventUserRole
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
 	ItemsPerPage            *int64 // 1-500
@@ -433,6 +433,76 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 
 	return t.restClient.Get(
 		`/v2/Event/UseCase/ListEventsForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type ListSessionsForEventForUserParameters struct {
+	ParentEventId           string
+	UserId                  string
+	Query                   *string
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl | SessionTracks | Invitations | Venue | StacksWithAvailabilityCounts
+	Page                    *int64    // >= 1
+	ItemsPerPage            *int64    // 1-500
+	SortBy                  *string
+	SortDirection           *string
+	EventDateFilterType     *string
+	PoolId                  *string
+	Tags                    *[]string
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled | show-waitlist-confirmation | waitlist-email-enabled | waitlist-sms-enabled | payment-settings-not-configured
+}
+
+func (t *Event) ListSessionsForEventForUser(p *ListSessionsForEventForUserParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`parentEventId`, p.ParentEventId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
+	}
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
+	if p.Tags != nil {
+		for i := range *p.Tags {
+			queryParameters.Add(`tags[]`, (*p.Tags)[i])
+		}
+	}
+	if p.AttributesFilter != nil {
+		for i := range *p.AttributesFilter {
+			queryParameters.Add(`attributesFilter[]`, (*p.AttributesFilter)[i])
+		}
+	}
+	if p.AttributesExcludeFilter != nil {
+		for i := range *p.AttributesExcludeFilter {
+			queryParameters.Add(`attributesExcludeFilter[]`, (*p.AttributesExcludeFilter)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Event/UseCase/ListSessionsForEventForUser`,
 		&queryParameters,
 		nil,
 		nil,
@@ -2941,27 +3011,27 @@ func (t *Event) SetNameForEventWithJSON(data *map[string]interface{}) (r *http.R
 	)
 }
 
-type SetPaymentGatewayForEventParameters struct {
-	EventId          string
-	PaymentGatewayId string
+type SetPoolPaymentGatewayForEventParameters struct {
+	EventId              string
+	PoolPaymentGatewayId string
 }
 
-func (t *Event) SetPaymentGatewayForEvent(p *SetPaymentGatewayForEventParameters) (r *http.Response, err error) {
+func (t *Event) SetPoolPaymentGatewayForEvent(p *SetPoolPaymentGatewayForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
+	queryParameters.Add(`poolPaymentGatewayId`, p.PoolPaymentGatewayId)
 
 	return t.restClient.Post(
-		`/v2/Event/UseCase/SetPaymentGatewayForEvent`,
+		`/v2/Event/UseCase/SetPoolPaymentGatewayForEvent`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-func (t *Event) SetPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+func (t *Event) SetPoolPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/SetPaymentGatewayForEvent`,
+		`/v2/Event/UseCase/SetPoolPaymentGatewayForEvent`,
 		data,
 		nil,
 		nil,
@@ -3076,6 +3146,35 @@ func (t *Event) SetProcessingRefundWithJSON(data *map[string]interface{}) (r *ht
 	)
 }
 
+type SetProfilesForSessionParameters struct {
+	EventId       string
+	EventProfiles []string
+}
+
+func (t *Event) SetProfilesForSession(p *SetProfilesForSessionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	for i := range p.EventProfiles {
+		queryParameters.Add(`eventProfiles[]`, p.EventProfiles[i])
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetProfilesForSession`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetProfilesForSessionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetProfilesForSession`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTimeForEventParameters struct {
 	EventId   string
 	StartTime string
@@ -3130,6 +3229,35 @@ func (t *Event) SetTrackingScriptForEvent(p *SetTrackingScriptForEventParameters
 func (t *Event) SetTrackingScriptForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
 		`/v2/Event/UseCase/SetTrackingScriptForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type SetTracksForSessionParameters struct {
+	EventId  string
+	TrackIds []string
+}
+
+func (t *Event) SetTracksForSession(p *SetTracksForSessionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	for i := range p.TrackIds {
+		queryParameters.Add(`trackIds[]`, p.TrackIds[i])
+	}
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetTracksForSession`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetTracksForSessionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetTracksForSession`,
 		data,
 		nil,
 		nil,
@@ -3248,25 +3376,64 @@ func (t *Event) UnarchiveEventWithJSON(data *map[string]interface{}) (r *http.Re
 	)
 }
 
-type UnsetPaymentGatewayForEventParameters struct {
+type UnsetPoolPaymentGatewayForEventParameters struct {
 	EventId string
 }
 
-func (t *Event) UnsetPaymentGatewayForEvent(p *UnsetPaymentGatewayForEventParameters) (r *http.Response, err error) {
+func (t *Event) UnsetPoolPaymentGatewayForEvent(p *UnsetPoolPaymentGatewayForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Post(
-		`/v2/Event/UseCase/UnsetPaymentGatewayForEvent`,
+		`/v2/Event/UseCase/UnsetPoolPaymentGatewayForEvent`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-func (t *Event) UnsetPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+func (t *Event) UnsetPoolPaymentGatewayForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
-		`/v2/Event/UseCase/UnsetPaymentGatewayForEvent`,
+		`/v2/Event/UseCase/UnsetPoolPaymentGatewayForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
+type UpdateSessionEventParameters struct {
+	SessionId   string
+	Variant     string
+	EventName   string
+	StartTime   string
+	EndTime     string
+	Timezone    string
+	Capacity    int64
+	Description string
+}
+
+func (t *Event) UpdateSessionEvent(p *UpdateSessionEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`sessionId`, p.SessionId)
+	queryParameters.Add(`variant`, p.Variant)
+	queryParameters.Add(`eventName`, p.EventName)
+	queryParameters.Add(`startTime`, p.StartTime)
+	queryParameters.Add(`endTime`, p.EndTime)
+	queryParameters.Add(`timezone`, p.Timezone)
+	queryParameters.Add(`capacity`, strconv.FormatInt(p.Capacity, 10))
+	queryParameters.Add(`description`, p.Description)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/UpdateSessionEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) UpdateSessionEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/UpdateSessionEvent`,
 		data,
 		nil,
 		nil,

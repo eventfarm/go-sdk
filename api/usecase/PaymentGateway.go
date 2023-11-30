@@ -7,6 +7,7 @@ package usecase
 import (
 	"net/http"
 	"net/url"
+	"strconv"
 
 	"github.com/eventfarm/go-sdk/rest"
 )
@@ -21,16 +22,11 @@ func NewPaymentGateway(restClient rest.RestClientInterface) *PaymentGateway {
 
 // GET: Queries
 
-type ListPaymentGatewaysForPoolParameters struct {
-	PoolId string
-}
-
-func (t *PaymentGateway) ListPaymentGatewaysForPool(p *ListPaymentGatewaysForPoolParameters) (r *http.Response, err error) {
+func (t *PaymentGateway) ListPaymentGateways() (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
-		`/v2/PaymentGateway/UseCase/ListPaymentGatewaysForPool`,
+		`/v2/PaymentGateway/UseCase/ListPaymentGateways`,
 		&queryParameters,
 		nil,
 		nil,
@@ -39,110 +35,109 @@ func (t *PaymentGateway) ListPaymentGatewaysForPool(p *ListPaymentGatewaysForPoo
 
 // POST: Commands
 
-type CreatePaymentGatewayForPoolParameters struct {
-	PoolId             string
-	PaymentGatewayType string
-	GatewayToken       string
-	PaymentGatewayId   *string
+type CreatePaymentGatewayParameters struct {
+	StringId    string
+	Name        string
+	CompanyName string
+	CompanyUrl  *string
+	LogoUrl     *string
 }
 
-func (t *PaymentGateway) CreatePaymentGatewayForPool(p *CreatePaymentGatewayForPoolParameters) (r *http.Response, err error) {
+func (t *PaymentGateway) CreatePaymentGateway(p *CreatePaymentGatewayParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, p.PoolId)
-	queryParameters.Add(`paymentGatewayType`, p.PaymentGatewayType)
-	queryParameters.Add(`gatewayToken`, p.GatewayToken)
-	if p.PaymentGatewayId != nil {
-		queryParameters.Add(`paymentGatewayId`, *p.PaymentGatewayId)
+	queryParameters.Add(`stringId`, p.StringId)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`companyName`, p.CompanyName)
+	if p.CompanyUrl != nil {
+		queryParameters.Add(`companyUrl`, *p.CompanyUrl)
+	}
+	if p.LogoUrl != nil {
+		queryParameters.Add(`logoUrl`, *p.LogoUrl)
 	}
 
 	return t.restClient.Post(
-		`/v2/PaymentGateway/UseCase/CreatePaymentGatewayForPool`,
+		`/v2/PaymentGateway/UseCase/CreatePaymentGateway`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-func (t *PaymentGateway) CreatePaymentGatewayForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+func (t *PaymentGateway) CreatePaymentGatewayWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
-		`/v2/PaymentGateway/UseCase/CreatePaymentGatewayForPool`,
+		`/v2/PaymentGateway/UseCase/CreatePaymentGateway`,
 		data,
 		nil,
 		nil,
 	)
 }
 
-type DeletePaymentGatewayForPoolParameters struct {
+type SetSortOrderForPaymentGatewayParameters struct {
 	PaymentGatewayId string
+	SortOrder        string
 }
 
-func (t *PaymentGateway) DeletePaymentGatewayForPool(p *DeletePaymentGatewayForPoolParameters) (r *http.Response, err error) {
+func (t *PaymentGateway) SetSortOrderForPaymentGateway(p *SetSortOrderForPaymentGatewayParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
+	queryParameters.Add(`sortOrder`, p.SortOrder)
 
 	return t.restClient.Post(
-		`/v2/PaymentGateway/UseCase/DeletePaymentGatewayForPool`,
+		`/v2/PaymentGateway/UseCase/SetSortOrderForPaymentGateway`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-func (t *PaymentGateway) DeletePaymentGatewayForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+func (t *PaymentGateway) SetSortOrderForPaymentGatewayWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
-		`/v2/PaymentGateway/UseCase/DeletePaymentGatewayForPool`,
+		`/v2/PaymentGateway/UseCase/SetSortOrderForPaymentGateway`,
 		data,
 		nil,
 		nil,
 	)
 }
 
-type RemovePaymentGatewayForPoolParameters struct {
-	PaymentGatewayId string
+type UpdatePaymentGatewayParameters struct {
+	PaymentGatewayId int64
+	Name             *string
+	CompanyName      *string
+	CompanyUrl       *string
+	LogoUrl          *string
+	SortOrder        *int64
 }
 
-func (t *PaymentGateway) RemovePaymentGatewayForPool(p *RemovePaymentGatewayForPoolParameters) (r *http.Response, err error) {
+func (t *PaymentGateway) UpdatePaymentGateway(p *UpdatePaymentGatewayParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
+	queryParameters.Add(`paymentGatewayId`, strconv.FormatInt(p.PaymentGatewayId, 10))
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.CompanyName != nil {
+		queryParameters.Add(`companyName`, *p.CompanyName)
+	}
+	if p.CompanyUrl != nil {
+		queryParameters.Add(`companyUrl`, *p.CompanyUrl)
+	}
+	if p.LogoUrl != nil {
+		queryParameters.Add(`logoUrl`, *p.LogoUrl)
+	}
+	if p.SortOrder != nil {
+		queryParameters.Add(`sortOrder`, strconv.FormatInt(*p.SortOrder, 10))
+	}
 
 	return t.restClient.Post(
-		`/v2/PaymentGateway/UseCase/RemovePaymentGatewayForPool`,
+		`/v2/PaymentGateway/UseCase/UpdatePaymentGateway`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-func (t *PaymentGateway) RemovePaymentGatewayForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+func (t *PaymentGateway) UpdatePaymentGatewayWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
 	return t.restClient.PostJSON(
-		`/v2/PaymentGateway/UseCase/RemovePaymentGatewayForPool`,
-		data,
-		nil,
-		nil,
-	)
-}
-
-type UpdateGatewayTokenForTypeParameters struct {
-	GatewayToken     string
-	PaymentGatewayId string
-}
-
-func (t *PaymentGateway) UpdateGatewayTokenForType(p *UpdateGatewayTokenForTypeParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`gatewayToken`, p.GatewayToken)
-	queryParameters.Add(`paymentGatewayId`, p.PaymentGatewayId)
-
-	return t.restClient.Post(
-		`/v2/PaymentGateway/UseCase/UpdateGatewayTokenForType`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-func (t *PaymentGateway) UpdateGatewayTokenForTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
-	return t.restClient.PostJSON(
-		`/v2/PaymentGateway/UseCase/UpdateGatewayTokenForType`,
+		`/v2/PaymentGateway/UseCase/UpdatePaymentGateway`,
 		data,
 		nil,
 		nil,
