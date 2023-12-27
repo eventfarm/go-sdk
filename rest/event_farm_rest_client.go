@@ -4,11 +4,13 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+    "encoding/base64"
+
 )
 
 const version = `7.2.4`
 
-var auth0AccessToken *OAuthAccessToken
+var authAccessToken *OAuthAccessToken
 var tokenExpiresAt time.Time
 
 type EventFarmRestConnection struct {
@@ -24,6 +26,12 @@ type EventFarmRestClient struct {
 	audience              string
 	oAuthAccessToken      *OAuthAccessToken
 }
+
+func basicAuth(username, password string) string {
+  auth := username + ":" + password
+  return base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
 
 func NewEventFarmRestClient(
 	restClient RestClientInterface,
@@ -143,22 +151,22 @@ func (t *EventFarmRestClient) getAuthorizationHeader(headers map[string]string) 
 }
 
 func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
-	if auth0AccessToken == nil {
-		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
-		auth0AccessToken = t.oAuthAccessToken
-		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(auth0AccessToken.expiresIn-2))
+	if authAccessToken == nil {
+		t.oAuthAccessToken, err = t.getAccessTokenWithClientCredentialsGrant()
+		authAccessToken = t.oAuthAccessToken
+		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(authAccessToken.expiresIn-2))
 
 		if err != nil {
 			return
 		}
 	} else {
-		t.oAuthAccessToken = auth0AccessToken
+		t.oAuthAccessToken = authAccessToken
 	}
 
 	if time.Now().After(tokenExpiresAt) {
-		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
-		auth0AccessToken = t.oAuthAccessToken
-		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(auth0AccessToken.expiresIn-2))
+		t.oAuthAccessToken, err = t.getAccessTokenWithClientCredentialsGrant()
+		authAccessToken = t.oAuthAccessToken
+		tokenExpiresAt = time.Now().Add(time.Second * time.Duration(authAccessToken.expiresIn-2))
 		if err != nil {
 			return
 		}
@@ -168,43 +176,14 @@ func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAcce
 	return oAuthAccessToken, err
 }
 
-func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessToken *OAuthAccessToken, err error) {
-	values := url.Values{}
-	values.Add(`grant_type`, `refresh_token`)
-	values.Add(`refresh_token`, refreshToken)
-	values.Add(`client_id`, t.clientId)
-	values.Add(`client_secret`, t.clientSecret)
-	resp, err := t.accessTokenRestClient.Post(
-		`/oauth2/token`,
-		&values,
-		nil,
-		nil,
-	)
-	if err != nil {
-		return
-	}
-	defer resp.Body.Close()
-
-	oAuthAccessToken, err = NewOAuthAccessTokenFromResponse(resp)
-	if err != nil {
-		return
-	}
-
-	return
-}
-
-func (t *EventFarmRestClient) getPasswordGrantAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
-	values := &map[string]interface{}{
-		"grant_type":    "client_credentials",
-		"client_id":     t.clientId,
-		"client_secret": t.clientSecret,
-		"audience":      t.audience,
-	}
-
+func (t *EventFarmRestClient) getAccessTokenWithClientCredentialsGrant() (oAuthAccessToken *OAuthAccessToken, err error) {
+	headers := map[string]string{
+    		"Authorization":    "Basic "+ basicAuth(t.clientId, t.clientSecret),
+    }
 	resp, err := t.accessTokenRestClient.PostJSON(
-		`/oauth/token`,
-		values,
+		"/oauth2/token?grant_type=client_credentials&scope=target-entity:"+t.audience+":read,write",
 		nil,
+		headers,
 		nil,
 	)
 	if err != nil {
